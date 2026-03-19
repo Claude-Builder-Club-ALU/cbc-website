@@ -12,6 +12,7 @@ export function Navbar() {
     { name: "Projects", path: "/projects" },
     { name: "Gallery", path: "/gallery" },
     { name: "Team", path: "/team" },
+    { name: "FAQ", path: "/faq" },
   ];
 
   const isActive = (path: string) => {
@@ -57,12 +58,14 @@ export function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <Link
-              to="/projects"
+            <a
+              href="https://www.jotform.com/253555944387168"
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-[#D97757] text-[#0D0D0D] px-6 py-2.5 rounded-xl hover:bg-[#E08967] transition-all hover:shadow-lg hover:shadow-[#D97757]/20"
             >
               Join the Club
-            </Link>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -94,13 +97,15 @@ export function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <Link
-              to="/projects"
+            <a
+              href="https://www.jotform.com/253555944387168"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
               className="block text-center bg-[#D97757] text-[#0D0D0D] px-6 py-2.5 rounded-xl hover:bg-[#E08967] transition-all"
             >
               Join the Club
-            </Link>
+            </a>
           </div>
         </div>
       )}

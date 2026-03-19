@@ -89,13 +89,15 @@ END:VCALENDAR`;
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              to="/projects"
+            <a
+              href="https://www.jotform.com/253555944387168"
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-[#D97757] text-[#0D0D0D] px-8 py-4 rounded-xl font-semibold hover:bg-[#E08967] transition-all hover:shadow-lg hover:shadow-[#D97757]/30 flex items-center gap-2 w-full sm:w-auto justify-center"
             >
               Join Us
               <ArrowRight size={20} />
-            </Link>
+            </a>
             <Link
               to="/projects"
               className="border-2 border-[#D97757] text-[#D97757] px-8 py-4 rounded-xl font-semibold hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all flex items-center gap-2 w-full sm:w-auto justify-center"
