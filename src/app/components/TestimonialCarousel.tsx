@@ -1,7 +1,5 @@
 import Slider from "react-slick";
 import { Quote } from "lucide-react";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 export function TestimonialCarousel() {
   const testimonials = [

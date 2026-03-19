@@ -1,6 +1,9 @@
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { useRef, useEffect } from "react";
+
+// Width of each slide slot (image + gap). Adjust to taste.
+const SLIDE_WIDTH = 420; // px
+// Scroll speed in pixels per animation frame (~60fps)
+const SPEED = 0.8;
 
 export function PhotoCarousel() {
   const photos = [
@@ -30,61 +33,104 @@ export function PhotoCarousel() {
     },
   ];
 
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    fade: true,
-    arrows: false,
+  // Three copies so we always have content to the left and right when looping
+  const tripled = [...photos, ...photos, ...photos];
+  const origWidth = photos.length * SLIDE_WIDTH;
+
+  const trackRef = useRef<HTMLDivElement>(null);
+  const posRef = useRef(0);
+  const animRef = useRef<number>(0);
+  const isDragging = useRef(false);
+  const dragStartX = useRef(0);
+  const dragStartPos = useRef(0);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    // Start inside copy #2 with a half-slide offset so the left edge is
+    // already cut off when the page loads (both sides cut off from frame 0).
+    posRef.current = -(origWidth + SLIDE_WIDTH / 2);
+    track.style.transform = `translateX(${posRef.current}px)`;
+
+    const tick = () => {
+      if (!isDragging.current) {
+        posRef.current -= SPEED;
+
+        // Seamless reset: when we've scrolled through copy #2 entirely,
+        // jump back by one origWidth — visually identical because copy #3
+        // looks exactly like copy #2.
+        if (posRef.current < -(origWidth * 2)) {
+          posRef.current += origWidth;
+        }
+
+        track.style.transform = `translateX(${posRef.current}px)`;
+      }
+      animRef.current = requestAnimationFrame(tick);
+    };
+
+    animRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(animRef.current);
+  }, [origWidth]);
+
+  // ── Drag handlers ───────────────────────────────────────────────────────────
+  const normalize = (pos: number) => {
+    // Keep position in the "copy #2" range so the loop never breaks
+    let p = pos;
+    while (p > -origWidth) p -= origWidth;
+    while (p < -(origWidth * 2)) p += origWidth;
+    return p;
+  };
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    isDragging.current = true;
+    dragStartX.current = e.clientX;
+    dragStartPos.current = posRef.current;
+  };
+
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!isDragging.current) return;
+    const delta = e.clientX - dragStartX.current;
+    posRef.current = normalize(dragStartPos.current + delta);
+    const track = trackRef.current;
+    if (track) track.style.transform = `translateX(${posRef.current}px)`;
+  };
+
+  const onPointerUp = () => {
+    isDragging.current = false;
   };
 
   return (
-    <div className="relative w-full">
-      <Slider {...settings} className="overflow-hidden">
-        {photos.map((photo, index) => (
-          <div key={index} className="relative">
-            <div className="relative h-[500px] md:h-[600px] w-full">
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D] via-[#0D0D0D]/60 to-transparent z-10"></div>
-              
-              {/* Image */}
+    <div
+      className="w-full overflow-hidden select-none cursor-grab active:cursor-grabbing"
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerUp}
+    >
+      <div ref={trackRef} className="flex will-change-transform">
+        {tripled.map((photo, index) => (
+          <div
+            key={index}
+            style={{ width: SLIDE_WIDTH, flexShrink: 0 }}
+            className="px-2"
+          >
+            <div className="relative h-72 rounded-2xl overflow-hidden group border border-[#2A2A2A]">
               <img
                 src={photo.url}
                 alt={photo.caption}
-                className="w-full h-full object-cover"
+                draggable={false}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 pointer-events-none"
               />
-              
-              {/* Caption */}
-              <div className="absolute bottom-0 left-0 right-0 z-20 p-8 md:p-12">
-                <div className="max-w-7xl mx-auto">
-                  <h3 className="text-2xl md:text-3xl font-bold text-white">
-                    {photo.caption}
-                  </h3>
-                </div>
+              {/* Caption overlay on hover */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                <p className="text-white text-sm font-semibold">{photo.caption}</p>
               </div>
             </div>
           </div>
         ))}
-      </Slider>
-
-      {/* Custom styling for slick dots */}
-      <style>{`
-        .slick-dots {
-          bottom: 25px;
-        }
-        .slick-dots li button:before {
-          color: #D97757;
-          opacity: 0.5;
-        }
-        .slick-dots li.slick-active button:before {
-          opacity: 1;
-          color: #D97757;
-        }
-      `}</style>
+      </div>
     </div>
   );
 }
