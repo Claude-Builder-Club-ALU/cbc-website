@@ -131,6 +131,19 @@ function MemberCard({ name, role, photo, linkedin, github }: MemberCardProps) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// SITE CONTRIBUTORS
+//
+// Anyone who wrote code for this website.
+// Set `github` to the GitHub username — the avatar is fetched automatically
+// from github.com/<username>.png (no photo upload needed).
+// ─────────────────────────────────────────────────────────────────────────────
+const contributors = [
+  { name: "Bienvenu Cyuzuzo", github: "bienvenudev" },
+  { name: "Kevin Mbonimpaye", github: "kevinmbonimpaye" },
+  // Add more as people contribute: { name: "...", github: "..." }
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 export function Team() {
   return (
@@ -151,6 +164,36 @@ export function Team() {
           {team.map((m) => (
             <MemberCard key={m.name} {...m} />
           ))}
+        </div>
+      </section>
+
+      {/* ── Site Contributors ── */}
+      <section className="py-16 border-t border-[#2A2A2A]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-xs font-bold uppercase tracking-widest text-[#4B5563] mb-6">
+            Site contributors
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {contributors.map((c) => (
+              <a
+                key={c.github}
+                href={`https://github.com/${c.github}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={c.name}
+                className="flex items-center gap-2.5 bg-[#1A1A1A] border border-[#2A2A2A] hover:border-[#D97757] rounded-xl px-3 py-2 transition-all group"
+              >
+                <img
+                  src={`https://github.com/${c.github}.png?size=64`}
+                  alt={c.name}
+                  className="w-7 h-7 rounded-full object-cover"
+                />
+                <span className="text-sm text-[#9CA3AF] group-hover:text-[#F5F5F5] transition-colors font-mono">
+                  {c.github}
+                </span>
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
