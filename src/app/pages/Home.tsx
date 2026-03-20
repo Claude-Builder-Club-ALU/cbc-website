@@ -72,16 +72,16 @@ END:VCALENDAR`;
           <div id="hero-logo" className="hidden md:flex flex-1 justify-center mb-10">
             {/* <Logo /> */}
             <Link to="/" className="flex items-center max-md:items-start gap-5 group">
-              <img src="/logos/alu_colored.png" alt="ALU" className="h-9 max-md:h-5 dark:hidden" />
-              <img src="/logos/alu_white.png" alt="ALU" className="h-9 max-md:h-5 hidden dark:flex" />
-              <img src="/logos/claude_colored.png" alt="Claude" className="h-10 max-md:h-5 dark:hidden" />
-              <img src="/logos/claude_white.png" alt="Claude" className="h-10 max-md:h-5 hidden dark:flex" />
+              <img src="/logos/alu_colored.png" alt="ALU" className="h-8 max-md:h-5 dark:hidden" />
+              <img src="/logos/alu_white.png" alt="ALU" className="h-8 max-md:h-5 hidden dark:flex" />
+              <img src="/logos/claude_colored.png" alt="Claude" className="h-9 max-md:h-5 dark:hidden" />
+              <img src="/logos/claude_white.png" alt="Claude" className="h-9 max-md:h-5 hidden dark:flex" />
             </Link>
           </div>
 
           {/* "All majors welcome" badge */}
           <div className="inline-flex items-center gap-2 bg-[#D97757]/10 border border-[#D97757]/30 text-[#D97757] text-sm font-medium px-4 py-1.5 rounded-full mb-8">
-            <span className="w-2 h-2 rounded-full bg-[#D97757] animate-pulse"></span>
+            <span className="w-2 h-2 min-w-2 rounded-full bg-[#D97757] animate-pulse"></span>
             Open to all majors · No coding experience required
           </div>
 

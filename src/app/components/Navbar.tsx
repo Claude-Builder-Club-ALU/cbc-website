@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router";
 import { Sun, Moon, HelpCircle, AlignJustify, X, LucideAtSign } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useTheme } from "next-themes";
-import { motion, AnimatePresence, useMotionValue, animate } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { name: "Events", path: "/events" },
@@ -12,61 +12,8 @@ const navLinks = [
 ];
 
 function NavLinks({ isActive, showBrand }: { isActive: (path: string) => boolean; showBrand: boolean }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const pillX = useMotionValue(0);
-  const pillWidth = useMotionValue(0);
-  const [pillVisible, setPillVisible] = useState(false);
-
-  const measurePill = (jump = false) => {
-    const container = containerRef.current;
-    if (!container) return;
-    const activeEl = container.querySelector<HTMLElement>("[data-active='true']");
-    if (!activeEl) { setPillVisible(false); return; }
-    const containerRect = container.getBoundingClientRect();
-    const elRect = activeEl.getBoundingClientRect();
-    const targetX = elRect.left - containerRect.left;
-    const targetW = elRect.width;
-    if (jump) {
-      pillX.set(targetX);
-      pillWidth.set(targetW);
-      setPillVisible(true);
-    } else {
-      animate(pillX, targetX, { type: "spring", stiffness: 380, damping: 30 });
-      animate(pillWidth, targetW, { type: "spring", stiffness: 380, damping: 30 });
-    }
-  };
-
-  // Recalculate pill on route change
-  useEffect(() => {
-    measurePill(!pillVisible);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isActive, navLinks]);
-
-  // Track active link every frame while brand text is animating in/out
-  useEffect(() => {
-    const DURATION = 350;
-    const start = Date.now();
-    let rafId: number;
-    const loop = () => {
-      const container = containerRef.current;
-      if (container) {
-        const activeEl = container.querySelector<HTMLElement>("[data-active='true']");
-        if (activeEl) {
-          const containerRect = container.getBoundingClientRect();
-          const elRect = activeEl.getBoundingClientRect();
-          pillX.set(elRect.left - containerRect.left);
-          pillWidth.set(elRect.width);
-        }
-      }
-      if (Date.now() - start < DURATION) rafId = requestAnimationFrame(loop);
-    };
-    rafId = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(rafId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showBrand]);
-
   return (
-    <div ref={containerRef} className="hidden md:flex flex-1 items-center gap-1 relative">
+    <div className="hidden md:flex flex-1 items-center gap-0">
       {/* anthropic@ALU — visible only on home when hero logo is showing */}
       <AnimatePresence initial={false}>
         {showBrand && (
@@ -77,11 +24,11 @@ function NavLinks({ isActive, showBrand }: { isActive: (path: string) => boolean
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden shrink-0"
           >
-            <span className="text-lg font-extrabold flex items-center text-foreground pr-3 whitespace-nowrap pointer-events-none select-none">
-              {/* ANTHROP\C */}
+            <span className="text-lg font-extrabold flex items-center text-foreground pr-4 whitespace-nowrap pointer-events-none select-none">
               <div className="w-[106px] flex">
-                <img src="/logos/anthropic_black.png" alt="ALU" className="h-3 w-[106px] max-md:h-5 dark:hidden" />
-                <img src="/logos/anthropic_white.png" alt="ALU" className="h-3 w-[106px] max-md:h-5 hidden dark:flex" /></div>
+                <img src="/logos/anthropic_black.png" alt="Anthropic" className="h-3 w-[106px] dark:hidden" />
+                <img src="/logos/anthropic_white.png" alt="Anthropic" className="h-3 w-[106px] hidden dark:flex" />
+              </div>
               <LucideAtSign className="h-4" />
               ALU
             </span>
@@ -89,25 +36,23 @@ function NavLinks({ isActive, showBrand }: { isActive: (path: string) => boolean
         )}
       </AnimatePresence>
 
-      {/* Sliding pill — positioned relative to container, not document */}
-      {pillVisible && (
-        <motion.span
-          className="absolute top-0 h-full bg-[#D97757]/10 rounded-lg pointer-events-none"
-          style={{ x: pillX, width: pillWidth }}
-        />
-      )}
       {navLinks.map((link) => (
         <Link
           key={link.path}
           to={link.path}
-          data-active={isActive(link.path) ? "true" : undefined}
-          className="relative px-3 py-1.5 text-sm font-medium z-10"
+          className="relative px-3 py-1.5 text-sm font-medium"
         >
+          {isActive(link.path) && (
+            <motion.span
+              layoutId="nav-active-pill"
+              className="absolute inset-0 bg-[#D97757]/10 rounded-lg"
+              transition={{ type: "spring", stiffness: 380, damping: 30 }}
+            />
+          )}
           <span
-            className={`transition-colors duration-200 ${isActive(link.path)
-                ? "text-[#D97757]"
-                : "text-foreground hover:text-[#D97757]"
-              }`}
+            className={`relative z-10 transition-colors duration-200 ${
+              isActive(link.path) ? "text-[#D97757]" : "text-foreground hover:text-[#D97757]"
+            }`}
           >
             {link.name}
           </span>

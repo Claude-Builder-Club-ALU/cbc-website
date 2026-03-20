@@ -1,19 +1,20 @@
 import { useEffect, useRef } from "react";
 
 // ── Physics constants ──────────────────────────────────────────────────────
-const COUNT         = 50;
-const GRAVITY       = 0.18;
-const BOUNCE        = 0.45;
-const FRICTION      = 0.76;
-const ROT_FRICTION  = 0.73;
-const MIN_BOUNCE_V  = 0.5;
-const HOVER_RADIUS  = 120;    // repulsion zone radius (px)
-const HOVER_FORCE   = 0.60;
-const SEP_PADDING   = 8;
-const SEP_FORCE     = 0.18;
-const TARGET_ALPHA  = 0.9;
-const REVEAL_RADIUS = 80;   // distance at which logos become fully visible
-const ALPHA_EASE    = 0.1;   // how fast alpha interpolates toward target
+const COUNT         = 50;    // number of logo bodies in the simulation
+const GRAVITY       = 0.18;  // downward acceleration per frame
+const BOUNCE        = 0.45;  // velocity retained after hitting a wall or floor
+const FRICTION      = 0.76;  // horizontal slowdown when sliding on the floor
+const ROT_FRICTION  = 0.73;  // rotational slowdown when resting on the floor
+const MIN_BOUNCE_V  = 0.5;   // vertical speed below which floor bounce is suppressed
+const HOVER_RADIUS  = 90;   // repulsion zone radius (px)
+const HOVER_FORCE   = 0.60;  // impulse strength applied when cursor is near
+const SEP_PADDING   = 8;     // extra gap between bodies beyond their sizes
+const SEP_FORCE     = 0.18;  // separation push strength between overlapping bodies
+const TARGET_ALPHA  = 0.9;   // max opacity when logo is closest to cursor
+const MIN_ALPHA     = 0.0;  // baseline opacity when far from cursor
+const REVEAL_RADIUS = 80;    // distance (px) at which logos reach full TARGET_ALPHA
+const ALPHA_EASE    = 0.1;   // how fast alpha interpolates toward target per frame
 
 interface Body {
   x: number; y: number;
@@ -51,7 +52,7 @@ export function LogoPool({ className = "" }: { className?: string }) {
 
     // ── Bodies ───────────────────────────────────────────────────────────────
     const makeBody = (): Body => {
-      const size = 28 + Math.random() * 18;
+      const size = 18 + Math.random() * 18;
       return {
         x:     Math.random() * W,
         y:     -(size + Math.random() * H * 0.8),
@@ -87,7 +88,7 @@ export function LogoPool({ className = "" }: { className?: string }) {
 
     // ── Draw one body ────────────────────────────────────────────────────────
     const drawBody = (b: Body) => {
-      if (b.alpha <= 0.01) return;
+      if (b.alpha <= 0.005) return;
       const s = b.size;
       ctx.save();
       ctx.translate(b.x, b.y);
@@ -137,8 +138,8 @@ export function LogoPool({ className = "" }: { className?: string }) {
         // ── Alpha: interpolate toward proximity-based target ─────────────────
         const distToMouse = Math.hypot(b.x - mx, b.y - my);
         const targetAlpha = distToMouse < REVEAL_RADIUS
-          ? TARGET_ALPHA * (1 - distToMouse / REVEAL_RADIUS) + TARGET_ALPHA * 0.0
-          : 0;
+          ? MIN_ALPHA + (TARGET_ALPHA - MIN_ALPHA) * (1 - distToMouse / REVEAL_RADIUS)
+          : MIN_ALPHA;
         b.alpha += (targetAlpha - b.alpha) * ALPHA_EASE;
 
         // ── Hover repulsion ──────────────────────────────────────────────────
