@@ -10,20 +10,22 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 // new entries here with the matching url and event label.
 // ─────────────────────────────────────────────────────────────────────────────
 const galleryItems = [
-  // CBC Kickoff (Meeting 1)
-  { id: 1,  url: "/cbc-meeting-1/IMG_6927.jpg", title: "CBC Kickoff",  event: "CBC Kickoff" },
-  { id: 2,  url: "/cbc-meeting-1/IMG_7894.jpg", title: "CBC Kickoff",  event: "CBC Kickoff" },
-  { id: 3,  url: "/cbc-meeting-1/IMG_7950.jpg", title: "CBC Kickoff",  event: "CBC Kickoff" },
-  { id: 4,  url: "/cbc-meeting-1/IMG_7965.jpg", title: "CBC Kickoff",  event: "CBC Kickoff" },
+  // CBC Kickoff — Feb 20, 2026
+  // Info session: AI Fluency, Claude demo, cowork, 5-min hackathon, free Pro claim
+  { id: 1, url: "/cbc-meeting-1/IMG_6927.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
+  { id: 2, url: "/cbc-meeting-1/IMG_7894.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
+  { id: 3, url: "/cbc-meeting-1/IMG_7950.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
+  { id: 4, url: "/cbc-meeting-1/IMG_7965.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
 
-  // Claude Code Workshop (Meeting 2)
-  { id: 5,  url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.jpg", title: "Claude Code Workshop", event: "Claude Code Workshop" },
-  { id: 6,  url: "/cbc-meeting-2/2a92db3b-b5c8-41eb-ba4b-6a219e28f92a.jpg", title: "Claude Code Workshop", event: "Claude Code Workshop" },
-  { id: 7,  url: "/cbc-meeting-2/592f47e5-a09c-4585-b1d0-3277838d6eac.jpg", title: "Claude Code Workshop", event: "Claude Code Workshop" },
+  // Claude Code Workshop — Mar 6, 2026
+  // Hands-on session with Chiagoziem: Claude Code setup, agentic coding, MCP
+  { id: 5, url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
+  { id: 6, url: "/cbc-meeting-2/2a92db3b-b5c8-41eb-ba4b-6a219e28f92a.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
+  { id: 7, url: "/cbc-meeting-2/592f47e5-a09c-4585-b1d0-3277838d6eac.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
 
   // Tabling 1
-  { id: 8,  url: "/tabling-1/IMG_0149.jpg", title: "Tabling", event: "Tabling 1" },
-  { id: 9,  url: "/tabling-1/IMG_0157.jpg", title: "Tabling", event: "Tabling 1" },
+  { id: 8, url: "/tabling-1/IMG_0149.jpg", title: "Tabling", event: "Tabling 1" },
+  { id: 9, url: "/tabling-1/IMG_0157.jpg", title: "Tabling", event: "Tabling 1" },
   { id: 10, url: "/tabling-1/IMG_7678.jpg", title: "Tabling", event: "Tabling 1" },
   { id: 11, url: "/tabling-1/IMG_7721.jpg", title: "Tabling", event: "Tabling 1" },
 
@@ -37,9 +39,9 @@ export function Gallery() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const isOpen = lightboxIndex !== null;
-  const total  = galleryItems.length;
+  const total = galleryItems.length;
 
-  const open  = (i: number) => setLightboxIndex(i);
+  const open = (i: number) => setLightboxIndex(i);
   const close = () => setLightboxIndex(null);
 
   const prev = useCallback(() => {
@@ -54,9 +56,9 @@ export function Gallery() {
   useEffect(() => {
     if (!isOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft")  prev();
+      if (e.key === "ArrowLeft") prev();
       if (e.key === "ArrowRight") next();
-      if (e.key === "Escape")     close();
+      if (e.key === "Escape") close();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -85,29 +87,29 @@ export function Gallery() {
       {/* ── Masonry grid ── */}
       <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ResponsiveMasonry columnsCountBreakPoints={{ 0: 1, 640: 2, 1024: 3 }}>
-        <Masonry gutter="1rem">
-          {galleryItems.map((item, index) => (
-            <div
-              key={item.id}
-              onClick={() => open(index)}
-              className="group relative overflow-hidden rounded-2xl border border-[#2A2A2A] hover:border-[#D97757] transition-all cursor-pointer"
-            >
-              <img
-                src={item.url}
-                alt={item.title}
-                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
-                draggable={false}
-              />
-              {/* Hover overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D]/90 via-[#0D0D0D]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
-                <p className="text-white font-semibold text-sm leading-snug">{item.title}</p>
-                {item.event && (
-                  <p className="text-[#D97757] text-xs mt-1 font-medium">{item.event}</p>
-                )}
+          <Masonry gutter="1rem">
+            {galleryItems.map((item, index) => (
+              <div
+                key={item.id}
+                onClick={() => open(index)}
+                className="group relative overflow-hidden rounded-2xl border border-[#2A2A2A] hover:border-[#D97757] transition-all cursor-pointer"
+              >
+                <img
+                  src={item.url}
+                  alt={item.title}
+                  className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                  draggable={false}
+                />
+                {/* Hover overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D]/90 via-[#0D0D0D]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+                  <p className="text-white font-semibold text-sm leading-snug">{item.title}</p>
+                  {item.event && (
+                    <p className="text-[#D97757] text-xs mt-1 font-medium">{item.event}</p>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
-        </Masonry>
+            ))}
+          </Masonry>
         </ResponsiveMasonry>
       </section>
 

@@ -13,18 +13,17 @@ interface Photo {
 
 export function PhotoCarousel() {
   const photos: Photo[] = [
-    // CBC Kickoff
-    { url: "/cbc-meeting-1/IMG_6927.jpg", caption: "CBC Kickoff" },
-    { url: "/cbc-meeting-1/IMG_7950.jpg", caption: "CBC Kickoff" },
-    // Claude Code Workshop
-    { url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.jpg", caption: "Claude Code Workshop" },
-    { url: "/cbc-meeting-2/2a92db3b-b5c8-41eb-ba4b-6a219e28f92a.jpg", caption: "Claude Code Workshop" },
-    // Tabling 1 (IMG_7721 included as requested)
-    { url: "/tabling-1/IMG_7721.jpg", caption: "Tabling 1" },
-    { url: "/tabling-1/IMG_0149.jpg", caption: "Tabling 1" },
-    // Tabling 2
-    { url: "/tabling-2/1e1f34bc-7bb0-46ac-a27e-0cd86067a49b.jpg", caption: "Tabling 2" },
-    { url: "/tabling-2/78c81df2-0367-4147-860e-ca7d0be8921a.jpg", caption: "Tabling 2" },
+    // CBC Kickoff — Feb 20, 2026
+    { url: "/cbc-meeting-1/IMG_6927.jpg", caption: "CBC Kickoff · Feb 2026" },
+    { url: "/cbc-meeting-1/IMG_7950.jpg", caption: "AI Fluency & Claude Demo · CBC Kickoff" },
+    // Claude Code Workshop — Mar 6, 2026 (with Alex Notov, Anthropic)
+    { url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.jpg", caption: "Intro to Claude Code · Mar 2026" },
+    { url: "/cbc-meeting-2/2a92db3b-b5c8-41eb-ba4b-6a219e28f92a.jpg", caption: "Live Coding with Claude Code" },
+    // Tabling
+    { url: "/tabling-1/IMG_7721.jpg", caption: "Tabling · ALU Campus" },
+    { url: "/tabling-1/IMG_0149.jpg", caption: "Tabling · ALU Campus" },
+    { url: "/tabling-2/1e1f34bc-7bb0-46ac-a27e-0cd86067a49b.jpg", caption: "Tabling · ALU Campus" },
+    { url: "/tabling-2/78c81df2-0367-4147-860e-ca7d0be8921a.jpg", caption: "Tabling · ALU Campus" },
   ];
 
   const tripled = [...photos, ...photos, ...photos];
