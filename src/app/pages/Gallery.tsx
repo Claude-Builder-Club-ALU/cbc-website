@@ -4,89 +4,44 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // GALLERY PHOTOS
+//
+// Photos are served from /public and available at the paths below.
+// To add new events: copy photos to public/<event-folder>/ and push
+// new entries here with the matching url and event label.
 // ─────────────────────────────────────────────────────────────────────────────
 const galleryItems = [
-  {
-    id: 1,
-    url: "https://images.unsplash.com/photo-1562910859-be83f1df7b56?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZnJpY2FuJTIwdW5pdmVyc2l0eSUyMHN0dWRlbnRzJTIwdGVjaCUyMHdvcmtzaG9wJTIwY29sbGFib3JhdGlvbnxlbnwxfHx8fDE3NzM4NjY3NTB8MA&ixlib=rb-4.1.0&q=80&w=800",
-    title: "AI Workshop: Introduction to Claude",
-    event: "CBC Meeting 1",
-  },
-  {
-    id: 2,
-    url: "https://images.unsplash.com/photo-1710770563074-6d9cc0d3e338?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxibGFjayUyMHN0dWRlbnRzJTIwY29kaW5nJTIwaGFja2F0aG9uJTIwZ3JvdXB8ZW58MXx8fHwxNzczODY2NzUwfDA&ixlib=rb-4.1.0&q=80&w=800",
-    title: "Winter Hackathon 2026",
-    event: "Hackathon · Feb 2026",
-  },
-  {
-    id: 3,
-    url: "https://images.unsplash.com/photo-1770364292936-1800aa621b3d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2x1YiUyMHRlYW0lMjBwaG90byUyMGRpdmVyc2UlMjBzdHVkZW50c3xlbnwxfHx8fDE3NzM4NjY3NTJ8MA&ixlib=rb-4.1.0&q=80&w=800",
-    title: "CBC Team Photo",
-    event: "CBC Meeting 2",
-  },
-  {
-    id: 4,
-    url: "https://images.unsplash.com/photo-1646579885920-0c9a01cb7078?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGFpJTIwd29ya3Nob3AlMjBsYXB0b3AlMjBwcmVzZW50YXRpb258ZW58MXx8fHwxNzczODY2NzUyfDA&ixlib=rb-4.1.0&q=80&w=800",
-    title: "Building with Claude API",
-    event: "CBC Meeting 2",
-  },
-  {
-    id: 5,
-    url: "https://images.unsplash.com/photo-1768796370577-c6e8b708b980?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2RpbmclMjB3b3Jrc2hvcCUyMHByZXNlbnRhdGlvbiUyMHNjcmVlbiUyMHN0dWRlbnRzfGVufDF8fHx8MTc3Mzg2Njc1Nnww&ixlib=rb-4.1.0&q=80&w=800",
-    title: "Tech Talk: Future of AI",
-    event: "CBC Meeting 3",
-  },
-  {
-    id: 6,
-    url: "https://images.unsplash.com/photo-1560651921-19590b2b7ad7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoYWNrYXRob24lMjB0ZWFtJTIwY29kaW5nJTIwdG9nZXRoZXIlMjBuaWdodHxlbnwxfHx8fDE3NzM4NjY3NTZ8MA&ixlib=rb-4.1.0&q=80&w=800",
-    title: "Late Night Build Session",
-    event: "Hackathon · Feb 2026",
-  },
-  {
-    id: 7,
-    url: "https://images.unsplash.com/photo-1561089489-f13d5e730d72?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2xhc3Nyb29tJTIwd29ya3Nob3AlMjB0ZWNobm9sb2d5JTIwbGVhcm5pbmd8ZW58MXx8fHwxNzczODY2NzU2fDA&ixlib=rb-4.1.0&q=80&w=800",
-    title: "Classroom Workshop",
-    event: "CBC Meeting 1",
-  },
-  {
-    id: 8,
-    url: "https://images.unsplash.com/photo-1758270705317-3ef6142d306f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwc3R1ZGVudCUyMGdyb3VwJTIwcHJvamVjdCUyMGNvbGxhYm9yYXRpb258ZW58MXx8fHwxNzczODY2NzU2fDA&ixlib=rb-4.1.0&q=80&w=800",
-    title: "Group Collaboration",
-    event: "Tabling 1",
-  },
-  {
-    id: 9,
-    url: "https://images.unsplash.com/photo-1742934029147-6f83f681daa2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZnJpY2FuJTIwd29tYW4lMjBlbmdpbmVlciUyMHRlY2hub2xvZ3klMjBzbWlsaW5nfGVufDF8fHx8MTc3Mzg2Njc1Mnww&ixlib=rb-4.1.0&q=80&w=800",
-    title: "Project Showcase",
-    event: "CBC Meeting 3",
-  },
-  {
-    id: 10,
-    url: "https://images.unsplash.com/photo-1596580817363-a4a8f67d4bc8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxibGFjayUyMG1hbiUyMHNvZnR3YXJlJTIwZGV2ZWxvcGVyJTIwcG9ydHJhaXQlMjBwcm9mZXNzaW9uYWx8ZW58MXx8fHwxNzczODY2NzUyfDA&ixlib=rb-4.1.0&q=80&w=800",
-    title: "Member Spotlight",
-    event: "CBC Meeting 2",
-  },
-  {
-    id: 11,
-    url: "https://images.unsplash.com/photo-1760433403526-47f671997ca1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZnJpY2FuJTIwc3R1ZGVudCUyMGxlYWRlciUyMGNvbmZpZGVudCUyMHBvcnRyYWl0fGVufDF8fHx8MTc3Mzg2Njc1Mnww&ixlib=rb-4.1.0&q=80&w=800",
-    title: "Leadership Team",
-    event: "Tabling 1",
-  },
-  {
-    id: 12,
-    url: "https://images.unsplash.com/photo-1652772589253-c1ab2308fbf4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMHNvZnR3YXJlJTIwZW5naW5lZXIlMjBwb3J0cmFpdCUyMHNtaWxpbmd8ZW58MXx8fHwxNzczODY2NzU3fDA&ixlib=rb-4.1.0&q=80&w=800",
-    title: "Coding Together",
-    event: "CBC Meeting 3",
-  },
+  // CBC Kickoff — Feb 20, 2026
+  // Info session: AI Fluency, Claude demo, cowork, 5-min hackathon, free Pro claim
+  { id: 1, url: "/cbc-meeting-1/IMG_6927.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
+  { id: 2, url: "/cbc-meeting-1/IMG_7894.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
+  { id: 3, url: "/cbc-meeting-1/IMG_7950.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
+  { id: 4, url: "/cbc-meeting-1/IMG_7965.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
+
+  // Claude Code Workshop — Mar 6, 2026
+  // Hands-on session with Chiagoziem: Claude Code setup, agentic coding, MCP
+  { id: 5, url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
+  { id: 6, url: "/cbc-meeting-2/2a92db3b-b5c8-41eb-ba4b-6a219e28f92a.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
+  { id: 7, url: "/cbc-meeting-2/592f47e5-a09c-4585-b1d0-3277838d6eac.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
+
+  // Tabling 1
+  { id: 8, url: "/tabling-1/IMG_0149.jpg", title: "Tabling", event: "Tabling 1" },
+  { id: 9, url: "/tabling-1/IMG_0157.jpg", title: "Tabling", event: "Tabling 1" },
+  { id: 10, url: "/tabling-1/IMG_7678.jpg", title: "Tabling", event: "Tabling 1" },
+  { id: 11, url: "/tabling-1/IMG_7721.jpg", title: "Tabling", event: "Tabling 1" },
+
+  // Tabling 2
+  { id: 12, url: "/tabling-2/1e1f34bc-7bb0-46ac-a27e-0cd86067a49b.jpg", title: "Tabling", event: "Tabling 2" },
+  { id: 13, url: "/tabling-2/78c81df2-0367-4147-860e-ca7d0be8921a.jpg", title: "Tabling", event: "Tabling 2" },
+  { id: 14, url: "/tabling-2/95c8cfc4-87ca-4b60-b245-192d124c3850.jpg", title: "Tabling", event: "Tabling 2" },
 ];
 
 export function Gallery() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const isOpen = lightboxIndex !== null;
-  const total  = galleryItems.length;
+  const total = galleryItems.length;
 
-  const open  = (i: number) => setLightboxIndex(i);
+  const open = (i: number) => setLightboxIndex(i);
   const close = () => setLightboxIndex(null);
 
   const prev = useCallback(() => {
@@ -101,9 +56,9 @@ export function Gallery() {
   useEffect(() => {
     if (!isOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft")  prev();
+      if (e.key === "ArrowLeft") prev();
       if (e.key === "ArrowRight") next();
-      if (e.key === "Escape")     close();
+      if (e.key === "Escape") close();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -154,7 +109,7 @@ export function Gallery() {
               </div>
             </div>
           ))}
-        </Masonry>
+          </Masonry>
         </ResponsiveMasonry>
       </section>
 
