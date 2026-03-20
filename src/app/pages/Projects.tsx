@@ -3,7 +3,6 @@ import { useState } from "react";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CBC TEAM INITIATIVES
-// High-impact projects built by the core CBC team for the ALU institution.
 // ─────────────────────────────────────────────────────────────────────────────
 const initiatives = [
   {
@@ -50,12 +49,11 @@ const initiatives = [
 const STATUS_CONFIG = {
   live: { label: "Live", className: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" },
   "in-progress": { label: "In Progress", className: "bg-[#D97757]/20 text-[#D97757] border-[#D97757]/30" },
-  planned: { label: "Planned", className: "bg-[#9CA3AF]/20 text-[#9CA3AF] border-[#9CA3AF]/30" },
+  planned: { label: "Planned", className: "bg-muted text-muted-foreground border-border" },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
 // MEMBER BUILDS
-// Projects submitted by individual CBC members.
 // ─────────────────────────────────────────────────────────────────────────────
 const memberProjects = [
   {
@@ -142,10 +140,10 @@ export function Projects() {
   return (
     <div className="min-h-screen">
       {/* ── Hero ── */}
-      <section className="bg-gradient-to-b from-[#D97757]/10 to-transparent py-20 border-b border-[#2A2A2A]">
+      <section className="bg-gradient-to-b from-[#D97757]/10 to-transparent py-20 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">Projects</h1>
-          <p className="text-xl text-[#9CA3AF] max-w-2xl">
+          <p className="text-xl text-muted-foreground max-w-2xl">
             What we build matters. Explore CBC's institutional initiatives and
             the community projects our members are shipping with AI.
           </p>
@@ -153,21 +151,20 @@ export function Projects() {
       </section>
 
       {/* ── Tabs ── */}
-      <div className="sticky top-20 z-40 bg-[#0D0D0D]/95 backdrop-blur-sm border-b border-[#2A2A2A]">
+      <div className="sticky top-20 z-40 bg-background/95 backdrop-blur-sm border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex gap-0">
             <button
               onClick={() => setTab("initiatives")}
               className={`relative px-6 py-4 text-sm font-semibold transition-colors ${tab === "initiatives"
                 ? "text-[#D97757]"
-                : "text-[#9CA3AF] hover:text-[#F5F5F5]"
+                : "text-muted-foreground hover:text-foreground"
                 }`}
             >
               CBC Initiatives
               {tab === "initiatives" && (
                 <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#D97757] rounded-full" />
               )}
-              {/* Badge marking this as the institutional section */}
               <span className="ml-2 text-[10px] bg-[#D97757] text-[#0D0D0D] px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wide">
                 Team
               </span>
@@ -177,7 +174,7 @@ export function Projects() {
               onClick={() => setTab("member-builds")}
               className={`relative px-6 py-4 text-sm font-semibold transition-colors ${tab === "member-builds"
                 ? "text-[#D97757]"
-                : "text-[#9CA3AF] hover:text-[#F5F5F5]"
+                : "text-muted-foreground hover:text-foreground"
                 }`}
             >
               Member Builds
@@ -194,7 +191,7 @@ export function Projects() {
         <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12">
             <h2 className="text-4xl font-bold mb-3">CBC × ALU</h2>
-            <p className="text-[#9CA3AF] max-w-2xl leading-relaxed">
+            <p className="text-muted-foreground max-w-2xl leading-relaxed">
               These are projects the CBC core team is building <em>for</em> ALU —
               tools and programmes that directly serve students, faculty, and the
               institution. Not experiments. Real impact.
@@ -207,7 +204,7 @@ export function Projects() {
               return (
                 <div
                   key={project.id}
-                  className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-7 hover:border-[#D97757] transition-all group flex flex-col"
+                  className="bg-card border border-border rounded-2xl p-7 hover:border-[#D97757] transition-all group flex flex-col"
                 >
                   {/* Icon + status */}
                   <div className="flex items-start justify-between mb-5">
@@ -225,7 +222,7 @@ export function Projects() {
                   </h3>
 
                   {/* Partner */}
-                  <p className="text-xs text-[#9CA3AF] mb-3 font-medium">
+                  <p className="text-xs text-muted-foreground mb-3 font-medium">
                     × {project.partner}
                   </p>
 
@@ -237,7 +234,7 @@ export function Projects() {
                   </div>
 
                   {/* Description */}
-                  <p className="text-[#9CA3AF] text-sm leading-relaxed mb-6 flex-1">
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-6 flex-1">
                     {project.description}
                   </p>
 
@@ -246,7 +243,7 @@ export function Projects() {
                     {project.tags.map((tag, i) => (
                       <span
                         key={i}
-                        className="text-xs bg-[#2A2A2A] text-[#9CA3AF] px-2.5 py-1 rounded-full"
+                        className="text-xs bg-secondary text-muted-foreground px-2.5 py-1 rounded-full"
                       >
                         {tag}
                       </span>
@@ -255,7 +252,7 @@ export function Projects() {
 
                   {/* Builder */}
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-[#9CA3AF]">by {project.builder}</span>
+                    <span className="text-muted-foreground">by {project.builder}</span>
                     {project.link !== "#" && (
                       <a
                         href={project.link}
@@ -271,8 +268,8 @@ export function Projects() {
           </div>
 
           {/* CTA to switch tab */}
-          <div className="mt-16 border border-[#2A2A2A] rounded-2xl p-8 text-center bg-[#1A1A1A]/50">
-            <p className="text-[#9CA3AF] mb-4">
+          <div className="mt-16 border border-border rounded-2xl p-8 text-center bg-card/50">
+            <p className="text-muted-foreground mb-4">
               Are you a CBC member who built something with AI?
             </p>
             <button
@@ -292,7 +289,7 @@ export function Projects() {
           {/* Grid */}
           <div className="mb-12">
             <h2 className="text-4xl font-bold mb-3">Built by the Community</h2>
-            <p className="text-[#9CA3AF] max-w-2xl leading-relaxed">
+            <p className="text-muted-foreground max-w-2xl leading-relaxed">
               Projects submitted by CBC members — students building with AI on their
               own terms. Got something to show? Scroll down to submit yours.
             </p>
@@ -302,13 +299,13 @@ export function Projects() {
             {memberProjects.map((project) => (
               <div
                 key={project.id}
-                className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-6 hover:border-[#D97757] transition-all group"
+                className="bg-card border border-border rounded-2xl p-6 hover:border-[#D97757] transition-all group"
               >
                 <h3 className="text-xl font-bold mb-1 group-hover:text-[#D97757] transition-colors">
                   {project.name}
                 </h3>
-                <p className="text-[#9CA3AF] text-sm mb-4">by {project.builder}</p>
-                <p className="text-[#F5F5F5] mb-6 leading-relaxed text-sm">
+                <p className="text-muted-foreground text-sm mb-4">by {project.builder}</p>
+                <p className="text-foreground mb-6 leading-relaxed text-sm">
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-2 mb-5">
@@ -334,18 +331,18 @@ export function Projects() {
             <div className="mb-8 text-center">
               <h2 className="text-4xl font-bold mb-4">Submit Your Project</h2>
               <div className="h-1 w-24 bg-[#D97757] mx-auto mb-4" />
-              <p className="text-[#9CA3AF]">
+              <p className="text-muted-foreground">
                 Built something amazing with Claude? Share it with the community!
               </p>
             </div>
 
-            <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-8">
+            <div className="bg-card border border-border rounded-2xl p-8">
               {/* ALU-only notice */}
               <div className="bg-[#D97757]/10 border border-[#D97757]/30 rounded-xl p-4 mb-6 flex items-start gap-3">
                 <Lock className="text-[#D97757] mt-0.5 flex-shrink-0" size={18} />
                 <div className="text-sm">
-                  <p className="text-[#F5F5F5] font-semibold mb-1">ALU Students Only</p>
-                  <p className="text-[#9CA3AF]">
+                  <p className="text-foreground font-semibold mb-1">ALU Students Only</p>
+                  <p className="text-muted-foreground">
                     Submissions require an @alustudent.com email to keep the
                     showcase community-authentic.
                   </p>
@@ -360,7 +357,7 @@ export function Projects() {
                   { id: "projectLink", label: "Project Link", type: "url", placeholder: "https://github.com/yourusername/project", key: "projectLink" },
                 ].map((field) => (
                   <div key={field.id}>
-                    <label htmlFor={field.id} className="block text-[#F5F5F5] mb-2 text-sm font-medium">
+                    <label htmlFor={field.id} className="block text-foreground mb-2 text-sm font-medium">
                       {field.label} *
                     </label>
                     <input
@@ -369,14 +366,14 @@ export function Projects() {
                       value={formData[field.key as keyof typeof formData]}
                       onChange={e => setFormData({ ...formData, [field.key]: e.target.value })}
                       required
-                      className="w-full bg-[#0D0D0D] border border-[#2A2A2A] rounded-xl px-4 py-3 text-[#F5F5F5] focus:border-[#D97757] focus:outline-none transition-colors text-sm"
+                      className="w-full bg-background border border-border rounded-xl px-4 py-3 text-foreground focus:border-[#D97757] focus:outline-none transition-colors text-sm"
                       placeholder={field.placeholder}
                     />
                   </div>
                 ))}
 
                 <div>
-                  <label htmlFor="description" className="block text-[#F5F5F5] mb-2 text-sm font-medium">
+                  <label htmlFor="description" className="block text-foreground mb-2 text-sm font-medium">
                     Description *
                   </label>
                   <textarea
@@ -385,7 +382,7 @@ export function Projects() {
                     onChange={e => setFormData({ ...formData, description: e.target.value })}
                     required
                     rows={4}
-                    className="w-full bg-[#0D0D0D] border border-[#2A2A2A] rounded-xl px-4 py-3 text-[#F5F5F5] focus:border-[#D97757] focus:outline-none transition-colors resize-none text-sm"
+                    className="w-full bg-background border border-border rounded-xl px-4 py-3 text-foreground focus:border-[#D97757] focus:outline-none transition-colors resize-none text-sm"
                     placeholder="Describe your project, what problem it solves, and what technologies you used..."
                   />
                 </div>

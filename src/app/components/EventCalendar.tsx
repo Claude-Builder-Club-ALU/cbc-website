@@ -108,12 +108,12 @@ export function EventCalendar({ events, calendarId }: EventCalendarProps) {
 
   return (
     <>
-      <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-5 lg:p-6 w-full">
+      <div className="bg-card border border-border rounded-2xl p-5 lg:p-6 w-full">
         {/* ── Header ── */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-3xl font-bold tracking-tight">
             {MONTHS[viewMonth]}
-            <span className="text-[#9CA3AF] text-xl font-normal ml-2">{viewYear}</span>
+            <span className="text-muted-foreground text-xl font-normal ml-2">{viewYear}</span>
           </h2>
           <div className="flex items-center gap-1">
             <button
@@ -143,7 +143,7 @@ export function EventCalendar({ events, calendarId }: EventCalendarProps) {
         <div className="grid grid-cols-7 gap-1 mb-1">
           {DAYS.map(d => (
             <div key={d} className="h-7 flex items-center pl-1.5">
-              <span className="text-xs text-[#9CA3AF] font-medium">{d}</span>
+              <span className="text-xs text-muted-foreground font-medium">{d}</span>
             </div>
           ))}
         </div>
@@ -166,7 +166,7 @@ export function EventCalendar({ events, calendarId }: EventCalendarProps) {
                     ? "cursor-pointer bg-[#D97757]/60 hover:bg-[#D97757]/80"
                     : "hover:bg-[#D97757]/10",
                   tod && !ev ? "ring-2 ring-[#D97757] bg-[#D97757]/10" : "",
-                  cell.type === "current" ? "text-[#F5F5F5]" : "text-[#9CA3AF]/40",
+                  cell.type === "current" ? "text-foreground" : "text-muted-foreground/40",
                 ].join(" ")}
               >
                 <span className={`text-xs font-semibold leading-none ${ev ? "text-white" : ""}`}>
@@ -191,7 +191,6 @@ export function EventCalendar({ events, calendarId }: EventCalendarProps) {
               if (subscribeUrl) {
                 window.open(subscribeUrl, "_blank");
               } else {
-                // TODO: add your Google Calendar ID as the calendarId prop
                 alert("Calendar subscription coming soon! Ask a CBC officer for the link.");
               }
             }}
@@ -210,14 +209,14 @@ export function EventCalendar({ events, calendarId }: EventCalendarProps) {
           onClick={() => setSelected(null)}
         >
           <div
-            className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl"
+            className="bg-card border border-border rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl"
             onClick={e => e.stopPropagation()}
           >
             <div className="flex items-start justify-between mb-6">
               <h3 className="text-2xl font-bold pr-4 leading-tight">{selected.title}</h3>
               <button
                 onClick={() => setSelected(null)}
-                className="text-[#9CA3AF] hover:text-white transition-colors flex-shrink-0 mt-0.5"
+                className="text-muted-foreground hover:text-foreground transition-colors flex-shrink-0 mt-0.5"
               >
                 <X size={20} />
               </button>
@@ -243,7 +242,7 @@ export function EventCalendar({ events, calendarId }: EventCalendarProps) {
 
             {/* Description */}
             {selected.description && (
-              <p className="text-sm text-[#9CA3AF] mb-6 leading-relaxed">
+              <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
                 {selected.description}
               </p>
             )}

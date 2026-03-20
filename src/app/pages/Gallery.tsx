@@ -4,12 +4,6 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // GALLERY PHOTOS
-//
-// No category filter — categories were arbitrary and tedious to maintain.
-// Instead, each photo has an optional `event` label (e.g. "CBC Meeting 2")
-// which shows up in the lightbox caption. This matches how you already
-// organize photos in your Drive folder. To add new photos, just push to
-// this array — no classification schema to maintain.
 // ─────────────────────────────────────────────────────────────────────────────
 const galleryItems = [
   {
@@ -126,10 +120,10 @@ export function Gallery() {
   return (
     <div className="min-h-screen">
       {/* ── Hero ── */}
-      <section className="bg-gradient-to-b from-[#D97757]/10 to-transparent py-20 border-b border-[#2A2A2A]">
+      <section className="bg-gradient-to-b from-[#D97757]/10 to-transparent py-20 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">Gallery</h1>
-          <p className="text-xl text-[#9CA3AF] max-w-2xl">
+          <p className="text-xl text-muted-foreground max-w-2xl">
             Moments that matter — from our meetings, workshops, and events.
           </p>
         </div>
@@ -143,7 +137,7 @@ export function Gallery() {
             <div
               key={item.id}
               onClick={() => open(index)}
-              className="group relative overflow-hidden rounded-2xl border border-[#2A2A2A] hover:border-[#D97757] transition-all cursor-pointer"
+              className="group relative overflow-hidden rounded-2xl border border-border hover:border-[#D97757] transition-all cursor-pointer"
             >
               <img
                 src={item.url}
@@ -151,8 +145,8 @@ export function Gallery() {
                 className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
                 draggable={false}
               />
-              {/* Hover overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D]/90 via-[#0D0D0D]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+              {/* Hover overlay — always dark for text readability on images */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
                 <p className="text-white font-semibold text-sm leading-snug">{item.title}</p>
                 {item.event && (
                   <p className="text-[#D97757] text-xs mt-1 font-medium">{item.event}</p>
@@ -193,7 +187,7 @@ export function Gallery() {
             <ChevronLeft size={28} />
           </button>
 
-          {/* Image — clicking it does NOT close (stopPropagation) */}
+          {/* Image */}
           <img
             src={current.url}
             alt={current.title}

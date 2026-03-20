@@ -32,10 +32,9 @@ export function Home() {
   ];
 
   const addToCalendar = (event: typeof upcomingEvents[0]) => {
-    // Generate .ics file content
     const eventDate = new Date(event.date + "T" + event.time.split(" - ")[0]);
     const endDate = new Date(event.date + "T" + event.time.split(" - ")[1]);
-    
+
     const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
 BEGIN:VEVENT
@@ -61,15 +60,15 @@ END:VCALENDAR`;
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
         {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#D97757]/5 via-transparent to-transparent"></div>
-        
+        {/* <div className="absolute inset-0 bg-gradient-to-b from-[#D97757]/5 via-transparent to-transparent"></div> */}
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
           {/* Logo Combo */}
           <div className="flex items-center justify-center gap-3 mb-8">
             <div className="w-16 h-16 rounded-xl bg-[#D97757] flex items-center justify-center shadow-lg shadow-[#D97757]/20">
               <span className="text-2xl font-bold text-[#0D0D0D]">ALU</span>
             </div>
-            <span className="text-[#9CA3AF] text-2xl">×</span>
+            <span className="text-muted-foreground text-2xl">×</span>
             <div className="w-16 h-16 rounded-xl bg-[#D97757] flex items-center justify-center shadow-lg shadow-[#D97757]/20">
               <span className="text-2xl font-bold text-[#0D0D0D]">C</span>
             </div>
@@ -83,7 +82,7 @@ END:VCALENDAR`;
           </h1>
 
           {/* Subtext */}
-          <p className="text-xl sm:text-2xl text-[#9CA3AF] max-w-3xl mx-auto mb-12 leading-relaxed">
+          <p className="text-xl sm:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
             Join the Claude Builder Club at African Leadership University. Where tech meets African excellence.
           </p>
 
@@ -113,7 +112,7 @@ END:VCALENDAR`;
       </section>
 
       {/* Photo Carousel */}
-      <section className="py-16 border-t border-[#2A2A2A]">
+      <section className="py-16 border-t border-border">
         <PhotoCarousel />
       </section>
 
@@ -122,7 +121,7 @@ END:VCALENDAR`;
         <div className="flex items-center justify-between mb-12">
           <div>
             <h2 className="text-4xl font-bold mb-2">Upcoming Events</h2>
-            <p className="text-[#9CA3AF]">Don't miss out on what's next</p>
+            <p className="text-muted-foreground">Don't miss out on what's next</p>
           </div>
           <Link
             to="/events"
@@ -137,7 +136,7 @@ END:VCALENDAR`;
           {upcomingEvents.map((event) => (
             <div
               key={event.id}
-              className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-6 hover:border-[#D97757] transition-all group"
+              className="bg-card border border-border rounded-2xl p-6 hover:border-[#D97757] transition-all group"
             >
               <div className="text-[#D97757] font-semibold mb-2">
                 {new Date(event.date).toLocaleDateString("en-US", {
@@ -149,7 +148,7 @@ END:VCALENDAR`;
               <h3 className="text-xl font-bold mb-4 group-hover:text-[#D97757] transition-colors">
                 {event.title}
               </h3>
-              <div className="space-y-2 text-[#9CA3AF] mb-6">
+              <div className="space-y-2 text-muted-foreground mb-6">
                 <div className="flex items-center gap-2">
                   <Calendar size={16} />
                   <span>{event.time}</span>
@@ -165,7 +164,7 @@ END:VCALENDAR`;
               </div>
               <button
                 onClick={() => addToCalendar(event)}
-                className="w-full bg-[#2A2A2A] text-[#F5F5F5] py-2.5 rounded-xl hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all font-semibold"
+                className="w-full bg-secondary text-foreground py-2.5 rounded-xl hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all font-semibold"
               >
                 Add to Calendar
               </button>
@@ -183,14 +182,14 @@ END:VCALENDAR`;
       </section>
 
       {/* Who We Are */}
-      <section className="py-20 bg-[#1A1A1A]/50 border-y border-[#2A2A2A]">
+      <section className="py-20 bg-card/50 border-y border-border">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-6">Who We Are</h2>
           <div className="h-1 w-24 bg-[#D97757] mx-auto mb-8"></div>
-          <p className="text-lg text-[#9CA3AF] leading-relaxed mb-6">
+          <p className="text-lg text-muted-foreground leading-relaxed mb-6">
             The Claude Builder Club at African Leadership University brings together ambitious students, technologists, and innovators who are passionate about harnessing the power of AI to solve real problems.
           </p>
-          <p className="text-lg text-[#9CA3AF] leading-relaxed">
+          <p className="text-lg text-muted-foreground leading-relaxed">
             We're more than a tech club—we're a community dedicated to building the future of AI in Africa. Through workshops, hackathons, and collaborative projects, we empower our members to create meaningful solutions using Claude and cutting-edge AI tools.
           </p>
         </div>
