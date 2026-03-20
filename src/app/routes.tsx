@@ -17,7 +17,7 @@ export const router = createBrowserRouter([
       { path: "events", Component: Events },
       { path: "projects", Component: Projects },
       { path: "gallery", Component: Gallery },
-      { path: "team", Component: Team },
+      // { path: "team", Component: Team },
       { path: "faq", Component: FAQ },
       { path: "*", Component: NotFound },
     ],
