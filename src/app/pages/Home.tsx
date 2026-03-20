@@ -3,6 +3,7 @@ import { ArrowRight, Calendar, MapPin, Users, Gift, Code2, Trophy, Shield, Zap, 
 import { PhotoCarousel } from "../components/PhotoCarousel";
 import { TestimonialCarousel } from "../components/TestimonialCarousel";
 import { Logo } from "../components/Navbar";
+import { LogoPool } from "../components/LogoPool";
 
 export function Home() {
   const upcomingEvents = [
@@ -116,8 +117,13 @@ END:VCALENDAR`;
           </div>
         </div>
 
-        <div className="absolute top-20 left-10 w-72 h-72 bg-[#D97757]/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#D97757]/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-20 left-10 w-72 h-72 bg-[#D97757]/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#D97757]/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        {/* ── Logo pool ── */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <LogoPool className="h-44" />
+        </div>
       </section>
 
       {/* ── Photo Carousel ────────────────────────────────────────────────────── */}
