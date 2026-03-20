@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { ArrowRight, Calendar, MapPin, Users, Gift, Code2, Trophy, Shield, Zap, Globe } from "lucide-react";
 import { PhotoCarousel } from "../components/PhotoCarousel";
 import { TestimonialCarousel } from "../components/TestimonialCarousel";
+import { Logo } from "../components/Navbar";
 
 export function Home() {
   const upcomingEvents = [
@@ -61,19 +62,20 @@ END:VCALENDAR`;
   return (
     <div>
       {/* ── Hero ──────────────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-[#D97757]/5 via-transparent to-transparent"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-          {/* Logo Combo */}
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="w-16 h-16 rounded-xl bg-[#D97757] flex items-center justify-center shadow-lg shadow-[#D97757]/20">
-              <span className="text-2xl font-bold text-[#0D0D0D]">ALU</span>
-            </div>
-            <span className="text-muted-foreground text-2xl">×</span>
-            <div className="w-16 h-16 rounded-xl bg-[#D97757] flex items-center justify-center shadow-lg shadow-[#D97757]/20">
-              <span className="text-2xl font-bold text-[#0D0D0D]">C</span>
-            </div>
+
+          {/* ── Desktop center: Logo ── */}
+          <div id="hero-logo" className="hidden md:flex flex-1 justify-center mb-10">
+            {/* <Logo /> */}
+            <Link to="/" className="flex items-center max-md:items-start gap-5 group">
+              <img src="/logos/alu_colored.png" alt="ALU" className="h-9 max-md:h-5 dark:hidden" />
+              <img src="/logos/alu_white.png" alt="ALU" className="h-9 max-md:h-5 hidden dark:flex" />
+              <img src="/logos/claude_colored.png" alt="Claude" className="h-10 max-md:h-5 dark:hidden" />
+              <img src="/logos/claude_white.png" alt="Claude" className="h-10 max-md:h-5 hidden dark:flex" />
+            </Link>
           </div>
 
           {/* "All majors welcome" badge */}
@@ -82,13 +84,16 @@ END:VCALENDAR`;
             Open to all majors · No coding experience required
           </div>
 
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            Build the future.
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            {/* Build the future.
             <br />
-            <span className="text-[#D97757]">With AI.</span>
+            <span className="text-[#D97757]">With AI.</span> */}
+            Everyone can build with AI
+            <br />
+            Starting with <span className="text-[#D97757]">You</span>
           </h1>
 
-          <p className="text-xl sm:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
             Join the Claude Builder Club at African Leadership University. Where tech meets African excellence.
           </p>
 
@@ -97,14 +102,14 @@ END:VCALENDAR`;
               href="https://www.jotform.com/253555944387168"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#D97757] text-[#0D0D0D] px-8 py-4 rounded-xl font-semibold hover:bg-[#E08967] transition-all hover:shadow-lg hover:shadow-[#D97757]/30 flex items-center gap-2 w-full sm:w-auto justify-center"
+              className="bg-[#D97757] text-[#ffffff] px-8 h-12 rounded-full font-bold hover:bg-[#E08967] transition-all hover:shadow-lg hover:shadow-[#D97757]/30 flex items-center gap-2 w-full sm:w-auto justify-center"
             >
               Join Us
               <ArrowRight size={20} />
             </a>
             <Link
               to="/projects"
-              className="border-2 border-[#D97757] text-[#D97757] px-8 py-4 rounded-xl font-semibold hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all flex items-center gap-2 w-full sm:w-auto justify-center"
+              className="border-2 border-[#D97757] text-[#D97757] hover:text-white px-8 h-12 rounded-full font-semibold hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all flex items-center gap-2 w-full sm:w-auto justify-center"
             >
               See Our Work
             </Link>
@@ -197,11 +202,10 @@ END:VCALENDAR`;
           {upcomingEvents.map((event) => (
             <div
               key={event.id}
-              className={`rounded-2xl p-6 transition-all group relative ${
-                event.featured
-                  ? "bg-[#D97757]/5 border-2 border-[#D97757] hover:border-[#E08967]"
-                  : "bg-card border border-border hover:border-[#D97757]"
-              }`}
+              className={`rounded-2xl p-6 transition-all group relative ${event.featured
+                ? "bg-[#D97757]/5 border-2 border-[#D97757] hover:border-[#E08967]"
+                : "bg-card border border-border hover:border-[#D97757]"
+                }`}
             >
               {event.featured && (
                 <div className="absolute -top-3.5 left-6">
@@ -237,11 +241,10 @@ END:VCALENDAR`;
               </div>
               <button
                 onClick={() => addToCalendar(event)}
-                className={`w-full py-2.5 rounded-xl font-semibold transition-all ${
-                  event.featured
-                    ? "bg-[#D97757] text-[#0D0D0D] hover:bg-[#E08967]"
-                    : "bg-secondary text-foreground hover:bg-[#D97757] hover:text-[#0D0D0D]"
-                }`}
+                className={`w-full py-2.5 rounded-xl font-semibold transition-all ${event.featured
+                  ? "bg-[#D97757] text-[#0D0D0D] hover:bg-[#E08967]"
+                  : "bg-secondary text-foreground hover:bg-[#D97757] hover:text-[#0D0D0D]"
+                  }`}
               >
                 Add to Calendar
               </button>

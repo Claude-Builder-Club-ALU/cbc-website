@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router";
-import { Sun, Moon, HelpCircle, AlignJustify, X } from "lucide-react";
+import { Sun, Moon, HelpCircle, AlignJustify, X, LucideAtSign } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence, useMotionValue, animate } from "framer-motion";
@@ -8,32 +8,25 @@ const navLinks = [
   { name: "Events", path: "/events" },
   { name: "Projects", path: "/projects" },
   { name: "Gallery", path: "/gallery" },
-  { name: "Team", path: "/team" },
+  // { name: "Team", path: "/team" },
 ];
 
-function NavLinks({ isActive }: { isActive: (path: string) => boolean }) {
+function NavLinks({ isActive, showBrand }: { isActive: (path: string) => boolean; showBrand: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const pillX = useMotionValue(0);
   const pillWidth = useMotionValue(0);
   const [pillVisible, setPillVisible] = useState(false);
 
-  useEffect(() => {
+  const measurePill = (jump = false) => {
     const container = containerRef.current;
     if (!container) return;
-
     const activeEl = container.querySelector<HTMLElement>("[data-active='true']");
-    if (!activeEl) {
-      setPillVisible(false);
-      return;
-    }
-
+    if (!activeEl) { setPillVisible(false); return; }
     const containerRect = container.getBoundingClientRect();
     const elRect = activeEl.getBoundingClientRect();
     const targetX = elRect.left - containerRect.left;
     const targetW = elRect.width;
-
-    if (!pillVisible) {
-      // First paint — jump directly, no animation
+    if (jump) {
       pillX.set(targetX);
       pillWidth.set(targetW);
       setPillVisible(true);
@@ -41,11 +34,61 @@ function NavLinks({ isActive }: { isActive: (path: string) => boolean }) {
       animate(pillX, targetX, { type: "spring", stiffness: 380, damping: 30 });
       animate(pillWidth, targetW, { type: "spring", stiffness: 380, damping: 30 });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  };
+
+  // Recalculate pill on route change
+  useEffect(() => {
+    measurePill(!pillVisible);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive, navLinks]);
+
+  // Track active link every frame while brand text is animating in/out
+  useEffect(() => {
+    const DURATION = 350;
+    const start = Date.now();
+    let rafId: number;
+    const loop = () => {
+      const container = containerRef.current;
+      if (container) {
+        const activeEl = container.querySelector<HTMLElement>("[data-active='true']");
+        if (activeEl) {
+          const containerRect = container.getBoundingClientRect();
+          const elRect = activeEl.getBoundingClientRect();
+          pillX.set(elRect.left - containerRect.left);
+          pillWidth.set(elRect.width);
+        }
+      }
+      if (Date.now() - start < DURATION) rafId = requestAnimationFrame(loop);
+    };
+    rafId = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(rafId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showBrand]);
 
   return (
     <div ref={containerRef} className="hidden md:flex flex-1 items-center gap-1 relative">
+      {/* anthropic@ALU — visible only on home when hero logo is showing */}
+      <AnimatePresence initial={false}>
+        {showBrand && (
+          <motion.div
+            initial={{ width: 0, opacity: 0 }}
+            animate={{ width: "auto", opacity: 1 }}
+            exit={{ width: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden shrink-0"
+          >
+            <span className="text-lg font-extrabold flex items-center text-foreground pr-3 whitespace-nowrap pointer-events-none select-none">
+              {/* ANTHROP\C */}
+              <div className="w-[106px] flex">
+                <img src="/logos/anthropic_black.png" alt="ALU" className="h-3 w-[106px] max-md:h-5 dark:hidden" />
+                <img src="/logos/anthropic_white.png" alt="ALU" className="h-3 w-[106px] max-md:h-5 hidden dark:flex" /></div>
+              <LucideAtSign className="h-4" />
+              ALU
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Sliding pill — positioned relative to container, not document */}
       {pillVisible && (
         <motion.span
@@ -61,11 +104,10 @@ function NavLinks({ isActive }: { isActive: (path: string) => boolean }) {
           className="relative px-3 py-1.5 text-sm font-medium z-10"
         >
           <span
-            className={`transition-colors duration-200 ${
-              isActive(link.path)
+            className={`transition-colors duration-200 ${isActive(link.path)
                 ? "text-[#D97757]"
                 : "text-foreground hover:text-[#D97757]"
-            }`}
+              }`}
           >
             {link.name}
           </span>
@@ -75,10 +117,10 @@ function NavLinks({ isActive }: { isActive: (path: string) => boolean }) {
   );
 }
 
-function Logo() {
+export function Logo() {
   return (
-    <Link to="/" className="flex items-center gap-2.5 group">
-      <div className="flex items-center gap-1.5">
+    <Link to="/" className="flex items-center flex-col max-md:items-start gap-2.5 group">
+      {/* <div className="flex items-center gap-1.5">
         <div className="w-9 h-9 rounded-lg bg-[#D97757] flex items-center justify-center shadow-md shadow-[#D97757]/20">
           <span className="text-xs font-bold text-[#0D0D0D]">ALU</span>
         </div>
@@ -90,7 +132,11 @@ function Logo() {
       <div className="hidden sm:block leading-tight">
         <div className="font-bold text-sm group-hover:text-[#D97757] transition-colors duration-200">CBC</div>
         <div className="text-xs text-muted-foreground">Claude Builder Club</div>
-      </div>
+      </div> */}
+      <img src="/logos/alu_colored.png" alt="ALU" className="h-[18px] max-md:h-5 dark:hidden" />
+      <img src="/logos/alu_white.png" alt="ALU" className="h-[18px] max-md:h-5 hidden dark:flex" />
+      <img src="/logos/claude_colored.png" alt="Claude" className="h-[20px] max-md:h-5 dark:hidden" />
+      <img src="/logos/claude_white.png" alt="Claude" className="h-[20px] max-md:h-5 hidden dark:flex" />
     </Link>
   );
 }
@@ -102,7 +148,7 @@ function ThemeToggleButton({ className = "" }: { className?: string }) {
   return (
     <motion.button
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className={`flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl hover:bg-secondary transition-colors text-sm text-foreground ${className}`}
+      className={`flex items-center gap-2.5 w-full px-3 py-2 cursor-pointer rounded-md hover:bg-secondary/50 max-md:hover:bg-secondary max-md:py-2.5 dark:hover:bg-secondary transition-colors text-sm text-foreground ${className}`}
       whileTap={{ scale: 0.97 }}
     >
       <AnimatePresence mode="wait" initial={false}>
@@ -111,9 +157,9 @@ function ThemeToggleButton({ className = "" }: { className?: string }) {
           initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
           animate={{ rotate: 0, opacity: 1, scale: 1 }}
           exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
-          transition={{ duration: 0.2, ease: "easeInOut" }}
+          transition={{ duration: 0.1, ease: "easeInOut" }}
         >
-          {isDark ? <Sun size={15} className="text-[#D97757]" /> : <Moon size={15} className="text-[#D97757]" />}
+          {isDark ? <Sun size={15} className="text-[#D97757] fill-[#D97757]" /> : <Moon size={15} className="text-[#D97757] fill-[#D97757]" />}
         </motion.span>
       </AnimatePresence>
       <span>{isDark ? "Light mode" : "Dark mode"}</span>
@@ -127,6 +173,26 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const desktopMenuRef = useRef<HTMLDivElement>(null);
+
+  const isHome = location.pathname === "/";
+  const [navLogoVisible, setNavLogoVisible] = useState(!isHome);
+
+  // Hide navbar logo while the hero logo is visible on the home page
+  useEffect(() => {
+    if (!isHome) {
+      setNavLogoVisible(true);
+      return;
+    }
+    setNavLogoVisible(false);
+    const heroLogo = document.getElementById("hero-logo");
+    if (!heroLogo) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setNavLogoVisible(!entry.isIntersecting),
+      { rootMargin: "-80px 0px 0px 0px" }
+    );
+    observer.observe(heroLogo);
+    return () => observer.disconnect();
+  }, [isHome]);
 
   const isActive = (path: string) => location.pathname.startsWith(path);
 
@@ -157,11 +223,10 @@ export function Navbar() {
   return (
     <nav
       className={`sticky top-0 z-50 transition-all duration-300
-         ${
-        scrolled
+         ${scrolled
           ? "bg-background/95 backdrop-blur-md border-b border-border"
           : "bg-background/95 border-b border-transparent"
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center h-20">
@@ -172,11 +237,22 @@ export function Navbar() {
           </div>
 
           {/* ── Desktop left: Nav links ── */}
-          <NavLinks isActive={isActive} />
+          <NavLinks isActive={isActive} showBrand={isHome && !navLogoVisible} />
 
           {/* ── Desktop center: Logo ── */}
           <div className="hidden md:flex flex-1 justify-center">
-            <Logo />
+            <AnimatePresence>
+              {navLogoVisible && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.85, y: -6 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.85, y: -6 }}
+                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <Logo />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* ── Desktop right: Join + Menu ── */}
@@ -185,7 +261,7 @@ export function Navbar() {
               href="https://www.jotform.com/253555944387168"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#D97757] text-[#0D0D0D] px-5 py-2 rounded-xl text-sm font-semibold hover:bg-[#E08967] transition-colors shadow-sm shadow-[#D97757]/20"
+              className="bg-[#D97757] text-[#ffffff] px-5 py-2 rounded-xl text-sm font-semibold hover:bg-[#E08967] transition-colors shadow-sm shadow-[#D97757]/20"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.15 }}
@@ -208,7 +284,7 @@ export function Navbar() {
                     initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
                     animate={{ rotate: 0, opacity: 1, scale: 1 }}
                     exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
-                    transition={{ duration: 0.18 }}
+                    transition={{ duration: 0.1 }}
                   >
                     {desktopMenuOpen
                       ? <X size={18} />
@@ -225,17 +301,20 @@ export function Navbar() {
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.92, y: -8 }}
                     transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute right-0 top-full mt-2 w-52 bg-card border border-border rounded-2xl shadow-xl shadow-black/20 overflow-hidden p-1.5"
+                    className="absolute right-0 top-full mt-2 w-52 bg-card border border-border rounded-2xl shadow-xl shadow-black/10 overflow-hidden p-1.5"
                   >
                     <Link
                       to="/faq"
-                      className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-secondary transition-colors text-sm text-foreground"
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-secondary/50 dark:hover:bg-secondary transition-colors font-medium text-sm text-foreground"
                       onClick={() => setDesktopMenuOpen(false)}
                     >
-                      <HelpCircle size={15} className="text-[#D97757]" />
+                      {/* <HelpCircle size={15} className="text-[#D97757]" /> */}
                       <span>FAQ</span>
                     </Link>
-                    <div className="h-px bg-border my-1" />
+                    <div className="flex items-center justify-center gap-2 px-1">
+                      <p className="text-xs text-muted-foreground">Theme</p>
+                      <div className="h-px flex-1 bg-border my-1" />
+                    </div>
                     <ThemeToggleButton />
                   </motion.div>
                 )}
@@ -288,11 +367,10 @@ export function Navbar() {
                   <Link
                     to={link.path}
                     onClick={() => setMobileOpen(false)}
-                    className={`flex items-center gap-2 px-3 py-3 rounded-xl text-sm font-medium transition-colors ${
-                      isActive(link.path)
+                    className={`flex items-center gap-2 px-3 rounded-md hover:bg-secondary/50 max-md:hover:bg-secondary py-2.5 text-sm font-medium transition-colors ${isActive(link.path)
                         ? "text-[#D97757] bg-[#D97757]/10"
                         : "text-foreground hover:bg-secondary hover:text-[#D97757]"
-                    }`}
+                      }`}
                   >
                     {link.name}
                   </Link>
@@ -307,13 +385,12 @@ export function Navbar() {
                 <Link
                   to="/faq"
                   onClick={() => setMobileOpen(false)}
-                  className={`flex items-center gap-2.5 px-3 py-3 rounded-xl text-sm font-medium transition-colors ${
-                    isActive("/faq")
+                  className={`flex items-center gap-2.5 px-3 rounded-md hover:bg-secondary/50 max-md:hover:bg-secondary py-2.5 text-sm font-medium transition-colors ${isActive("/faq")
                       ? "text-[#D97757] bg-[#D97757]/10"
                       : "text-foreground hover:bg-secondary hover:text-[#D97757]"
-                  }`}
+                    }`}
                 >
-                  <HelpCircle size={15} className="text-[#D97757]" />
+                  {/* <HelpCircle size={15} className="text-[#D97757]" /> */}
                   FAQ
                 </Link>
               </motion.div>
@@ -339,7 +416,7 @@ export function Navbar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMobileOpen(false)}
-                  className="block text-center bg-[#D97757] text-[#0D0D0D] px-6 py-3 rounded-xl font-semibold hover:bg-[#E08967] transition-colors shadow-sm shadow-[#D97757]/20"
+                  className="block text-center bg-[#D97757] text-[#fbfbfb] px-6 py-3 rounded-xl font-semibold hover:bg-[#E08967] transition-colors shadow-sm shadow-[#D97757]/20"
                 >
                   Join the Club
                 </a>
