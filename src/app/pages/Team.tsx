@@ -2,15 +2,7 @@ import { Linkedin, Github } from "lucide-react";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // TEAM DATA
-//
-// Replace each `photo` value with the real portrait URL when available.
-// The current values are initials avatars so the page looks decent in the
-// meantime (e.g. use a LinkedIn headshot URL or a file path in /public).
 // ─────────────────────────────────────────────────────────────────────────────
-
-// Everyone in one flat list — same card, same size.
-// Role text is the only differentiator; no visual hierarchy.
-// Order: Ambassadors → Advisor → Core Team
 const team = [
   {
     name: "Chiagoziem Eke",
@@ -82,7 +74,7 @@ interface MemberCardProps {
 
 function MemberCard({ name, role, photo, linkedin, github }: MemberCardProps) {
   return (
-    <div className="group bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl overflow-hidden hover:border-[#D97757] transition-all flex flex-col">
+    <div className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-[#D97757] transition-all flex flex-col">
       {/* Photo — portrait ratio for headshots */}
       <div className="relative overflow-hidden aspect-[3/4]">
         <img
@@ -90,7 +82,7 @@ function MemberCard({ name, role, photo, linkedin, github }: MemberCardProps) {
           alt={name}
           className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
 
       {/* Info */}
@@ -108,7 +100,7 @@ function MemberCard({ name, role, photo, linkedin, github }: MemberCardProps) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${name} on LinkedIn`}
-              className="w-9 h-9 rounded-lg bg-[#0D0D0D] flex items-center justify-center text-[#9CA3AF] hover:text-[#D97757] hover:bg-[#2A2A2A] transition-all"
+              className="w-9 h-9 rounded-lg bg-background flex items-center justify-center text-muted-foreground hover:text-[#D97757] hover:bg-secondary transition-all border border-border"
             >
               <Linkedin size={17} />
             </a>
@@ -119,7 +111,7 @@ function MemberCard({ name, role, photo, linkedin, github }: MemberCardProps) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${name} on GitHub`}
-              className="w-9 h-9 rounded-lg bg-[#0D0D0D] flex items-center justify-center text-[#9CA3AF] hover:text-[#D97757] hover:bg-[#2A2A2A] transition-all"
+              className="w-9 h-9 rounded-lg bg-background flex items-center justify-center text-muted-foreground hover:text-[#D97757] hover:bg-secondary transition-all border border-border"
             >
               <Github size={17} />
             </a>
@@ -132,15 +124,10 @@ function MemberCard({ name, role, photo, linkedin, github }: MemberCardProps) {
 
 // ─────────────────────────────────────────────────────────────────────────────
 // SITE CONTRIBUTORS
-//
-// Anyone who wrote code for this website.
-// Set `github` to the GitHub username — the avatar is fetched automatically
-// from github.com/<username>.png (no photo upload needed).
 // ─────────────────────────────────────────────────────────────────────────────
 const contributors = [
   { name: "Bienvenu Cyuzuzo", github: "bienvenudev" },
   { name: "Kevin Mbonimpaye", github: "kevinmbonimpaye" },
-  // Add more as people contribute: { name: "...", github: "..." }
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -149,16 +136,16 @@ export function Team() {
   return (
     <div className="min-h-screen">
       {/* ── Hero ── */}
-      <section className="bg-gradient-to-b from-[#D97757]/10 to-transparent py-20 border-b border-[#2A2A2A]">
+      <section className="bg-gradient-to-b from-[#D97757]/10 to-transparent py-20 border-b border-border">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">Meet the Team</h1>
-          <p className="text-xl text-[#9CA3AF]">
+          <p className="text-xl text-muted-foreground">
             The Claude Ambassadors and builders leading CBC at ALU.
           </p>
         </div>
       </section>
 
-      {/* ── Team grid — everyone equal, one section ── */}
+      {/* ── Team grid ── */}
       <section className="py-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
           {team.map((m) => (
@@ -168,9 +155,9 @@ export function Team() {
       </section>
 
       {/* ── Site Contributors ── */}
-      <section className="py-16 border-t border-[#2A2A2A]">
+      <section className="py-16 border-t border-border">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-bold uppercase tracking-widest text-[#4B5563] mb-6">
+          <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60 mb-6">
             Site contributors
           </p>
           <div className="flex flex-wrap gap-3">
@@ -181,14 +168,14 @@ export function Team() {
                 target="_blank"
                 rel="noopener noreferrer"
                 title={c.name}
-                className="flex items-center gap-2.5 bg-[#1A1A1A] border border-[#2A2A2A] hover:border-[#D97757] rounded-xl px-3 py-2 transition-all group"
+                className="flex items-center gap-2.5 bg-card border border-border hover:border-[#D97757] rounded-xl px-3 py-2 transition-all group"
               >
                 <img
                   src={`https://github.com/${c.github}.png?size=64`}
                   alt={c.name}
                   className="w-7 h-7 rounded-full object-cover"
                 />
-                <span className="text-sm text-[#9CA3AF] group-hover:text-[#F5F5F5] transition-colors font-mono">
+                <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors font-mono">
                   {c.github}
                 </span>
               </a>
@@ -198,10 +185,10 @@ export function Team() {
       </section>
 
       {/* ── Join CTA ── */}
-      <section className="py-20 border-t border-[#2A2A2A]">
+      <section className="py-20 border-t border-border">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-4">Want to get involved?</h2>
-          <p className="text-xl text-[#9CA3AF] mb-8">
+          <p className="text-xl text-muted-foreground mb-8">
             We welcome all ALU students passionate about building with AI. Show
             up to an event and introduce yourself.
           </p>

@@ -31,15 +31,12 @@ export function PhotoCarousel() {
 
   // ── Lightbox state ──────────────────────────────────────────────────────────
   const [lightbox, setLightbox] = useState<Photo | null>(null);
-  // Ref so the rAF loop can check it without a stale closure
   const lightboxOpen = useRef(false);
 
-  // Keep the ref in sync with state
   useEffect(() => {
     lightboxOpen.current = lightbox !== null;
   }, [lightbox]);
 
-  // Close on Escape key
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setLightbox(null);
@@ -55,7 +52,6 @@ export function PhotoCarousel() {
   const isDragging = useRef(false);
   const dragStartX = useRef(0);
   const dragStartPos = useRef(0);
-  // Track drag distance to distinguish a click from a real drag
   const dragDistance = useRef(0);
 
   useEffect(() => {
@@ -105,9 +101,8 @@ export function PhotoCarousel() {
     if (track) track.style.transform = `translateX(${posRef.current}px)`;
   };
 
-  const onPointerUp = (e: React.PointerEvent, photo: Photo) => {
+  const onPointerUp = (_e: React.PointerEvent, photo: Photo) => {
     isDragging.current = false;
-    // Only open lightbox if the pointer barely moved (it was a tap/click, not a drag)
     if (dragDistance.current < 6) {
       setLightbox(photo);
     }
@@ -128,15 +123,15 @@ export function PhotoCarousel() {
               onPointerUp={(e) => onPointerUp(e, photo)}
               onPointerCancel={() => { isDragging.current = false; }}
             >
-              <div className="relative h-72 rounded-2xl overflow-hidden group border border-[#2A2A2A]">
+              <div className="relative h-72 rounded-2xl overflow-hidden group border border-border">
                 <img
                   src={photo.url}
                   alt={photo.caption}
                   draggable={false}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 pointer-events-none"
                 />
-                {/* Caption overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                {/* Caption overlay — always dark for readability on images */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                   <p className="text-white text-sm font-semibold">{photo.caption}</p>
                 </div>
               </div>
@@ -151,7 +146,6 @@ export function PhotoCarousel() {
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
           onClick={() => setLightbox(null)}
         >
-          {/* Close button — clicking it also bubbles up and closes via the overlay onClick */}
           <button
             className="absolute top-5 right-5 text-white/70 hover:text-white transition-colors bg-black/40 rounded-full p-2"
             aria-label="Close"
@@ -159,7 +153,6 @@ export function PhotoCarousel() {
             <X size={28} />
           </button>
 
-          {/* Image — click on it also closes (event bubbles to overlay) */}
           <img
             src={lightbox.url}
             alt={lightbox.caption}
@@ -167,7 +160,6 @@ export function PhotoCarousel() {
             draggable={false}
           />
 
-          {/* Caption */}
           <p className="absolute bottom-6 text-white/80 text-sm font-medium tracking-wide">
             {lightbox.caption}
           </p>

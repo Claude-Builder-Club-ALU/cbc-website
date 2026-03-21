@@ -2,6 +2,8 @@ import { Link } from "react-router";
 import { ArrowRight, Calendar, MapPin, Users, Gift, Code2, Trophy, Shield, Zap, Globe } from "lucide-react";
 import { PhotoCarousel } from "../components/PhotoCarousel";
 import { TestimonialCarousel } from "../components/TestimonialCarousel";
+import { Logo } from "../components/Navbar";
+import { LogoPool } from "../components/LogoPool";
 
 export function Home() {
   const upcomingEvents = [
@@ -61,34 +63,38 @@ END:VCALENDAR`;
   return (
     <div>
       {/* ── Hero ──────────────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-[#D97757]/5 via-transparent to-transparent"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-          {/* Logo Combo */}
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="w-16 h-16 rounded-xl bg-[#D97757] flex items-center justify-center shadow-lg shadow-[#D97757]/20">
-              <span className="text-2xl font-bold text-[#0D0D0D]">ALU</span>
-            </div>
-            <span className="text-[#9CA3AF] text-2xl">×</span>
-            <div className="w-16 h-16 rounded-xl bg-[#D97757] flex items-center justify-center shadow-lg shadow-[#D97757]/20">
-              <span className="text-2xl font-bold text-[#0D0D0D]">C</span>
-            </div>
+
+          {/* ── Desktop center: Logo ── */}
+          <div id="hero-logo" className="hidden md:flex flex-1 justify-center mb-10">
+            {/* <Logo /> */}
+            <Link to="/" className="flex items-center max-md:items-start gap-5 group">
+              <img src="/logos/alu_colored.png" alt="ALU" className="h-8 max-md:h-5 dark:hidden" />
+              <img src="/logos/alu_white.png" alt="ALU" className="h-8 max-md:h-5 hidden dark:flex" />
+              <img src="/logos/claude_colored.png" alt="Claude" className="h-9 max-md:h-5 dark:hidden" />
+              <img src="/logos/claude_white.png" alt="Claude" className="h-9 max-md:h-5 hidden dark:flex" />
+            </Link>
           </div>
 
           {/* "All majors welcome" badge */}
           <div className="inline-flex items-center gap-2 bg-[#D97757]/10 border border-[#D97757]/30 text-[#D97757] text-sm font-medium px-4 py-1.5 rounded-full mb-8">
-            <span className="w-2 h-2 rounded-full bg-[#D97757] animate-pulse"></span>
+            <span className="w-2 h-2 min-w-2 rounded-full bg-[#D97757] animate-pulse"></span>
             Open to all majors · No coding experience required
           </div>
 
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            Build the future.
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            {/* Build the future.
             <br />
-            <span className="text-[#D97757]">With AI.</span>
+            <span className="text-[#D97757]">With AI.</span> */}
+            Everyone can build with AI
+            <br />
+            Starting with <span className="text-[#D97757]">You</span>
           </h1>
 
-          <p className="text-xl sm:text-2xl text-[#9CA3AF] max-w-3xl mx-auto mb-12 leading-relaxed">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
             Join the Claude Builder Club at African Leadership University. Where tech meets African excellence.
           </p>
 
@@ -97,67 +103,72 @@ END:VCALENDAR`;
               href="https://www.jotform.com/253555944387168"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#D97757] text-[#0D0D0D] px-8 py-4 rounded-xl font-semibold hover:bg-[#E08967] transition-all hover:shadow-lg hover:shadow-[#D97757]/30 flex items-center gap-2 w-full sm:w-auto justify-center"
+              className="bg-[#D97757] text-[#ffffff] px-8 h-12 rounded-full font-bold hover:bg-[#E08967] transition-all hover:shadow-lg hover:shadow-[#D97757]/30 flex items-center gap-2 w-full sm:w-auto justify-center"
             >
               Join Us
               <ArrowRight size={20} />
             </a>
             <Link
               to="/projects"
-              className="border-2 border-[#D97757] text-[#D97757] px-8 py-4 rounded-xl font-semibold hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all flex items-center gap-2 w-full sm:w-auto justify-center"
+              className="border-2 border-[#D97757] text-[#D97757] px-8 h-12 rounded-full font-semibold hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all flex items-center gap-2 w-full sm:w-auto justify-center"
             >
               See Our Work
             </Link>
           </div>
         </div>
 
-        <div className="absolute top-20 left-10 w-72 h-72 bg-[#D97757]/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#D97757]/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-20 left-10 w-72 h-72 bg-[#D97757]/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#D97757]/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        {/* ── Logo pool ── */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <LogoPool className="h-44" />
+        </div>
       </section>
 
       {/* ── Photo Carousel ────────────────────────────────────────────────────── */}
-      <section className="py-16 border-t border-[#2A2A2A]">
+      <section className="py-16 border-t border-border">
         <PhotoCarousel />
       </section>
 
       {/* ── Member Perks ─────────────────────────────────────────────────────── */}
-      <section className="py-20 border-t border-[#2A2A2A] bg-[#1A1A1A]/40">
+      <section className="py-20 border-t border-border bg-card/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-3">What You Get</h2>
-            <p className="text-[#9CA3AF] text-lg">Just for attending a CBC meeting</p>
+            <p className="text-muted-foreground text-lg">Just for attending a CBC meeting</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Perk 1 — Claude Pro */}
-            <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-8 hover:border-[#D97757]/50 transition-all group text-center">
+            <div className="bg-card border border-border rounded-2xl p-8 hover:border-[#D97757]/50 transition-all group text-center">
               <div className="w-14 h-14 bg-[#D97757]/10 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-[#D97757]/20 transition-colors">
                 <Gift size={28} className="text-[#D97757]" />
               </div>
               <h3 className="text-xl font-bold mb-3">Free Claude Pro</h3>
-              <p className="text-[#9CA3AF] leading-relaxed text-sm">
+              <p className="text-muted-foreground leading-relaxed text-sm">
                 5× more usage than the free tier. Access to Claude's most capable models including Sonnet and Opus.
               </p>
             </div>
 
             {/* Perk 2 — API Credits */}
-            <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-8 hover:border-[#D97757]/50 transition-all group text-center">
+            <div className="bg-card border border-border rounded-2xl p-8 hover:border-[#D97757]/50 transition-all group text-center">
               <div className="w-14 h-14 bg-[#D97757]/10 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-[#D97757]/20 transition-colors">
                 <Code2 size={28} className="text-[#D97757]" />
               </div>
               <h3 className="text-xl font-bold mb-3">$25 API Credits</h3>
-              <p className="text-[#9CA3AF] leading-relaxed text-sm">
+              <p className="text-muted-foreground leading-relaxed text-sm">
                 Build real apps with the Anthropic API. Claude Code access included — write, debug, and ship code directly from your terminal.
               </p>
             </div>
 
             {/* Perk 3 — Hackathon */}
-            <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-8 hover:border-[#D97757]/50 transition-all group text-center">
+            <div className="bg-card border border-border rounded-2xl p-8 hover:border-[#D97757]/50 transition-all group text-center">
               <div className="w-14 h-14 bg-[#D97757]/10 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-[#D97757]/20 transition-colors">
                 <Trophy size={28} className="text-[#D97757]" />
               </div>
               <h3 className="text-xl font-bold mb-3">End-of-Semester Hackathon</h3>
-              <p className="text-[#9CA3AF] leading-relaxed text-sm">
+              <p className="text-muted-foreground leading-relaxed text-sm">
                 Compete for prizes, build real projects, and show what you've learned. Open to all CBC members regardless of experience.
               </p>
             </div>
@@ -182,7 +193,7 @@ END:VCALENDAR`;
         <div className="flex items-center justify-between mb-12">
           <div>
             <h2 className="text-4xl font-bold mb-2">Upcoming Events</h2>
-            <p className="text-[#9CA3AF]">Don't miss out on what's next</p>
+            <p className="text-muted-foreground">Don't miss out on what's next</p>
           </div>
           <Link
             to="/events"
@@ -197,11 +208,10 @@ END:VCALENDAR`;
           {upcomingEvents.map((event) => (
             <div
               key={event.id}
-              className={`rounded-2xl p-6 transition-all group relative ${
-                event.featured
-                  ? "bg-[#D97757]/5 border-2 border-[#D97757] hover:border-[#E08967]"
-                  : "bg-[#1A1A1A] border border-[#2A2A2A] hover:border-[#D97757]"
-              }`}
+              className={`rounded-2xl p-6 transition-all group relative ${event.featured
+                ? "bg-[#D97757]/5 border-2 border-[#D97757] hover:border-[#E08967]"
+                : "bg-card border border-border hover:border-[#D97757]"
+                }`}
             >
               {event.featured && (
                 <div className="absolute -top-3.5 left-6">
@@ -218,10 +228,10 @@ END:VCALENDAR`;
                   year: "numeric",
                 })}
               </div>
-              <h3 className={`text-xl font-bold mb-4 transition-colors ${event.featured ? "text-white" : "group-hover:text-[#D97757]"}`}>
+              <h3 className={`text-xl font-bold mb-4 transition-colors ${event.featured ? "text-foreground" : "group-hover:text-[#D97757]"}`}>
                 {event.title}
               </h3>
-              <div className="space-y-2 text-[#9CA3AF] mb-6">
+              <div className="space-y-2 text-muted-foreground mb-6">
                 <div className="flex items-center gap-2">
                   <Calendar size={16} />
                   <span>{event.time}</span>
@@ -237,11 +247,10 @@ END:VCALENDAR`;
               </div>
               <button
                 onClick={() => addToCalendar(event)}
-                className={`w-full py-2.5 rounded-xl font-semibold transition-all ${
-                  event.featured
-                    ? "bg-[#D97757] text-[#0D0D0D] hover:bg-[#E08967]"
-                    : "bg-[#2A2A2A] text-[#F5F5F5] hover:bg-[#D97757] hover:text-[#0D0D0D]"
-                }`}
+                className={`w-full py-2.5 rounded-xl font-semibold transition-all ${event.featured
+                  ? "bg-[#D97757] text-[#0D0D0D] hover:bg-[#E08967]"
+                  : "bg-secondary text-foreground hover:bg-[#D97757] hover:text-[#0D0D0D]"
+                  }`}
               >
                 Add to Calendar
               </button>
@@ -259,16 +268,16 @@ END:VCALENDAR`;
       </section>
 
       {/* ── Who We Are ───────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-[#1A1A1A]/50 border-y border-[#2A2A2A]">
+      <section className="py-20 bg-card/50 border-y border-border">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-6">Who We Are</h2>
           <div className="h-1 w-24 bg-[#D97757] mx-auto mb-8"></div>
 
-          <p className="text-lg text-[#9CA3AF] leading-relaxed mb-4">
+          <p className="text-lg text-muted-foreground leading-relaxed mb-4">
             The Claude Builder Club at ALU is an inclusive community for students interested in exploring AI development, developing technical skills, and learning about the benefits and risks of AI.
           </p>
-          <p className="text-lg text-[#9CA3AF] leading-relaxed mb-14">
-            We don't just get answers from AI — <span className="text-white font-medium">we build AI-assisted solutions</span>. We teach students not just <em>how</em> to use Claude, but <em>when</em> and <em>why</em>. Through workshops, hackathons, and collaborative projects, members tackle real problems in health, education, and economic opportunity.
+          <p className="text-lg text-muted-foreground leading-relaxed mb-14">
+            We don't just get answers from AI — <span className="text-foreground font-medium">we build AI-assisted solutions</span>. We teach students not just <em>how</em> to use Claude, but <em>when</em> and <em>why</em>. Through workshops, hackathons, and collaborative projects, members tackle real problems in health, education, and economic opportunity.
           </p>
 
           {/* 4 Values */}
@@ -279,10 +288,10 @@ END:VCALENDAR`;
               { emoji: "💡", title: "Foster creativity", desc: "Build solutions for anything that sparks your interest." },
               { emoji: "🤝", title: "Fun & engaging", desc: "Connect with peers, learn from guest speakers, and enjoy the community." },
             ].map((v) => (
-              <div key={v.title} className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-6 hover:border-[#D97757]/40 transition-all">
+              <div key={v.title} className="bg-card border border-border rounded-2xl p-6 hover:border-[#D97757]/40 transition-all">
                 <div className="text-3xl mb-3">{v.emoji}</div>
-                <h4 className="font-bold text-white mb-2">{v.title}</h4>
-                <p className="text-[#9CA3AF] text-sm leading-relaxed">{v.desc}</p>
+                <h4 className="font-bold text-foreground mb-2">{v.title}</h4>
+                <p className="text-muted-foreground text-sm leading-relaxed">{v.desc}</p>
               </div>
             ))}
           </div>
@@ -293,38 +302,38 @@ END:VCALENDAR`;
       <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-3">Why Claude?</h2>
-          <p className="text-[#9CA3AF] text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Not all AI tools are built the same. Here's why we build with Claude.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-8 hover:border-[#D97757]/50 transition-all">
+          <div className="bg-card border border-border rounded-2xl p-8 hover:border-[#D97757]/50 transition-all">
             <div className="w-12 h-12 bg-[#D97757]/10 rounded-xl flex items-center justify-center mb-5">
               <Shield size={24} className="text-[#D97757]" />
             </div>
             <h3 className="text-xl font-bold mb-3">Safety-First</h3>
-            <p className="text-[#9CA3AF] text-sm leading-relaxed">
+            <p className="text-muted-foreground text-sm leading-relaxed">
               Built by Anthropic with Constitutional AI — designed to be helpful, harmless, and honest. Claude is engineered to be transparent about what it doesn't know.
             </p>
           </div>
 
-          <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-8 hover:border-[#D97757]/50 transition-all">
+          <div className="bg-card border border-border rounded-2xl p-8 hover:border-[#D97757]/50 transition-all">
             <div className="w-12 h-12 bg-[#D97757]/10 rounded-xl flex items-center justify-center mb-5">
               <Zap size={24} className="text-[#D97757]" />
             </div>
             <h3 className="text-xl font-bold mb-3">Built for Builders</h3>
-            <p className="text-[#9CA3AF] text-sm leading-relaxed">
+            <p className="text-muted-foreground text-sm leading-relaxed">
               Claude Code lets you delegate complex coding tasks from your terminal. From architecture to deployment — Claude accelerates every step of the software development lifecycle.
             </p>
           </div>
 
-          <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-8 hover:border-[#D97757]/50 transition-all">
+          <div className="bg-card border border-border rounded-2xl p-8 hover:border-[#D97757]/50 transition-all">
             <div className="w-12 h-12 bg-[#D97757]/10 rounded-xl flex items-center justify-center mb-5">
               <Globe size={24} className="text-[#D97757]" />
             </div>
             <h3 className="text-xl font-bold mb-3">Built for Africa</h3>
-            <p className="text-[#9CA3AF] text-sm leading-relaxed">
+            <p className="text-muted-foreground text-sm leading-relaxed">
               We challenge members to build solutions for health, education, climate, and economic opportunity. The problems that matter most in Africa deserve the best AI tools.
             </p>
           </div>
@@ -332,7 +341,7 @@ END:VCALENDAR`;
       </section>
 
       {/* ── Testimonials ─────────────────────────────────────────────────────── */}
-      <section className="py-20 border-t border-[#2A2A2A]">
+      <section className="py-20 border-t border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-center mb-12">What Our Members Say</h2>
           <TestimonialCarousel />

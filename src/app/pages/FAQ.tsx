@@ -10,13 +10,13 @@ const faqs = [
   {
     q: "Why don't I have my Claude Pro yet?",
     a: (
-      <div className="space-y-4 text-[#9CA3AF]">
+      <div className="space-y-4 text-muted-foreground">
         <p>Two things to check:</p>
         <ol className="space-y-4 list-none">
           <li className="flex gap-3">
             <span className="text-[#D97757] font-bold shrink-0">1.</span>
             <div>
-              <strong className="text-[#F5F5F5]">You're officially registered.</strong>{" "}
+              <strong className="text-foreground">You're officially registered.</strong>{" "}
               Perks only go to registered members — if you skipped the sign-up form,
               that's likely why.{" "}
               <a
@@ -32,14 +32,14 @@ const faqs = [
           <li className="flex gap-3">
             <span className="text-[#D97757] font-bold shrink-0">2.</span>
             <div>
-              <strong className="text-[#F5F5F5]">You submitted the correct Org ID at check-in.</strong>{" "}
+              <strong className="text-foreground">You submitted the correct Org ID at check-in.</strong>{" "}
               There are two places to find your Org ID and they are{" "}
               <em>not</em> the same:
               <ul className="mt-3 space-y-2">
                 <li className="flex items-center gap-2">
                   <span className="text-green-400 font-bold">✓</span>
                   <span>
-                    <code className="text-[#F5F5F5] bg-[#0D0D0D] px-1.5 py-0.5 rounded text-sm">
+                    <code className="text-foreground bg-secondary px-1.5 py-0.5 rounded text-sm">
                       platform.claude.com
                     </code>{" "}
                     — this is the correct one
@@ -48,7 +48,7 @@ const faqs = [
                 <li className="flex items-center gap-2">
                   <span className="text-red-400 font-bold">✗</span>
                   <span>
-                    <code className="text-[#F5F5F5] bg-[#0D0D0D] px-1.5 py-0.5 rounded text-sm">
+                    <code className="text-foreground bg-secondary px-1.5 py-0.5 rounded text-sm">
                       claude.ai
                     </code>{" "}
                     — this won't work
@@ -71,10 +71,10 @@ function FAQItem({ q, a }: { q: string; a: React.ReactNode }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="border border-[#2A2A2A] rounded-2xl overflow-hidden">
+    <div className="border border-border rounded-2xl overflow-hidden">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-[#1A1A1A] transition-colors"
+        className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-card transition-colors"
       >
         <span className="font-semibold text-lg">{q}</span>
         <ChevronDown
@@ -86,7 +86,7 @@ function FAQItem({ q, a }: { q: string; a: React.ReactNode }) {
       </button>
 
       {open && (
-        <div className="px-6 pb-6 pt-1 border-t border-[#2A2A2A] bg-[#1A1A1A]/50">
+        <div className="px-6 pb-6 pt-1 border-t border-border bg-card/50">
           {a}
         </div>
       )}
@@ -100,10 +100,10 @@ export function FAQ() {
   return (
     <div className="min-h-screen">
       {/* ── Hero ── */}
-      <section className="bg-gradient-to-b from-[#D97757]/10 to-transparent py-20 border-b border-[#2A2A2A]">
+      <section className="bg-gradient-to-b from-[#D97757]/10 to-transparent py-20 border-b border-border">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">FAQ</h1>
-          <p className="text-xl text-[#9CA3AF]">
+          <p className="text-xl text-muted-foreground">
             Quick answers to common questions.
           </p>
         </div>
@@ -119,10 +119,10 @@ export function FAQ() {
 
         {/* Still stuck? */}
         <div className="mt-14 text-center">
-          <p className="text-[#9CA3AF] mb-4">Still stuck?</p>
+          <p className="text-muted-foreground mb-4">Still stuck?</p>
           <a
             href="mailto:cbc@alueducation.com"
-            className="inline-block border border-[#2A2A2A] text-[#F5F5F5] px-6 py-3 rounded-xl hover:border-[#D97757] hover:text-[#D97757] transition-all"
+            className="inline-block border border-border text-foreground px-6 py-3 rounded-xl hover:border-[#D97757] hover:text-[#D97757] transition-all"
           >
             Reach out to us →
           </a>

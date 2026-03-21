@@ -39,9 +39,9 @@ export function TestimonialCarousel() {
       <Slider {...settings}>
         {testimonials.map((testimonial, index) => (
           <div key={index} className="px-4">
-            <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-8 md:p-12">
+            <div className="bg-card border border-border rounded-2xl p-8 md:p-12">
               <Quote className="text-[#D97757] mb-6" size={40} />
-              <p className="text-lg md:text-xl text-[#F5F5F5] mb-8 leading-relaxed">
+              <p className="text-lg md:text-xl text-foreground mb-8 leading-relaxed">
                 "{testimonial.content}"
               </p>
               <div className="flex items-center gap-4">
@@ -51,8 +51,8 @@ export function TestimonialCarousel() {
                   className="w-16 h-16 rounded-full object-cover border-2 border-[#D97757]"
                 />
                 <div>
-                  <div className="font-semibold text-[#F5F5F5]">{testimonial.name}</div>
-                  <div className="text-[#9CA3AF]">{testimonial.role}</div>
+                  <div className="font-semibold text-foreground">{testimonial.name}</div>
+                  <div className="text-muted-foreground">{testimonial.role}</div>
                 </div>
               </div>
             </div>

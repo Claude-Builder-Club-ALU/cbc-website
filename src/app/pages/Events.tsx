@@ -122,10 +122,10 @@ export function Events() {
   return (
     <div className="min-h-screen">
       {/* ── Hero ── */}
-      <section className="bg-gradient-to-b from-[#D97757]/10 to-transparent py-20 border-b border-[#2A2A2A]">
+      <section className="bg-gradient-to-b from-[#D97757]/10 to-transparent py-20 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">Events</h1>
-          <p className="text-xl text-[#9CA3AF] max-w-2xl">
+          <p className="text-xl text-muted-foreground max-w-2xl">
             Join us for workshops, hackathons, and tech talks. Build skills, make
             connections, and shape the future of AI.
           </p>
@@ -140,13 +140,6 @@ export function Events() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-          {/* Calendar widget */}
-          {/*
-            Pass your Google Calendar ID here to enable the "Add CBC Calendar"
-            subscribe button. Leave undefined to show a placeholder alert.
-
-            calendarId="abc123@group.calendar.google.com"
-          */}
           <EventCalendar events={upcomingEvents} />
 
           {/* Upcoming event cards */}
@@ -154,7 +147,7 @@ export function Events() {
             {upcomingEvents.map((event) => (
               <div
                 key={event.id}
-                className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-5 hover:border-[#D97757] transition-all group"
+                className="bg-card border border-border rounded-2xl p-5 hover:border-[#D97757] transition-all group"
               >
                 <div className="flex items-start justify-between gap-4 mb-3">
                   <div>
@@ -171,11 +164,11 @@ export function Events() {
                   </div>
                 </div>
 
-                <p className="text-[#9CA3AF] text-sm mb-4 leading-relaxed line-clamp-2">
+                <p className="text-muted-foreground text-sm mb-4 leading-relaxed line-clamp-2">
                   {event.description}
                 </p>
 
-                <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#9CA3AF]">
+                <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
                   <span>🕐 {event.time}</span>
                   <span>📍 {event.location}</span>
                 </div>
@@ -186,7 +179,7 @@ export function Events() {
       </section>
 
       {/* ── Past Events ── */}
-      <section className="py-20 bg-[#1A1A1A]/50 border-y border-[#2A2A2A]">
+      <section className="py-20 bg-card/50 border-y border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12">
             <h2 className="text-4xl font-bold mb-2">Past Events</h2>
@@ -197,7 +190,7 @@ export function Events() {
             {pastEvents.map((event) => (
               <div
                 key={event.id}
-                className="bg-[#0D0D0D] border border-[#2A2A2A] rounded-2xl overflow-hidden hover:border-[#D97757] transition-all group"
+                className="bg-background border border-border rounded-2xl overflow-hidden hover:border-[#D97757] transition-all group"
               >
                 {event.resources.photo && (
                   <div className="relative h-48 overflow-hidden">
@@ -220,11 +213,11 @@ export function Events() {
                   <h3 className="text-xl font-bold mb-2 group-hover:text-[#D97757] transition-colors">
                     {event.title}
                   </h3>
-                  <div className="flex items-center gap-2 text-sm text-[#9CA3AF] mb-1">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-1">
                     <MapPin size={14} />
                     <span>{event.location}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-[#9CA3AF] mb-4">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
                     <Users size={14} />
                     <span>{event.attendees} attended</span>
                   </div>
@@ -233,7 +226,7 @@ export function Events() {
                     {event.resources.slides && (
                       <a
                         href={event.resources.slides}
-                        className="flex items-center gap-1 text-xs bg-[#2A2A2A] text-[#F5F5F5] px-3 py-1.5 rounded-lg hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all"
+                        className="flex items-center gap-1 text-xs bg-secondary text-foreground px-3 py-1.5 rounded-lg hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all"
                       >
                         <FileText size={14} />
                         Slides
@@ -242,7 +235,7 @@ export function Events() {
                     {event.resources.photo && (
                       <a
                         href={event.resources.photo}
-                        className="flex items-center gap-1 text-xs bg-[#2A2A2A] text-[#F5F5F5] px-3 py-1.5 rounded-lg hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all"
+                        className="flex items-center gap-1 text-xs bg-secondary text-foreground px-3 py-1.5 rounded-lg hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all"
                       >
                         <ImageIcon size={14} />
                         Photos
@@ -251,7 +244,7 @@ export function Events() {
                     {event.resources.github && (
                       <a
                         href={event.resources.github}
-                        className="flex items-center gap-1 text-xs bg-[#2A2A2A] text-[#F5F5F5] px-3 py-1.5 rounded-lg hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all"
+                        className="flex items-center gap-1 text-xs bg-secondary text-foreground px-3 py-1.5 rounded-lg hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all"
                       >
                         <Github size={14} />
                         Demo
@@ -260,7 +253,7 @@ export function Events() {
                     {event.resources.recording && (
                       <a
                         href={event.resources.recording}
-                        className="flex items-center gap-1 text-xs bg-[#2A2A2A] text-[#F5F5F5] px-3 py-1.5 rounded-lg hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all"
+                        className="flex items-center gap-1 text-xs bg-secondary text-foreground px-3 py-1.5 rounded-lg hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all"
                       >
                         <Video size={14} />
                         Recording
