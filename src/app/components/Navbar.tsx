@@ -87,9 +87,18 @@ export function Logo() {
 }
 
 function ThemeToggleButton({ className = "" }: { className?: string }) {
-  const { theme, setTheme } = useTheme();
-  const isDark = theme === "dark";
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted || !resolvedTheme) {
+    return null;
+  }
+
+  const isDark = resolvedTheme === "dark";
   return (
     <motion.button
       onClick={() => setTheme(isDark ? "light" : "dark")}
