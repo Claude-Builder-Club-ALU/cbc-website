@@ -153,12 +153,19 @@
 
 @layer base {
   /* Smooth, consistent theme transition for every element */
-  *, *::before, *::after {
-    transition-property: color, background-color, border-color;
-    transition-timing-function: ease;
-    transition-duration: 250ms;
+  @media (prefers-reduced-motion: no-preference) {
+    *, *::before, *::after {
+      transition-property: color, background-color, border-color;
+      transition-timing-function: ease;
+      transition-duration: 250ms;
+    }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition: none !important;
+    }
+  }
   * {
     @apply border-border outline-ring/50;
   }
