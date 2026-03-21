@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 // ── Physics constants ──────────────────────────────────────────────────────
-const COUNT         = 50;    // number of logo bodies in the simulation
+const COUNT         = 70;    // number of logo bodies in the simulation
 const GRAVITY       = 0.18;  // downward acceleration per frame
 const BOUNCE        = 0.45;  // velocity retained after hitting a wall or floor
 const FRICTION      = 0.76;  // horizontal slowdown when sliding on the floor
@@ -54,7 +54,7 @@ export function LogoPool({ className = "" }: { className?: string }) {
 
     // ── Bodies ───────────────────────────────────────────────────────────────
     const makeBody = (): Body => {
-      const size = 18 + Math.random() * 18;
+      const size = 28 + Math.random() * 18;
       return {
         x:     Math.random() * W,
         y:     -(size + Math.random() * H * 0.8),
