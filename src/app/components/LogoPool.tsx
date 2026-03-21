@@ -43,10 +43,12 @@ export function LogoPool({ className = "" }: { className?: string }) {
     // ── Canvas sizing ────────────────────────────────────────────────────────
     let W = 0, H = 0;
     const resize = () => {
+      const dpr = window.devicePixelRatio || 1;
       W = canvas.offsetWidth;
       H = canvas.offsetHeight;
-      canvas.width  = W;
-      canvas.height = H;
+      canvas.width  = Math.round(W * dpr);
+      canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
     resize();
 
