@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Instagram, Linkedin, Twitter, Github, Mail } from "lucide-react";
+import { Instagram, Linkedin, Twitter, Github, Mail, LucideAtSign } from "lucide-react";
 
 export function Footer() {
   return (
@@ -9,13 +9,14 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-[#D97757] flex items-center justify-center">
-                <span className="font-bold text-[#0D0D0D]">ALU</span>
-              </div>
-              <span className="text-muted-foreground">×</span>
-              <div className="w-10 h-10 rounded-lg bg-[#D97757] flex items-center justify-center">
-                <span className="font-bold text-[#0D0D0D]">C</span>
-              </div>
+              <span className="text-xl font-bold font-sans flex items-center gap-0.5 text-foreground pr-4 whitespace-nowrap pointer-events-none select-none">
+                <div className="w-fit flex">
+                  <img src="/logos/anthropic_black.png" alt="Anthropic" className="h-4 dark:hidden" />
+                  <img src="/logos/anthropic_white.png" alt="Anthropic" className="h-4 hidden dark:flex" />
+                </div>
+                <LucideAtSign className="h-5" />
+                ALU
+              </span>
             </div>
             <p className="text-muted-foreground max-w-sm mb-4">
               Building the future with AI at African Leadership University. Join us to explore, create, and innovate with Claude.
