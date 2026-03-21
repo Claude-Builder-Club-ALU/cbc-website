@@ -110,7 +110,7 @@ END:VCALENDAR`;
             </a>
             <Link
               to="/projects"
-              className="border-2 border-[#D97757] text-[#D97757] hover:text-white px-8 h-12 rounded-full font-semibold hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all flex items-center gap-2 w-full sm:w-auto justify-center"
+              className="border-2 border-[#D97757] text-[#D97757] px-8 h-12 rounded-full font-semibold hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all flex items-center gap-2 w-full sm:w-auto justify-center"
             >
               See Our Work
             </Link>
