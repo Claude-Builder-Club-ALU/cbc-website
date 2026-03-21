@@ -79,9 +79,8 @@ function FAQItem({ q, a }: { q: string; a: React.ReactNode }) {
         <span className="font-semibold text-lg">{q}</span>
         <ChevronDown
           size={20}
-          className={`shrink-0 text-[#D97757] transition-transform duration-200 ${
-            open ? "rotate-180" : ""
-          }`}
+          className={`shrink-0 text-[#D97757] transition-transform duration-200 ${open ? "rotate-180" : ""
+            }`}
         />
       </button>
 
@@ -121,7 +120,7 @@ export function FAQ() {
         <div className="mt-14 text-center">
           <p className="text-muted-foreground mb-4">Still stuck?</p>
           <a
-            href="mailto:cbc@alueducation.com"
+            href="mailto:cbcalu.rw@gmail.com"
             className="inline-block border border-border text-foreground px-6 py-3 rounded-xl hover:border-[#D97757] hover:text-[#D97757] transition-all"
           >
             Reach out to us →

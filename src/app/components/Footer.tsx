@@ -23,8 +23,8 @@ export function Footer() {
             </p>
             <div className="flex items-center gap-2 text-muted-foreground">
               <Mail size={16} />
-              <a href="mailto:cbc@alustudent.com" className="hover:text-[#D97757] transition-colors">
-                cbc@alustudent.com
+              <a href="mailto:cbcalu.rw@gmail.com" className="hover:text-[#D97757] transition-colors">
+                cbcalu.rw@gmail.com
               </a>
             </div>
           </div>
@@ -80,7 +80,7 @@ export function Footer() {
                 <Instagram size={20} />
               </a>
               <a
-                href="https://linkedin.com/company/cbc-alu"
+                href="https://www.linkedin.com/company/claude-builder-club-alu/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg bg-card flex items-center justify-center text-muted-foreground hover:text-[#D97757] hover:bg-secondary transition-all border border-border"
@@ -98,7 +98,7 @@ export function Footer() {
                 <Twitter size={20} />
               </a>
               <a
-                href="https://github.com/cbc-alu"
+                href="https://github.com/Claude-Builder-Club-ALU"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg bg-card flex items-center justify-center text-muted-foreground hover:text-[#D97757] hover:bg-secondary transition-all border border-border"
