@@ -24,6 +24,10 @@ export function PhotoCarousel() {
     { url: "/tabling-1/IMG_0149.jpg", caption: "Tabling · ALU Campus" },
     { url: "/tabling-2/1e1f34bc-7bb0-46ac-a27e-0cd86067a49b.jpg", caption: "Tabling · ALU Campus" },
     { url: "/tabling-2/78c81df2-0367-4147-860e-ca7d0be8921a.jpg", caption: "Tabling · ALU Campus" },
+    // Intro to MCP (Meeting 3)
+    { url: "/cbc-meeting-3/IMG_1677.jpg", caption: "Intro to MCP · CBC Meeting 3" },
+    // Tabling 3
+    { url: "/tabling-3/IMG_5295.jpg", caption: "Tabling · ALU Campus" },
   ];
 
   const tripled = [...photos, ...photos, ...photos];

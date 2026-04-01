@@ -33,6 +33,14 @@ const galleryItems = [
   { id: 12, url: "/tabling-2/1e1f34bc-7bb0-46ac-a27e-0cd86067a49b.jpg", title: "Tabling", event: "Tabling 2" },
   { id: 13, url: "/tabling-2/78c81df2-0367-4147-860e-ca7d0be8921a.jpg", title: "Tabling", event: "Tabling 2" },
   { id: 14, url: "/tabling-2/95c8cfc4-87ca-4b60-b245-192d124c3850.jpg", title: "Tabling", event: "Tabling 2" },
+
+  // Intro to MCP — Meeting 3
+  { id: 15, url: "/cbc-meeting-3/IMG_1677.jpg", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
+  { id: 16, url: "/cbc-meeting-3/IMG_1683.jpg", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
+
+  // Tabling 3
+  { id: 17, url: "/tabling-3/IMG_5295.jpg", title: "Tabling", event: "Tabling 3" },
+  { id: 18, url: "/tabling-3/IMG_5298.jpg", title: "Tabling", event: "Tabling 3" },
 ];
 
 export function Gallery() {
