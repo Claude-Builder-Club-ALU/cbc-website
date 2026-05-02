@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useMemo } from "react";
 import { X } from "lucide-react";
 
 // Width of each slide slot (image + gap). Adjust to taste.
@@ -11,24 +11,46 @@ interface Photo {
   caption: string;
 }
 
+const CAROUSEL_PHOTOS: Photo[] = [
+  // CBC Kickoff — Feb 2026
+  { url: "/cbc-meeting-1/IMG_6927.jpg", caption: "CBC Kickoff · Feb 2026" },
+  { url: "/cbc-meeting-1/IMG_0328.jpg", caption: "AI Fluency and Claude Demo · CBC Kickoff" },
+  { url: "/cbc-meeting-1/IMG_7894.jpg", caption: "CBC Kickoff · Feb 2026" },
+  // Claude Code Workshop — Mar 2026
+  { url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.jpg", caption: "Intro to Claude Code · Mar 2026" },
+  { url: "/cbc-meeting-2/2a92db3b-b5c8-41eb-ba4b-6a219e28f92a.jpg", caption: "Live Coding with Claude Code · Mar 2026" },
+  { url: "/cbc-meeting-2/13336e25-ce99-4e77-ba8d-3249f029b2aa.jpg", caption: "Claude Code Workshop · Mar 2026" },
+  { url: "/cbc-meeting-2/1ee16cd9-a55b-4dba-8e90-94fd14e311d0.jpg", caption: "Claude Code Workshop · Mar 2026" },
+  { url: "/cbc-meeting-2/bac3e2b9-b607-4bdf-8f53-ec39e3778041.jpg", caption: "Claude Code Workshop · Mar 2026" },
+  { url: "/cbc-meeting-2/d9ff5c2b-4093-4ebb-aa74-1204e0b67b27.jpg", caption: "Claude Code Workshop · Mar 2026" },
+  // Intro to MCP — Meeting 3
+  { url: "/cbc-meeting-3/IMG_1683.jpg", caption: "Intro to MCP · CBC Meeting 3" },
+  { url: "/cbc-meeting-3/IMG_1688.jpg", caption: "Intro to MCP · CBC Meeting 3" },
+  { url: "/cbc-meeting-3/IMG_1693.jpg", caption: "Intro to MCP · CBC Meeting 3" },
+  // Tabling 1
+  { url: "/tabling-1/IMG_0112.jpg", caption: "Tabling · ALU Campus" },
+  { url: "/tabling-1/IMG_0157.jpg", caption: "Tabling · ALU Campus" },
+  { url: "/tabling-1/IMG_0167.jpg", caption: "Tabling · ALU Campus" },
+  { url: "/tabling-1/IMG_7694.jpg", caption: "Tabling · ALU Campus" },
+  { url: "/tabling-1/IMG_7721.jpg", caption: "Tabling · ALU Campus" },
+  // Tabling 3
+  { url: "/tabling-3/IMG-20260330-WA0016.jpg", caption: "Tabling · ALU Campus" },
+  { url: "/tabling-3/IMG-20260330-WA0019.jpg", caption: "Tabling · ALU Campus" },
+  { url: "/tabling-3/IMG_5295.jpg", caption: "Tabling · ALU Campus" },
+  { url: "/tabling-3/IMG_5298.jpg", caption: "Tabling · ALU Campus" },
+];
+
+function shufflePhotos(items: Photo[]): Photo[] {
+  const out = [...items];
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+
 export function PhotoCarousel() {
-  const photos: Photo[] = [
-    // CBC Kickoff — Feb 20, 2026
-    { url: "/cbc-meeting-1/IMG_6927.jpg", caption: "CBC Kickoff · Feb 2026" },
-    { url: "/cbc-meeting-1/IMG_0328.jpg", caption: "AI Fluency & Claude Demo · CBC Kickoff" },
-    // Claude Code Workshop — Mar 6, 2026 (with Alex Notov, Anthropic)
-    { url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.jpg", caption: "Intro to Claude Code · Mar 2026" },
-    { url: "/cbc-meeting-2/2a92db3b-b5c8-41eb-ba4b-6a219e28f92a.jpg", caption: "Live Coding with Claude Code" },
-    // Tabling
-    { url: "/tabling-1/IMG_7721.jpg", caption: "Tabling · ALU Campus" },
-    { url: "/tabling-1/IMG_0149.jpg", caption: "Tabling · ALU Campus" },
-    { url: "/tabling-2/1e1f34bc-7bb0-46ac-a27e-0cd86067a49b.jpg", caption: "Tabling · ALU Campus" },
-    { url: "/tabling-2/78c81df2-0367-4147-860e-ca7d0be8921a.jpg", caption: "Tabling · ALU Campus" },
-    // Intro to MCP (Meeting 3)
-    { url: "/cbc-meeting-3/IMG_1677.jpg", caption: "Intro to MCP · CBC Meeting 3" },
-    // Tabling 3
-    { url: "/tabling-3/IMG_5295.jpg", caption: "Tabling · ALU Campus" },
-  ];
+  const photos = useMemo(() => shufflePhotos(CAROUSEL_PHOTOS), []);
 
   const tripled = [...photos, ...photos, ...photos];
   const origWidth = photos.length * SLIDE_WIDTH;

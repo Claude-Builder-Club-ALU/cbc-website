@@ -26,9 +26,14 @@ function NavLinks({ isActive, showBrand }: { isActive: (path: string) => boolean
           >
             <span className="flex items-center pr-4 pointer-events-none select-none overflow-visible">
               <img
+                src="/logos/alu-logo_for_white.png"
+                alt="Claude Builder Club at African Leadership University"
+                className="relative z-10 h-9 sm:h-10 md:h-11 lg:h-12 xl:h-14 w-auto max-w-[min(82vw,260px)] object-contain object-left drop-shadow-[0_2px_6px_rgba(0,0,0,0.1)] dark:hidden"
+              />
+              <img
                 src="/logos/alu-logo.png"
                 alt="Claude Builder Club at African Leadership University"
-                className="relative z-10 h-[6.5rem] sm:h-28 md:h-[7.5rem] lg:h-32 xl:h-[9rem] w-auto max-w-[min(82vw,640px)] object-contain object-left"
+                className="relative z-10 hidden h-9 sm:h-10 md:h-11 lg:h-12 xl:h-14 w-auto max-w-[min(82vw,260px)] object-contain object-left dark:block drop-shadow-[0_0_22px_rgba(255,255,255,0.09)]"
               />
             </span>
           </motion.div>
