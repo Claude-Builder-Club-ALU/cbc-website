@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router";
-import { Sun, Moon, HelpCircle, AlignJustify, X, LucideAtSign } from "lucide-react";
+import { Sun, Moon, HelpCircle, AlignJustify, X } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
@@ -13,8 +13,8 @@ const navLinks = [
 
 function NavLinks({ isActive, showBrand }: { isActive: (path: string) => boolean; showBrand: boolean }) {
   return (
-    <div className="hidden md:flex flex-1 items-center gap-0">
-      {/* anthropic@ALU — visible only on home when hero logo is showing */}
+    <div className="hidden md:flex flex-1 items-center gap-0 overflow-visible">
+      {/* CBC @ ALU lockup — visible only on home when hero logo is showing */}
       <AnimatePresence initial={false}>
         {showBrand && (
           <motion.div
@@ -22,15 +22,14 @@ function NavLinks({ isActive, showBrand }: { isActive: (path: string) => boolean
             animate={{ width: "auto", opacity: 1 }}
             exit={{ width: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden shrink-0"
+            className="shrink-0 overflow-visible"
           >
-            <span className="text-lg font-extrabold flex items-center text-foreground pr-4 whitespace-nowrap pointer-events-none select-none">
-              <div className="w-[106px] flex">
-                <img src="/logos/anthropic_black.png" alt="Anthropic" className="h-3 w-[106px] dark:hidden" />
-                <img src="/logos/anthropic_white.png" alt="Anthropic" className="h-3 w-[106px] hidden dark:flex" />
-              </div>
-              <LucideAtSign className="h-4" />
-              ALU
+            <span className="flex items-center pr-4 pointer-events-none select-none overflow-visible">
+              <img
+                src="/logos/alu-logo.png"
+                alt="Claude Builder Club at African Leadership University"
+                className="relative z-10 h-[6.5rem] sm:h-28 md:h-[7.5rem] lg:h-32 xl:h-[9rem] w-auto max-w-[min(82vw,640px)] object-contain object-left"
+              />
             </span>
           </motion.div>
         )}
@@ -176,14 +175,14 @@ export function Navbar() {
 
   return (
     <nav
-      className={`sticky top-0 z-50 transition-all duration-300
+      className={`sticky top-0 z-50 overflow-visible transition-all duration-300
          ${scrolled
           ? "bg-background/95 backdrop-blur-md border-b border-border"
           : "bg-background/95 border-b border-transparent"
         }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center h-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-visible">
+        <div className="flex items-center h-20 overflow-visible">
 
           {/* ── Mobile: Logo left ── */}
           <div className="flex-1 md:hidden">

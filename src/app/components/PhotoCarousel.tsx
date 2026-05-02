@@ -15,7 +15,7 @@ export function PhotoCarousel() {
   const photos: Photo[] = [
     // CBC Kickoff — Feb 20, 2026
     { url: "/cbc-meeting-1/IMG_6927.jpg", caption: "CBC Kickoff · Feb 2026" },
-    { url: "/cbc-meeting-1/IMG_7950.jpg", caption: "AI Fluency & Claude Demo · CBC Kickoff" },
+    { url: "/cbc-meeting-1/IMG_0328.jpg", caption: "AI Fluency & Claude Demo · CBC Kickoff" },
     // Claude Code Workshop — Mar 6, 2026 (with Alex Notov, Anthropic)
     { url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.jpg", caption: "Intro to Claude Code · Mar 2026" },
     { url: "/cbc-meeting-2/2a92db3b-b5c8-41eb-ba4b-6a219e28f92a.jpg", caption: "Live Coding with Claude Code" },

@@ -2,7 +2,6 @@ import { Link } from "react-router";
 import { ArrowRight, Calendar, MapPin, Users, Gift, Code2, Trophy, Shield, Zap, Globe } from "lucide-react";
 import { PhotoCarousel } from "../components/PhotoCarousel";
 import { TestimonialCarousel } from "../components/TestimonialCarousel";
-import { Logo } from "../components/Navbar";
 import { LogoPool } from "../components/LogoPool";
 
 export function Home() {
