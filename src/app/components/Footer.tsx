@@ -10,12 +10,12 @@ export function Footer() {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
               <img
-                src="/logos/alu-logo_for_white.png"
+                src="/logos/cbc-logo_coloured.png"
                 alt="Claude Builder Club at African Leadership University"
                 className="h-9 sm:h-10 md:h-11 lg:h-12 xl:h-14 w-auto max-w-[min(100%,260px)] object-contain object-left drop-shadow-[0_2px_6px_rgba(0,0,0,0.1)] dark:hidden"
               />
               <img
-                src="/logos/alu-logo.png"
+                src="/logos/cbc-logo.png"
                 alt="Claude Builder Club at African Leadership University"
                 className="hidden h-9 sm:h-10 md:h-11 lg:h-12 xl:h-14 w-auto max-w-[min(100%,260px)] object-contain object-left dark:block drop-shadow-[0_0_22px_rgba(255,255,255,0.09)]"
               />

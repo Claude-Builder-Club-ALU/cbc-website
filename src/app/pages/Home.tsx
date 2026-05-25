@@ -1,115 +1,11 @@
 import { Link } from "react-router";
-import { ArrowRight, Calendar, MapPin, User, Star, BookOpen, Heart, Gift, Code2, Trophy, Shield, Zap, Globe } from "lucide-react";
+import { ArrowRight, User, Star, BookOpen, Heart, Gift, Code2, Trophy, Shield, Zap, Globe } from "lucide-react";
 import { PhotoCarousel } from "../components/PhotoCarousel";
 import { TestimonialCarousel } from "../components/TestimonialCarousel";
 import { LogoPool } from "../components/LogoPool";
-
-type EventRowIcon = "calendar" | "map" | "user";
-
-interface HomeUpcomingEvent {
-  id: number;
-  dateLabel: string;
-  title: string;
-  rows: { icon: EventRowIcon; text: string }[];
-  chip?: string;
-  featured: boolean;
-  seasonFinale?: boolean;
-  action: "checkBack" | "calendar";
-  ics?: {
-    date: string;
-    start: string;
-    end: string;
-    location: string;
-  };
-}
+import { UpcomingEventsBlock } from "../components/UpcomingEventsBlock";
 
 export function Home() {
-  const upcomingEvents: HomeUpcomingEvent[] = [
-    {
-      id: 1,
-      dateLabel: "Date to be announced",
-      title: "AI Fluency and Ethical Use of AI Workshop",
-      rows: [
-        { icon: "calendar", text: "Scheduled by Student Success" },
-        { icon: "user", text: "ALU Kigali Campus" },
-      ],
-      chip: "Official date TBD",
-      featured: false,
-      action: "checkBack",
-    },
-    {
-      id: 2,
-      dateLabel: "May 15, 2026",
-      title: "Workshop: Building with AI Agents",
-      rows: [
-        { icon: "calendar", text: "02:30 - 04:00" },
-        { icon: "map", text: "Algeria Classroom, Social commons" },
-      ],
-      featured: false,
-      action: "calendar",
-      ics: {
-        date: "2026-05-15",
-        start: "10:00",
-        end: "11:00",
-        location: "Algeria Classroom, ALU",
-      },
-    },
-    {
-      id: 3,
-      dateLabel: "May 29, 2026",
-      title: "Hackathon: AI for Africa",
-      rows: [
-        { icon: "calendar", text: "09:00 - 21:00" },
-        { icon: "map", text: "Kenya-Burundi Hall, Enterprise commons" },
-      ],
-      featured: true,
-      seasonFinale: true,
-      action: "calendar",
-      ics: {
-        date: "2026-04-02",
-        start: "09:00",
-        end: "21:00",
-        location: "Kenya-Burundi Hall, ALU",
-      },
-    },
-  ];
-
-  const addToCalendar = (event: HomeUpcomingEvent) => {
-    if (!event.ics) return;
-    const eventDate = new Date(`${event.ics.date}T${event.ics.start}`);
-    const endDate = new Date(`${event.ics.date}T${event.ics.end}`);
-
-    const icsContent = `BEGIN:VCALENDAR
-VERSION:2.0
-BEGIN:VEVENT
-DTSTART:${eventDate.toISOString().replace(/[-:]/g, "").split(".")[0]}Z
-DTEND:${endDate.toISOString().replace(/[-:]/g, "").split(".")[0]}Z
-SUMMARY:${event.title}
-LOCATION:${event.ics.location}
-DESCRIPTION:Claude Builder Club Event at ALU
-END:VEVENT
-END:VCALENDAR`;
-
-    const blob = new Blob([icsContent], { type: "text/calendar" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${event.title.replace(/[^a-z0-9]/gi, "_")}.ics`;
-    link.click();
-    URL.revokeObjectURL(url);
-  };
-
-  const rowIcon = (icon: EventRowIcon) => {
-    switch (icon) {
-      case "calendar":
-        return Calendar;
-      case "map":
-        return MapPin;
-      default:
-        return User;
-    }
-  };
-
   return (
     <div>
       {/* ── Hero ──────────────────────────────────────────────────────────────── */}
@@ -119,13 +15,13 @@ END:VCALENDAR`;
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
 
           {/* ── Desktop center: Logo ── */}
-          <div id="hero-logo" className="hidden md:flex flex-1 justify-center mb-10">
+          <div id="hero-logo" className="hidden md:flex flex-1 justify-center mb-4 ">
             {/* <Logo /> */}
-            <Link to="/" className="flex items-center max-md:items-start gap-5 group">
+            <Link to="/" className="flex items-center max-md:items-start group md:translate-x-4">
               <img src="/logos/alu_colored.png" alt="ALU" className="h-8 max-md:h-5 dark:hidden" />
               <img src="/logos/alu_white.png" alt="ALU" className="h-8 max-md:h-5 hidden dark:flex" />
-              <img src="/logos/claude_colored.png" alt="Claude" className="h-9 max-md:h-5 dark:hidden" />
-              <img src="/logos/claude_white.png" alt="Claude" className="h-9 max-md:h-5 hidden dark:flex" />
+              <img src="/logos/cbc-logo_coloured.png" alt="Claude Builder Club" className="h-20 max-md:h-5 dark:hidden" />
+              <img src="/logos/cbc-logo.png" alt="Claude Builder Club" className="h-20 max-md:h-5 hidden dark:flex" />
             </Link>
           </div>
 
@@ -238,88 +134,7 @@ END:VCALENDAR`;
         </div>
       </section>
 
-      {/* ── Upcoming Events ───────────────────────────────────────────────────── */}
-      <section className="py-20 sm:py-24 bg-[#0D0D0D] text-[#F5F5F5] border-y border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6 mb-12 lg:mb-14">
-            <div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-2">Upcoming Events</h2>
-              <p className="text-zinc-400 text-base sm:text-lg max-w-xl">
-                Stay engaged with what is coming up this semester
-              </p>
-            </div>
-            <Link
-              to="/events"
-              className="inline-flex items-center gap-1.5 text-[#D97757] font-medium hover:text-[#E08967] transition-colors shrink-0"
-            >
-              View All
-              <ArrowRight size={18} className="text-[#D97757]" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {upcomingEvents.map((event) => (
-                <div
-                  key={event.id}
-                  className={`relative rounded-2xl p-6 sm:p-7 flex flex-col h-full bg-[#1A1A1A] border transition-colors ${
-                    event.featured
-                      ? "border-2 border-[#D97757] shadow-[0_0_0_1px_rgba(217,119,87,0.15)]"
-                      : "border border-white/10 hover:border-white/20"
-                  } ${event.seasonFinale ? "pt-9 sm:pt-10" : ""}`}
-                >
-                  {event.seasonFinale && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
-                      <span className="inline-flex items-center gap-1.5 bg-[#D97757] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md whitespace-nowrap">
-                        <Star size={12} className="text-amber-200 fill-amber-200 shrink-0" aria-hidden />
-                        Season Finale
-                      </span>
-                    </div>
-                  )}
-
-                  <p className="text-[#D97757] font-semibold text-sm sm:text-base mb-3 mt-1">{event.dateLabel}</p>
-                  <h3 className="text-lg sm:text-xl font-bold text-white leading-snug mb-4">{event.title}</h3>
-                  <div className="border-t border-white/10 mb-4" />
-                  <div className="space-y-3 text-zinc-400 text-sm flex-1 mb-5">
-                    {event.rows.map((row, i) => {
-                      const Icon = rowIcon(row.icon);
-                      return (
-                        <div key={i} className="flex items-start gap-2.5">
-                          <Icon size={16} className="shrink-0 mt-0.5 text-zinc-500" aria-hidden />
-                          <span className="leading-snug">{row.text}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  {event.chip && (
-                    <div className="mb-5">
-                      <span className="inline-block text-xs font-medium text-zinc-400 bg-zinc-800/80 border border-white/10 rounded-full px-3 py-1">
-                        {event.chip}
-                      </span>
-                    </div>
-                  )}
-
-                  {event.action === "checkBack" ? (
-                    <button
-                      type="button"
-                      className="w-full mt-auto py-3 rounded-xl font-semibold text-white border border-white/80 bg-transparent hover:bg-white/10 transition-colors"
-                    >
-                      Check Back Soon
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => addToCalendar(event)}
-                      className="w-full mt-auto py-3 rounded-xl font-semibold text-white border border-white/80 bg-transparent hover:bg-white/10 transition-colors"
-                    >
-                      Add to Calendar
-                    </button>
-                  )}
-                </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <UpcomingEventsBlock />
 
       {/* ── Who We Are ───────────────────────────────────────────────────────── */}
       <section className="py-20 sm:py-24 bg-[#0D0D0D] text-[#F5F5F5] border-y border-white/10">
@@ -423,12 +238,12 @@ END:VCALENDAR`;
       </section>
 
       {/* ── Testimonials ─────────────────────────────────────────────────────── */}
-      <section className="py-20 border-t border-border">
+      {/* <section className="py-20 border-t border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-center mb-12">What Our Members Say</h2>
           <TestimonialCarousel />
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }

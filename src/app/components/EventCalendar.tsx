@@ -13,6 +13,11 @@ export interface CalEvent {
 interface EventCalendarProps {
   events: CalEvent[];
   /**
+   * When set, clicking a day that has an event invokes this callback instead of
+   * opening the built-in modal. Use on the Events page to sync with the detail panel.
+   */
+  onEventDayClick?: (ev: CalEvent) => void;
+  /**
    * Your public Google Calendar ID.
    * How to get it:
    *  1. Go to calendar.google.com and create a calendar for CBC events.
@@ -49,7 +54,7 @@ function buildGCalEventLink(ev: CalEvent) {
   );
 }
 
-export function EventCalendar({ events, calendarId }: EventCalendarProps) {
+export function EventCalendar({ events, calendarId, onEventDayClick }: EventCalendarProps) {
   const today = new Date();
   const [viewYear, setViewYear]   = useState(today.getFullYear());
   const [viewMonth, setViewMonth] = useState(today.getMonth());
@@ -158,8 +163,22 @@ export function EventCalendar({ events, calendarId }: EventCalendarProps) {
                 key={i}
                 role={ev ? "button" : undefined}
                 tabIndex={ev ? 0 : undefined}
-                onClick={() => ev && setSelected(ev)}
-                onKeyDown={e => e.key === "Enter" && ev && setSelected(ev)}
+                onClick={() => {
+                  if (!ev) return;
+                  if (onEventDayClick) {
+                    onEventDayClick(ev);
+                    return;
+                  }
+                  setSelected(ev);
+                }}
+                onKeyDown={e => {
+                  if (e.key !== "Enter" || !ev) return;
+                  if (onEventDayClick) {
+                    onEventDayClick(ev);
+                    return;
+                  }
+                  setSelected(ev);
+                }}
                 className={[
                   "h-16 sm:h-20 rounded-lg transition-all duration-200 flex flex-col items-start justify-start relative p-1.5",
                   ev
@@ -203,7 +222,7 @@ export function EventCalendar({ events, calendarId }: EventCalendarProps) {
       </div>
 
       {/* ── Event detail popup ──────────────────────────────────────────────── */}
-      {selected && (
+      {selected && !onEventDayClick && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
           onClick={() => setSelected(null)}
