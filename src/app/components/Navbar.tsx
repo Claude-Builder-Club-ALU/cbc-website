@@ -26,7 +26,7 @@ function NavLinks({ isActive, showBrand }: { isActive: (path: string) => boolean
           >
             <Link
               to="/"
-              className="flex items-center pr-4 overflow-visible shrink-0 rounded-md outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#D97757]"
+              className="flex items-center pr-0 overflow-visible shrink-0 rounded-md outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#D97757]"
               aria-label="Claude Builder Club at ALU, home"
             >
               <img
