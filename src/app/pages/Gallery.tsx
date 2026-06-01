@@ -10,37 +10,36 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 // new entries here with the matching url and event label.
 // ─────────────────────────────────────────────────────────────────────────────
 const galleryItems = [
-  // CBC Kickoff — Feb 20, 2026
-  // Info session: AI Fluency, Claude demo, cowork, 5-min hackathon, free Pro claim
+  // CBC Kickoff — Feb 2026
   { id: 1, url: "/cbc-meeting-1/IMG_6927.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
-  { id: 2, url: "/cbc-meeting-1/IMG_7894.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
-  { id: 3, url: "/cbc-meeting-1/IMG_7950.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
-  { id: 4, url: "/cbc-meeting-1/IMG_7965.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
+  { id: 2, url: "/cbc-meeting-1/IMG_0328.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
+  { id: 3, url: "/cbc-meeting-1/IMG_7894.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
 
-  // Claude Code Workshop — Mar 6, 2026
-  // Hands-on session with Chiagoziem: Claude Code setup, agentic coding, MCP
-  { id: 5, url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
-  { id: 6, url: "/cbc-meeting-2/2a92db3b-b5c8-41eb-ba4b-6a219e28f92a.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
-  { id: 7, url: "/cbc-meeting-2/592f47e5-a09c-4585-b1d0-3277838d6eac.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
-
-  // Tabling 1
-  { id: 8, url: "/tabling-1/IMG_0149.jpg", title: "Tabling", event: "Tabling 1" },
-  { id: 9, url: "/tabling-1/IMG_0157.jpg", title: "Tabling", event: "Tabling 1" },
-  { id: 10, url: "/tabling-1/IMG_7678.jpg", title: "Tabling", event: "Tabling 1" },
-  { id: 11, url: "/tabling-1/IMG_7721.jpg", title: "Tabling", event: "Tabling 1" },
-
-  // Tabling 2
-  { id: 12, url: "/tabling-2/1e1f34bc-7bb0-46ac-a27e-0cd86067a49b.jpg", title: "Tabling", event: "Tabling 2" },
-  { id: 13, url: "/tabling-2/78c81df2-0367-4147-860e-ca7d0be8921a.jpg", title: "Tabling", event: "Tabling 2" },
-  { id: 14, url: "/tabling-2/95c8cfc4-87ca-4b60-b245-192d124c3850.jpg", title: "Tabling", event: "Tabling 2" },
+  // Claude Code Workshop — Mar 2026
+  { id: 4, url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
+  { id: 5, url: "/cbc-meeting-2/2a92db3b-b5c8-41eb-ba4b-6a219e28f92a.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
+  { id: 6, url: "/cbc-meeting-2/13336e25-ce99-4e77-ba8d-3249f029b2aa.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
+  { id: 7, url: "/cbc-meeting-2/1ee16cd9-a55b-4dba-8e90-94fd14e311d0.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
+  { id: 8, url: "/cbc-meeting-2/bac3e2b9-b607-4bdf-8f53-ec39e3778041.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
+  { id: 9, url: "/cbc-meeting-2/d9ff5c2b-4093-4ebb-aa74-1204e0b67b27.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
 
   // Intro to MCP — Meeting 3
-  { id: 15, url: "/cbc-meeting-3/IMG_1677.jpg", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
-  { id: 16, url: "/cbc-meeting-3/IMG_1683.jpg", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
+  { id: 10, url: "/cbc-meeting-3/IMG_1683.jpg", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
+  { id: 11, url: "/cbc-meeting-3/IMG_1688.jpg", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
+  { id: 12, url: "/cbc-meeting-3/IMG_1693.jpg", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
+
+  // Tabling 1
+  { id: 13, url: "/tabling-1/IMG_0112.jpg", title: "Tabling", event: "Tabling 1" },
+  { id: 14, url: "/tabling-1/IMG_0157.jpg", title: "Tabling", event: "Tabling 1" },
+  { id: 15, url: "/tabling-1/IMG_0167.jpg", title: "Tabling", event: "Tabling 1" },
+  { id: 16, url: "/tabling-1/IMG_7694.jpg", title: "Tabling", event: "Tabling 1" },
+  { id: 17, url: "/tabling-1/IMG_7721.jpg", title: "Tabling", event: "Tabling 1" },
 
   // Tabling 3
-  { id: 17, url: "/tabling-3/IMG_5295.jpg", title: "Tabling", event: "Tabling 3" },
-  { id: 18, url: "/tabling-3/IMG_5298.jpg", title: "Tabling", event: "Tabling 3" },
+  { id: 18, url: "/tabling-3/IMG-20260330-WA0016.jpg", title: "Tabling", event: "Tabling 3" },
+  { id: 19, url: "/tabling-3/IMG-20260330-WA0019.jpg", title: "Tabling", event: "Tabling 3" },
+  { id: 20, url: "/tabling-3/IMG_5295.jpg", title: "Tabling", event: "Tabling 3" },
+  { id: 21, url: "/tabling-3/IMG_5298.jpg", title: "Tabling", event: "Tabling 3" },
 ];
 
 export function Gallery() {

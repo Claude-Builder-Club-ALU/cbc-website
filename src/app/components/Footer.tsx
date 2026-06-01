@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Instagram, Linkedin, Twitter, Github, Mail, LucideAtSign } from "lucide-react";
+import { Instagram, Linkedin, Twitter, Github, Mail } from "lucide-react";
 
 export function Footer() {
   return (
@@ -9,16 +9,18 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-xl font-bold font-sans flex items-center gap-0.5 text-foreground pr-4 whitespace-nowrap pointer-events-none select-none">
-                <div className="w-fit flex">
-                  <img src="/logos/anthropic_black.png" alt="Anthropic" className="h-4 dark:hidden" />
-                  <img src="/logos/anthropic_white.png" alt="Anthropic" className="h-4 hidden dark:flex" />
-                </div>
-                <LucideAtSign className="h-5" />
-                ALU
-              </span>
+              <img
+                src="/logos/cbc-logo_coloured.png"
+                alt="Claude Builder Club at African Leadership University"
+                className="h-9 sm:h-10 md:h-11 lg:h-12 xl:h-14 w-auto max-w-[min(100%,260px)] object-contain object-left drop-shadow-[0_2px_6px_rgba(0,0,0,0.1)] dark:hidden"
+              />
+              <img
+                src="/logos/cbc-logo.png"
+                alt="Claude Builder Club at African Leadership University"
+                className="hidden h-9 sm:h-10 md:h-11 lg:h-12 xl:h-14 w-auto max-w-[min(100%,260px)] object-contain object-left dark:block drop-shadow-[0_0_22px_rgba(255,255,255,0.09)]"
+              />
             </div>
-            <p className="text-muted-foreground max-w-sm mb-4">
+            <p className="text-muted-foreground max-w-sm mb-6">
               Building the future with AI at African Leadership University. Join us to explore, create, and innovate with Claude.
             </p>
             <div className="flex items-center gap-2 text-muted-foreground">
@@ -116,7 +118,7 @@ export function Footer() {
         {/* Bottom */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <p>© 2026 Claude Builder Club at ALU. All rights reserved.</p>
-          <p>Built with Claude • Designed for African Excellence</p>
+          <p>Built with Claude</p>
         </div>
       </div>
     </footer>

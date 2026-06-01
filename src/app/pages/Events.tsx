@@ -1,47 +1,24 @@
+import { useEffect, useState } from "react";
 import { MapPin, Users, ImageIcon, Github, Video, FileText } from "lucide-react";
 import { EventCalendar, type CalEvent } from "../components/EventCalendar";
+import { EventsPageUpcomingCard } from "../components/EventsPageUpcomingCard";
+import {
+  EVENTS_PAGE_CALENDAR_EVENTS,
+  EVENTS_PAGE_CARDS,
+  cardIdFromCalEvent,
+  getWorkshopHomeEventForIcs,
+  type EventsPageFilter,
+} from "../data/eventsPageUpcoming";
+import { UPCOMING_EVENTS } from "../data/upcomingEvents";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Upcoming events — these are shown both in the calendar and in the card list.
-// To add a new event, push an entry here and it will appear in both places.
-// ─────────────────────────────────────────────────────────────────────────────
-const upcomingEvents: CalEvent[] = [
-  {
-    id: 1,
-    date: "2026-03-25",
-    title: "AI Workshop: Building with Claude API",
-    time: "18:00 - 20:00",
-    location: "Innovation Hub, ALU Kigali",
-    description:
-      "Learn how to integrate Claude API into your applications. Hands-on workshop covering authentication, prompting best practices, and real-world use cases.",
-  },
-  {
-    id: 2,
-    date: "2026-04-02",
-    title: "Hackathon: AI for Africa",
-    time: "09:00 - 21:00",
-    location: "Main Campus",
-    description:
-      "24-hour hackathon focused on building AI solutions for African challenges. Form teams, build with Claude, and compete for prizes.",
-  },
-  {
-    id: 3,
-    date: "2026-04-15",
-    title: "Tech Talk: The Future of AI in Education",
-    time: "17:00 - 19:00",
-    location: "Auditorium A",
-    description:
-      "Join us for an inspiring discussion on how AI is transforming education across Africa, featuring guest speakers from leading tech companies.",
-  },
-  {
-    id: 4,
-    date: "2026-04-22",
-    title: "Project Showcase & Demo Day",
-    time: "16:00 - 19:00",
-    location: "Innovation Hub",
-    description:
-      "Members present their AI projects built during the semester. Great opportunity to see what's possible and get inspired.",
-  },
+const workshopIcsSource = getWorkshopHomeEventForIcs(UPCOMING_EVENTS);
+
+const FILTER_CHIPS: { key: EventsPageFilter; label: string }[] = [
+  { key: "all", label: "All events" },
+  { key: "workshops", label: "Workshops" },
+  { key: "club-meetings", label: "Club meetings" },
+  { key: "hackathon", label: "Hackathon" },
+  { key: "tabling", label: "Tabling" },
 ];
 
 const pastEvents = [
@@ -119,71 +96,125 @@ const pastEvents = [
 ];
 
 export function Events() {
+  const [filter, setFilter] = useState<EventsPageFilter>("all");
+  const [calendarFocusedId, setCalendarFocusedId] = useState<
+    "hackathon" | "workshop" | "fluency" | null
+  >(null);
+
+  const visibleCards =
+    filter === "all"
+      ? EVENTS_PAGE_CARDS
+      : filter === "tabling"
+        ? []
+        : EVENTS_PAGE_CARDS.filter((c) => c.filterKeys.includes(filter));
+
+  useEffect(() => {
+    if (!calendarFocusedId) return;
+    const el = document.getElementById(`event-card-${calendarFocusedId}`);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [calendarFocusedId]);
+
+  const handleCalendarDay = (ev: CalEvent) => {
+    const id = cardIdFromCalEvent(ev);
+    if (id) setCalendarFocusedId(id);
+  };
+
   return (
     <div className="min-h-screen">
-      {/* ── Hero ── */}
-      <section className="bg-gradient-to-b from-[#D97757]/10 to-transparent py-20 border-b border-border">
+      <section className="bg-gradient-to-b from-[#D97757]/10 to-transparent py-16 sm:py-20 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">Events</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl">
-            Join us for workshops, hackathons, and tech talks. Build skills, make
-            connections, and shape the future of AI.
+          <p className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#D97757] mb-2">
+            Spring 2026 Programme
           </p>
-        </div>
-      </section>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 tracking-tight">Events</h1>
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl leading-relaxed">
+            All workshops, club meetings, tabling sessions, and the end-of-semester hackathon for the
+            ALU Claude Builder Club community.
+          </p>
 
-      {/* ── Calendar + Upcoming Events (two-column) ── */}
-      <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-10">
-          <h2 className="text-4xl font-bold mb-2">Upcoming Events</h2>
-          <div className="h-1 w-24 bg-[#D97757]" />
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-          <EventCalendar events={upcomingEvents} />
-
-          {/* Upcoming event cards */}
-          <div className="flex flex-col gap-4">
-            {upcomingEvents.map((event) => (
-              <div
-                key={event.id}
-                className="bg-card border border-border rounded-2xl p-5 hover:border-[#D97757] transition-all group"
-              >
-                <div className="flex items-start justify-between gap-4 mb-3">
-                  <div>
-                    <div className="text-[#D97757] text-sm font-semibold mb-1">
-                      {new Date(event.date + "T00:00:00").toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      })}
-                    </div>
-                    <h3 className="text-lg font-bold group-hover:text-[#D97757] transition-colors leading-snug">
-                      {event.title}
-                    </h3>
-                  </div>
-                </div>
-
-                <p className="text-muted-foreground text-sm mb-4 leading-relaxed line-clamp-2">
-                  {event.description}
-                </p>
-
-                <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
-                  <span>🕐 {event.time}</span>
-                  <span>📍 {event.location}</span>
-                </div>
-              </div>
-            ))}
+          <div
+            className="flex flex-wrap gap-2 mt-8"
+            role="group"
+            aria-label="Filter upcoming events"
+          >
+            {FILTER_CHIPS.map(({ key, label }) => {
+              const active = filter === key;
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => setFilter(key)}
+                  className={[
+                    "px-4 py-2 rounded-full text-sm font-medium transition-colors border",
+                    active
+                      ? "bg-[#D97757] text-[#0D0D0D] border-[#D97757] shadow-sm"
+                      : "bg-card text-muted-foreground border-border hover:border-[#D97757]/50 hover:text-foreground",
+                  ].join(" ")}
+                >
+                  {label}
+                </button>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* ── Past Events ── */}
+      <section id="upcoming" className="py-14 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+          Upcoming
+        </p>
+        <h2 className="text-2xl sm:text-3xl font-bold mb-2">Upcoming events</h2>
+        <p className="text-muted-foreground text-base sm:text-lg max-w-3xl mb-10 sm:mb-12">
+          Stay engaged with what is coming up this semester. Only the May workshop appears on the
+          calendar until further dates are confirmed.
+        </p>
+
+        <div className="grid grid-cols-1 xl:grid-cols-[minmax(280px,380px)_1fr] gap-10 xl:gap-12 items-start">
+          <div className="xl:sticky xl:top-24 space-y-4">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+              Month view
+            </h3>
+            <EventCalendar
+              events={EVENTS_PAGE_CALENDAR_EVENTS}
+              onEventDayClick={handleCalendarDay}
+            />
+          </div>
+
+          <div className="space-y-6 min-w-0">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+              Details
+            </h3>
+            {visibleCards.length === 0 ? (
+              <p className="text-sm text-muted-foreground rounded-2xl border border-dashed border-border p-8">
+                No events match this filter in the upcoming list. Choose another filter or All
+                events to see the full programme.
+              </p>
+            ) : (
+              <div className="flex flex-col gap-6">
+                {visibleCards.map((card) => (
+                  <EventsPageUpcomingCard
+                    key={card.id}
+                    card={card}
+                    highlighted={calendarFocusedId === card.id}
+                    workshopIcsSource={card.id === "workshop" ? workshopIcsSource : undefined}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
       <section className="py-20 bg-card/50 border-y border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12">
-            <h2 className="text-4xl font-bold mb-2">Past Events</h2>
-            <div className="h-1 w-24 bg-[#D97757]" />
+            <h2 className="text-3xl sm:text-4xl font-bold mb-2">Past Events</h2>
+            <p className="text-muted-foreground max-w-2xl mb-4">
+              Highlights from recent CBC gatherings and collaborations.
+            </p>
+            <div className="h-1 w-24 bg-[#D97757] rounded-full" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

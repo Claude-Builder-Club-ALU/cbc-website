@@ -5,7 +5,7 @@ export function TestimonialCarousel() {
   const testimonials = [
     {
       name: "Amara Okafor",
-      role: "Computer Science, Class of 2026",
+      role: "BSE, 2024 May",
       content: "CBC has transformed how I think about AI. The hands-on workshops and supportive community helped me build projects I never thought possible.",
       avatar: "https://images.unsplash.com/photo-1742934029147-6f83f681daa2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZnJpY2FuJTIwd29tYW4lMjBlbmdpbmVlciUyMHRlY2hub2xvZ3klMjBzbWlsaW5nfGVufDF8fHx8MTc3Mzg2Njc1Mnww&ixlib=rb-4.1.0&q=80&w=400",
     },

@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router";
-import { Sun, Moon, HelpCircle, AlignJustify, X, LucideAtSign } from "lucide-react";
+import { Sun, Moon, HelpCircle, AlignJustify, X } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
@@ -13,8 +13,8 @@ const navLinks = [
 
 function NavLinks({ isActive, showBrand }: { isActive: (path: string) => boolean; showBrand: boolean }) {
   return (
-    <div className="hidden md:flex flex-1 items-center gap-0">
-      {/* anthropic@ALU — visible only on home when hero logo is showing */}
+    <div className="hidden md:flex flex-1 items-center gap-0 overflow-visible">
+      {/* CBC @ ALU lockup — links home; hidden while center wordmarks show (scroll down) */}
       <AnimatePresence initial={false}>
         {showBrand && (
           <motion.div
@@ -22,16 +22,24 @@ function NavLinks({ isActive, showBrand }: { isActive: (path: string) => boolean
             animate={{ width: "auto", opacity: 1 }}
             exit={{ width: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden shrink-0"
+            className="shrink-0 overflow-visible"
           >
-            <span className="text-lg font-extrabold flex items-center text-foreground pr-4 whitespace-nowrap pointer-events-none select-none">
-              <div className="w-[106px] flex">
-                <img src="/logos/anthropic_black.png" alt="Anthropic" className="h-3 w-[106px] dark:hidden" />
-                <img src="/logos/anthropic_white.png" alt="Anthropic" className="h-3 w-[106px] hidden dark:flex" />
-              </div>
-              <LucideAtSign className="h-4" />
-              ALU
-            </span>
+            <Link
+              to="/"
+              className="flex items-center pr-0 overflow-visible shrink-0 rounded-md outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#D97757]"
+              aria-label="Claude Builder Club at ALU, home"
+            >
+              <img
+                src="/logos/cbc-logo_coloured.png"
+                alt=""
+                className="relative z-10 h-9 sm:h-10 md:h-11 lg:h-12 xl:h-14 w-auto max-w-[min(82vw,260px)] object-contain object-left drop-shadow-[0_2px_6px_rgba(0,0,0,0.1)] dark:hidden"
+              />
+              <img
+                src="/logos/cbc-logo.png"
+                alt=""
+                className="relative z-10 hidden h-9 sm:h-10 md:h-11 lg:h-12 xl:h-14 w-auto max-w-[min(82vw,260px)] object-contain object-left dark:block drop-shadow-[0_0_22px_rgba(255,255,255,0.09)]"
+              />
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>
@@ -62,9 +70,10 @@ function NavLinks({ isActive, showBrand }: { isActive: (path: string) => boolean
   );
 }
 
-export function Logo() {
-  return (
-    <Link to="/" className="flex items-center flex-col max-md:items-start gap-2.5 group">
+/** Center nav ALU × Claude stack. Not a link when `linkToHome` is false (desktop). Mobile keeps home link. */
+export function Logo({ linkToHome = true }: { linkToHome?: boolean }) {
+  const inner = (
+    <>
       {/* <div className="flex items-center gap-1.5">
         <div className="w-9 h-9 rounded-lg bg-[#D97757] flex items-center justify-center shadow-md shadow-[#D97757]/20">
           <span className="text-xs font-bold text-[#0D0D0D]">ALU</span>
@@ -80,10 +89,23 @@ export function Logo() {
       </div> */}
       <img src="/logos/alu_colored.png" alt="ALU" className="h-[18px] max-md:h-5 dark:hidden" />
       <img src="/logos/alu_white.png" alt="ALU" className="h-[18px] max-md:h-5 hidden dark:flex" />
-      <img src="/logos/claude_colored.png" alt="Claude" className="h-[20px] max-md:h-5 dark:hidden" />
-      <img src="/logos/claude_white.png" alt="Claude" className="h-[20px] max-md:h-5 hidden dark:flex" />
-    </Link>
+      <img src="/logos/cbc-logo_coloured.png" alt="Claude Builder Club" className="h-[20px] max-md:h-5 dark:hidden" />
+      <img src="/logos/cbc-logo.png" alt="Claude Builder Club" className="h-[20px] max-md:h-5 hidden dark:flex" />
+    </>
   );
+
+  const className =
+    "flex items-center flex-col max-md:items-start gap-2.5 group";
+
+  if (linkToHome) {
+    return (
+      <Link to="/" className={className}>
+        {inner}
+      </Link>
+    );
+  }
+
+  return <div className={className}>{inner}</div>;
 }
 
 function ThemeToggleButton({ className = "" }: { className?: string }) {
@@ -128,25 +150,39 @@ export function Navbar() {
   const location = useLocation();
   const desktopMenuRef = useRef<HTMLDivElement>(null);
 
-  const isHome = location.pathname === "/";
-  const [navLogoVisible, setNavLogoVisible] = useState(!isHome);
+  /**
+   * Scroll **down** → center ALU×Claude wordmarks visible, left CBC lockup hidden.
+   * Scroll **up** → left lockup visible, center hidden. Same on every route.
+   */
+  const [scrollShowsCenterLogo, setScrollShowsCenterLogo] = useState(false);
+  const lastScrollY = useRef(0);
 
-  // Hide navbar logo while the hero logo is visible on the home page
   useEffect(() => {
-    if (!isHome) {
-      setNavLogoVisible(true);
-      return;
-    }
-    setNavLogoVisible(false);
-    const heroLogo = document.getElementById("hero-logo");
-    if (!heroLogo) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setNavLogoVisible(!entry.isIntersecting),
-      { rootMargin: "-80px 0px 0px 0px" }
-    );
-    observer.observe(heroLogo);
-    return () => observer.disconnect();
-  }, [isHome]);
+    lastScrollY.current = typeof window !== "undefined" ? window.scrollY : 0;
+    setScrollShowsCenterLogo(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      const dy = y - lastScrollY.current;
+      lastScrollY.current = y;
+
+      if (Math.abs(dy) < 6) return;
+
+      if (dy > 0) {
+        setScrollShowsCenterLogo(true);
+      } else {
+        setScrollShowsCenterLogo(false);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const showLeftCbcLockup = !scrollShowsCenterLogo;
+  const showCenterWordmarks = scrollShowsCenterLogo;
 
   const isActive = (path: string) => location.pathname.startsWith(path);
 
@@ -176,14 +212,14 @@ export function Navbar() {
 
   return (
     <nav
-      className={`sticky top-0 z-50 transition-all duration-300
+      className={`sticky top-0 z-50 overflow-visible transition-all duration-300
          ${scrolled
           ? "bg-background/95 backdrop-blur-md border-b border-border"
           : "bg-background/95 border-b border-transparent"
         }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center h-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-visible">
+        <div className="flex items-center h-20 overflow-visible">
 
           {/* ── Mobile: Logo left ── */}
           <div className="flex-1 md:hidden">
@@ -191,19 +227,19 @@ export function Navbar() {
           </div>
 
           {/* ── Desktop left: Nav links ── */}
-          <NavLinks isActive={isActive} showBrand={isHome && !navLogoVisible} />
+          <NavLinks isActive={isActive} showBrand={showLeftCbcLockup} />
 
           {/* ── Desktop center: Logo ── */}
           <div className="hidden md:flex flex-1 justify-center">
             <AnimatePresence>
-              {navLogoVisible && (
+              {showCenterWordmarks && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.85, y: -6 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.85, y: -6 }}
                   transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <Logo />
+                  <Logo linkToHome={false} />
                 </motion.div>
               )}
             </AnimatePresence>

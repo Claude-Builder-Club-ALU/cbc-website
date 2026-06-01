@@ -1,6 +1,6 @@
 # Claude Builder Club @ ALU
 
-> **🌍 Live site → [cbc-alu.vercel.app](https://cbc-alu.vercel.app)**
+> **🌍 Live site → [cbc-alu.tech](https://cbc-alu.tech)**
 
 The official website of the **Claude Builder Club at African Leadership University** — an inclusive community for students who want to build AI-assisted solutions, develop technical skills, and learn how to use Claude responsibly and creatively.
 
@@ -80,8 +80,9 @@ cbc-website/
 ├── public/              # Static assets (photos, logos, team images)
 │   ├── cbc-meeting-1/   # CBC Kickoff photos
 │   ├── cbc-meeting-2/   # Claude Code Workshop photos
+│   ├── cbc-meeting-3/   # Intro to MCP and related meetings
 │   ├── tabling-1/       # Tabling event photos
-│   ├── tabling-2/
+│   ├── tabling-3/       # Additional tabling photos
 │   ├── team/            # Team member photos
 │   └── logos/
 ├── src/
@@ -101,7 +102,7 @@ cbc-website/
 ## Adding Photos
 
 1. Copy your photos (JPEG/PNG) to the appropriate folder under `public/`
-2. Open `src/app/pages/Gallery.tsx` and add entries to the `galleryItems` array
+2. Add entries to `galleryItems` in `src/app/pages/Gallery.tsx` and to the `photos` array in `src/app/components/PhotoCarousel.tsx` when the image should appear on the home carousel
 
 ---
 
