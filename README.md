@@ -1,6 +1,6 @@
 # Claude Builder Club @ ALU
 
-> **🌍 Live site → [cbc-alu.vercel.app](https://cbc-alu.vercel.app)**
+> **🌍 Live site → [cbc-alu.tech](https://cbc-alu.tech)**
 
 The official website of the **Claude Builder Club at African Leadership University** — an inclusive community for students who want to build AI-assisted solutions, develop technical skills, and learn how to use Claude responsibly and creatively.
 
