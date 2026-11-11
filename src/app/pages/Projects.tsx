@@ -8,13 +8,13 @@ const initiatives = [
   {
     id: 1,
     title: "SDL Automation Tool",
-    builder: "Divine Ifechukwude",
+    builder: "Divine Ifechukwude, CBC Technical Lead",
     status: "live" as const,
     partner: "ALU Self-Directed Learning",
-    impact: "Streamlines the SDL submission and review process for students & staff",
+    impact: "Now an internal tool used by the SDL department across cohorts",
     description:
-      "An AI-powered automation system that handles SDL workflow tasks — reducing manual overhead for the SDL team and improving turnaround time for student submissions.",
-    tags: ["Claude API", "Automation", "ALU Internal"],
+      "Automates SDL grading, sorts students who need a retake, and sends certificates to whole cohorts by bulk email, replacing hours of manual work for the SDL team.",
+    tags: ["Claude", "Automation", "Bulk Email", "ALU Internal"],
     icon: <Zap size={22} />,
     link: "#",
   },
@@ -236,6 +236,9 @@ export function Projects() {
                   {/* Partner */}
                   <p className="text-xs text-muted-foreground mb-3 font-medium">
                     × {project.partner}
+                  </p>
+                  <p className="text-sm text-foreground/80 mb-3">
+                    By <span className="font-semibold text-foreground">{project.builder}</span>
                   </p>
 
                   {/* Impact callout */}
