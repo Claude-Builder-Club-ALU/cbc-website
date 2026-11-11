@@ -81,9 +81,7 @@ function formatPastEventDate(date: string) {
 
 export function Events() {
   const [filter, setFilter] = useState<EventsPageFilter>("all");
-  const [calendarFocusedId, setCalendarFocusedId] = useState<
-    "hackathon" | "workshop" | "fluency" | null
-  >(null);
+  const [calendarFocusedId, setCalendarFocusedId] = useState<string | null>(null);
 
   const visibleCards =
     filter === "all"
@@ -110,7 +108,7 @@ export function Events() {
       <section className="bg-gradient-to-b from-[#D97757]/10 to-transparent py-16 sm:py-20 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#D97757] mb-2">
-            Spring 2026 Programme
+            Claude Builder Club Programme
           </p>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 tracking-tight">Events</h1>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl leading-relaxed">
@@ -151,8 +149,8 @@ export function Events() {
         </p>
         <h2 className="text-2xl sm:text-3xl font-bold mb-2">Upcoming events</h2>
         <p className="text-muted-foreground text-base sm:text-lg max-w-3xl mb-10 sm:mb-12">
-          Stay engaged with what is coming up this semester. Only the May workshop appears on the
-          calendar until further dates are confirmed.
+          The workshops coming up this semester. Each one is added to the calendar as soon as its
+          date is confirmed.
         </p>
 
         <div className="grid grid-cols-1 xl:grid-cols-[minmax(280px,380px)_1fr] gap-10 xl:gap-12 items-start">
