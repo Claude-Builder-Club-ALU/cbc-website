@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { MapPin, Users, ImageIcon, Github, Video, FileText } from "lucide-react";
+import { Link } from "react-router";
+import { ImageIcon } from "lucide-react";
 import { EventCalendar, type CalEvent } from "../components/EventCalendar";
 import { EventsPageUpcomingCard } from "../components/EventsPageUpcomingCard";
 import {
@@ -21,79 +22,62 @@ const FILTER_CHIPS: { key: EventsPageFilter; label: string }[] = [
   { key: "tabling", label: "Tabling" },
 ];
 
-const pastEvents = [
+// Real CBC events, matching the photo sets on the Gallery page (newest first).
+// `date` is YYYY-MM-DD, or YYYY-MM when only the month is known.
+type PastEvent = {
+  id: number;
+  date: string;
+  title: string;
+  category: string;
+  photo: string;
+};
+
+const pastEvents: PastEvent[] = [
   {
     id: 1,
-    date: "2026-02-15",
-    title: "Introduction to Claude: Getting Started Workshop",
-    location: "Tech Lab",
-    attendees: 52,
-    resources: {
-      slides: "#",
-      photo:
-        "https://images.unsplash.com/photo-1561089489-f13d5e730d72?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2xhc3Nyb29tJTIwd29ya3Nob3AlMjB0ZWNobm9sb2d5JTIwbGVhcm5pbmd8ZW58MXx8fHwxNzczODY2NzU2fDA&ixlib=rb-4.1.0&q=80&w=400",
-      github: "#",
-    },
+    date: "2026-03-24",
+    title: "Club Tabling",
+    category: "Tabling",
+    photo: "/tabling-3/IMG_5295.jpg",
   },
   {
     id: 2,
-    date: "2026-02-01",
-    title: "Winter Hackathon 2026",
-    location: "Main Campus",
-    attendees: 95,
-    resources: {
-      photo:
-        "https://images.unsplash.com/photo-1560651921-19590b2b7ad7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoYWNrYXRob24lMjB0ZWFtJTIwY29kaW5nJTIwdG9nZXRoZXIlMjBuaWdodHxlbnwxfHx8fDE3NzM4NjY3NTZ8MA&ixlib=rb-4.1.0&q=80&w=400",
-      github: "#",
-      recording: "#",
-    },
+    date: "2026-03-20",
+    title: "Intro to MCP",
+    category: "Workshop",
+    photo: "/cbc-meeting-3/IMG_1688.jpg",
   },
   {
     id: 3,
-    date: "2026-01-20",
-    title: "AI Ethics Panel Discussion",
-    location: "Auditorium B",
-    attendees: 110,
-    resources: {
-      slides: "#",
-      photo:
-        "https://images.unsplash.com/photo-1758270705317-3ef6142d306f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwc3R1ZGVudCUyMGdyb3VwJTIwcHJvamVjdCUyMGNvbGxhYm9yYXRpb258ZW58MXx8fHwxNzczODY2NzU2fDA&ixlib=rb-4.1.0&q=80&w=400",
-      recording: "#",
-    },
+    date: "2026-03",
+    title: "Claude Code Workshop: Intro to Claude Code",
+    category: "Workshop",
+    photo: "/cbc-meeting-2/1ee16cd9-a55b-4dba-8e90-94fd14e311d0.jpg",
   },
   {
     id: 4,
-    date: "2025-12-10",
-    title: "End of Year Project Showcase",
-    location: "Innovation Hub",
-    attendees: 75,
-    resources: {
-      slides: "#",
-      photo:
-        "https://images.unsplash.com/photo-1770364292936-1800aa621b3d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2x1YiUyMHRlYW0lMjBwaG90byUyMGRpdmVyc2UlMjBzdHVkZW50c3xlbnwxfHx8fDE3NzM4NjY3NTJ8MA&ixlib=rb-4.1.0&q=80&w=400",
-      github: "#",
-    },
+    date: "2026-02-20",
+    title: "CBC Kickoff: AI Fluency Session",
+    category: "Club meeting",
+    photo: "/cbc-meeting-1/IMG_0328.jpg",
   },
   {
     id: 5,
-    date: "2025-11-18",
-    title: "Build with Claude: Chatbot Workshop",
-    location: "Tech Lab",
-    attendees: 48,
-    resources: { slides: "#", github: "#", recording: "#" },
-  },
-  {
-    id: 6,
-    date: "2025-10-25",
-    title: "Welcome Week Mixer",
-    location: "Student Lounge",
-    attendees: 85,
-    resources: {
-      photo:
-        "https://images.unsplash.com/photo-1646579885920-0c9a01cb7078?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGFpJTIwd29ya3Nob3AlMjBsYXB0b3AlMjBwcmVzZW50YXRpb258ZW58MXx8fHwxNzczODY2NzUyfDA&ixlib=rb-4.1.0&q=80&w=400",
-    },
+    date: "2026-02-10",
+    title: "Club Tabling",
+    category: "Tabling",
+    photo: "/tabling-1/IMG_7694.jpg",
   },
 ];
+
+function formatPastEventDate(date: string) {
+  const hasDay = date.length === 10;
+  return new Date(`${hasDay ? date : `${date}-01`}T00:00:00`).toLocaleDateString("en-US", {
+    month: "short",
+    ...(hasDay ? { day: "numeric" } : {}),
+    year: "numeric",
+  });
+}
 
 export function Events() {
   const [filter, setFilter] = useState<EventsPageFilter>("all");
@@ -223,74 +207,35 @@ export function Events() {
                 key={event.id}
                 className="bg-background border border-border rounded-2xl overflow-hidden hover:border-[#D97757] transition-all group"
               >
-                {event.resources.photo && (
-                  <div className="relative h-48 overflow-hidden">
-                    <img
-                      src={event.resources.photo}
-                      alt={event.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                )}
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={event.photo}
+                    alt={`${event.title}, ${formatPastEventDate(event.date)}`}
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
 
                 <div className="p-6">
-                  <div className="text-[#D97757] text-sm font-semibold mb-2">
-                    {new Date(event.date + "T00:00:00").toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
+                  <div className="flex items-center justify-between gap-3 mb-2">
+                    <span className="text-[#D97757] text-sm font-semibold">
+                      {formatPastEventDate(event.date)}
+                    </span>
+                    <span className="text-xs text-muted-foreground bg-secondary px-2.5 py-1 rounded-full">
+                      {event.category}
+                    </span>
                   </div>
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-[#D97757] transition-colors">
+                  <h3 className="text-xl font-bold mb-4 group-hover:text-[#D97757] transition-colors">
                     {event.title}
                   </h3>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-1">
-                    <MapPin size={14} />
-                    <span>{event.location}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                    <Users size={14} />
-                    <span>{event.attendees} attended</span>
-                  </div>
 
-                  <div className="flex flex-wrap gap-2">
-                    {event.resources.slides && (
-                      <a
-                        href={event.resources.slides}
-                        className="flex items-center gap-1 text-xs bg-secondary text-foreground px-3 py-1.5 rounded-lg hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all"
-                      >
-                        <FileText size={14} />
-                        Slides
-                      </a>
-                    )}
-                    {event.resources.photo && (
-                      <a
-                        href={event.resources.photo}
-                        className="flex items-center gap-1 text-xs bg-secondary text-foreground px-3 py-1.5 rounded-lg hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all"
-                      >
-                        <ImageIcon size={14} />
-                        Photos
-                      </a>
-                    )}
-                    {event.resources.github && (
-                      <a
-                        href={event.resources.github}
-                        className="flex items-center gap-1 text-xs bg-secondary text-foreground px-3 py-1.5 rounded-lg hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all"
-                      >
-                        <Github size={14} />
-                        Demo
-                      </a>
-                    )}
-                    {event.resources.recording && (
-                      <a
-                        href={event.resources.recording}
-                        className="flex items-center gap-1 text-xs bg-secondary text-foreground px-3 py-1.5 rounded-lg hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all"
-                      >
-                        <Video size={14} />
-                        Recording
-                      </a>
-                    )}
-                  </div>
+                  <Link
+                    to="/gallery"
+                    className="inline-flex items-center gap-1 text-xs bg-secondary text-foreground px-3 py-1.5 rounded-lg hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all"
+                  >
+                    <ImageIcon size={14} />
+                    Photos
+                  </Link>
                 </div>
               </div>
             ))}
