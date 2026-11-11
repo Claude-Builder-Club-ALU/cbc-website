@@ -147,7 +147,7 @@ export function Events() {
         <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
           Upcoming
         </p>
-        <h2 className="text-2xl sm:text-3xl font-bold mb-2">Upcoming events</h2>
+        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Upcoming Events</h2>
         <p className="text-muted-foreground text-base sm:text-lg max-w-3xl mb-10 sm:mb-12">
           The workshops coming up this semester. Each one is added to the calendar as soon as its
           date is confirmed.
@@ -192,7 +192,7 @@ export function Events() {
       <section className="py-20 bg-card/50 border-y border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-2">Past Events</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Past Events</h2>
             <p className="text-muted-foreground max-w-2xl mb-4">
               Highlights from recent CBC gatherings and collaborations.
             </p>

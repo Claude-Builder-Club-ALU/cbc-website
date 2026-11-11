@@ -187,7 +187,7 @@ export function Team() {
       {/* ── Join CTA ── */}
       <section className="py-20 border-t border-border">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-4">Want to get involved?</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Want to get involved?</h2>
           <p className="text-xl text-muted-foreground mb-8">
             We welcome all ALU students passionate about building with AI. Show
             up to an event and introduce yourself.

@@ -202,7 +202,7 @@ export function Projects() {
       {tab === "initiatives" && (
         <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12">
-            <h2 className="text-4xl font-bold mb-3">CBC × ALU</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">CBC × ALU</h2>
             <p className="text-muted-foreground max-w-2xl leading-relaxed">
               These are projects the CBC core team is building <em>for</em> ALU —
               tools and programmes that directly serve students, faculty, and the
@@ -300,7 +300,7 @@ export function Projects() {
         <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Grid */}
           <div className="mb-12">
-            <h2 className="text-4xl font-bold mb-3">Built by the Community</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">Built by the Community</h2>
             <p className="text-muted-foreground max-w-2xl leading-relaxed">
               Working products built by club members with Claude, from AI study
               companions to automated outreach tools. Each one shows what our members
@@ -353,7 +353,7 @@ export function Projects() {
           {/* Submission form */}
           <div className="max-w-3xl mx-auto">
             <div className="mb-8 text-center">
-              <h2 className="text-4xl font-bold mb-4">Submit Your Project</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Submit Your Project</h2>
               <div className="h-1 w-24 bg-primary mx-auto mb-4" />
               <p className="text-muted-foreground">
                 Built something amazing with Claude? Share it with the community!

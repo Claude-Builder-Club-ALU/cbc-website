@@ -82,15 +82,15 @@ export function Home() {
       <section className="py-20 border-t border-border bg-card/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-3">What You Get as a CBC Member</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">What You Get as a CBC Member</h2>
             <p className="text-muted-foreground text-lg">Resources built for students ready to build, learn, and contribute throughout the semester.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Perk 1 — Claude Pro */}
-            <div className="bg-card border border-border rounded-2xl p-8 hover:border-primary/50 transition-all group text-center">
-              <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-primary/20 transition-colors">
-                <Gift size={28} className="text-primary" />
+            <div className="bg-card border border-border rounded-2xl p-8 hover:border-primary/50 transition-all group">
+              <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
+                <Gift size={24} className="text-primary" />
               </div>
               <h3 className="text-xl font-bold mb-3">Free Claude Pro</h3>
               <p className="text-muted-foreground leading-relaxed text-sm">
@@ -99,9 +99,9 @@ export function Home() {
             </div>
 
             {/* Perk 2 — API Credits */}
-            <div className="bg-card border border-border rounded-2xl p-8 hover:border-primary/50 transition-all group text-center">
-              <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-primary/20 transition-colors">
-                <Code2 size={28} className="text-primary" />
+            <div className="bg-card border border-border rounded-2xl p-8 hover:border-primary/50 transition-all group">
+              <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
+                <Code2 size={24} className="text-primary" />
               </div>
               <h3 className="text-xl font-bold mb-3">$25 API Credits</h3>
               <p className="text-muted-foreground leading-relaxed text-sm">
@@ -110,9 +110,9 @@ export function Home() {
             </div>
 
             {/* Perk 3 — Hackathon */}
-            <div className="bg-card border border-border rounded-2xl p-8 hover:border-primary/50 transition-all group text-center">
-              <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-primary/20 transition-colors">
-                <Trophy size={28} className="text-primary" />
+            <div className="bg-card border border-border rounded-2xl p-8 hover:border-primary/50 transition-all group">
+              <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
+                <Trophy size={24} className="text-primary" />
               </div>
               <h3 className="text-xl font-bold mb-3">End-of-Semester Hackathon</h3>
               <p className="text-muted-foreground leading-relaxed text-sm">
@@ -139,15 +139,15 @@ export function Home() {
 
       {/* ── Who We Are ───────────────────────────────────────────────────────── */}
       <section className="py-20 sm:py-24 bg-background text-foreground border-y border-border">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-6 tracking-tight">Who We Are</h2>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-6">Who We Are</h2>
           <div className="h-1 w-24 bg-primary mx-auto mb-8 sm:mb-10 rounded-full" />
 
-          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-5 max-w-4xl mx-auto">
+          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed text-balance mb-10 sm:mb-12 max-w-3xl mx-auto">
             We are an inclusive community for students who want to explore AI development, grow their technical abilities, and engage seriously with the opportunities and responsibilities that AI presents.
           </p>
 
-          <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
             {[
               {
                 Icon: User,
@@ -174,12 +174,12 @@ export function Home() {
               return (
               <div
                 key={v.title}
-                className="bg-card border border-border rounded-2xl p-6 sm:p-7 flex flex-col items-center text-center hover:border-primary/50 transition-colors"
+                className="bg-card border border-border rounded-2xl p-7 hover:border-primary/50 transition-colors"
               >
-                <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-4 bg-primary/10 border border-primary/25`}>
-                  <ValueIcon size={26} strokeWidth={1.75} className="text-primary" aria-hidden />
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 bg-primary/10">
+                  <ValueIcon size={24} className="text-primary" aria-hidden />
                 </div>
-                <h4 className="font-bold text-foreground text-lg mb-3 leading-snug">{v.title}</h4>
+                <h3 className="text-xl font-bold mb-3 leading-snug">{v.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">{v.desc}</p>
               </div>
             );
@@ -191,7 +191,7 @@ export function Home() {
       {/* ── Why Claude? ──────────────────────────────────────────────────────── */}
       <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-3">Why Claude?</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">Why Claude?</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Not all AI tools are built the same. Here's why we build with Claude.
           </p>
@@ -233,7 +233,7 @@ export function Home() {
       {/* ── Testimonials ─────────────────────────────────────────────────────── */}
       {/* <section className="py-20 border-t border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">What Our Members Say</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-center mb-12">What Our Members Say</h2>
           <TestimonialCarousel />
         </div>
       </section> */}
