@@ -69,8 +69,8 @@ export function EventsPageUpcomingCard({
     >
       {card.featuredPill && (
         <div className="absolute -top-3 right-4 sm:right-6 z-10">
-          <span className="inline-flex items-center gap-1.5 bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full shadow-sm whitespace-nowrap">
-            <Star size={12} className="text-amber-200 fill-amber-200 shrink-0" aria-hidden />
+          <span className="inline-flex items-center gap-1.5 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full shadow-sm whitespace-nowrap">
+            <Star size={12} className="fill-current shrink-0" aria-hidden />
             {card.featuredPill}
           </span>
         </div>

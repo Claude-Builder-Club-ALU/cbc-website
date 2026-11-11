@@ -137,12 +137,12 @@ export function Home() {
       <UpcomingEventsBlock />
 
       {/* ── Who We Are ───────────────────────────────────────────────────────── */}
-      <section className="py-20 sm:py-24 bg-[#0D0D0D] text-[#F5F5F5] border-y border-white/10">
+      <section className="py-20 sm:py-24 bg-background text-foreground border-y border-border">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6 tracking-tight">Who We Are</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-6 tracking-tight">Who We Are</h2>
           <div className="h-1 w-24 bg-primary mx-auto mb-8 sm:mb-10 rounded-full" />
 
-          <p className="text-base sm:text-lg text-zinc-300 leading-relaxed mb-5 max-w-4xl mx-auto">
+          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-5 max-w-4xl mx-auto">
             We are an inclusive community for students who want to explore AI development, grow their technical abilities, and engage seriously with the opportunities and responsibilities that AI presents.
           </p>
 
@@ -173,13 +173,13 @@ export function Home() {
               return (
               <div
                 key={v.title}
-                className="bg-[#1A1A1A] border border-white/10 rounded-2xl p-6 sm:p-7 flex flex-col items-center text-center hover:border-white/20 transition-colors"
+                className="bg-card border border-border rounded-2xl p-6 sm:p-7 flex flex-col items-center text-center hover:border-primary/50 transition-colors"
               >
                 <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-4 bg-primary/10 border border-primary/25`}>
                   <ValueIcon size={26} strokeWidth={1.75} className="text-primary" aria-hidden />
                 </div>
-                <h4 className="font-bold text-white text-lg mb-3 leading-snug">{v.title}</h4>
-                <p className="text-zinc-400 text-sm leading-relaxed">{v.desc}</p>
+                <h4 className="font-bold text-foreground text-lg mb-3 leading-snug">{v.title}</h4>
+                <p className="text-muted-foreground text-sm leading-relaxed">{v.desc}</p>
               </div>
             );
             })}

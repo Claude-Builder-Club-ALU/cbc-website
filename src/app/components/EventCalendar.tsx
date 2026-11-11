@@ -182,18 +182,18 @@ export function EventCalendar({ events, calendarId, onEventDayClick }: EventCale
                 className={[
                   "h-16 sm:h-20 rounded-lg transition-all duration-200 flex flex-col items-start justify-start relative p-1.5",
                   ev
-                    ? "cursor-pointer bg-primary/60 hover:bg-primary/80"
+                    ? "cursor-pointer bg-primary hover:bg-primary/90"
                     : "hover:bg-primary/10",
                   tod && !ev ? "ring-2 ring-primary bg-primary/10" : "",
                   cell.type === "current" ? "text-foreground" : "text-muted-foreground/40",
                 ].join(" ")}
               >
-                <span className={`text-xs font-semibold leading-none ${ev ? "text-white" : ""}`}>
+                <span className={`text-xs font-semibold leading-none ${ev ? "text-primary-foreground" : ""}`}>
                   {cell.day}
                 </span>
                 {ev && (
                   <div className="absolute inset-x-1 bottom-1.5 flex items-end justify-center">
-                    <p className="text-white text-[9px] font-medium text-center leading-tight line-clamp-2">
+                    <p className="text-primary-foreground text-[9px] font-medium text-center leading-tight line-clamp-2">
                       {ev.title}
                     </p>
                   </div>
