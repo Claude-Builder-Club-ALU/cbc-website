@@ -302,8 +302,9 @@ export function Projects() {
           <div className="mb-12">
             <h2 className="text-4xl font-bold mb-3">Built by the Community</h2>
             <p className="text-muted-foreground max-w-2xl leading-relaxed">
-              Projects ALU students built with Claude for the Claude Builder Club
-              hackathon. Got something to show? Scroll down to submit yours.
+              Working products built by club members with Claude, from AI study
+              companions to automated outreach tools. Each one shows what our members
+              can design, code and ship. Built something with Claude? Submit it below.
             </p>
           </div>
 
