@@ -55,61 +55,73 @@ const STATUS_CONFIG = {
 // ─────────────────────────────────────────────────────────────────────────────
 // MEMBER BUILDS
 // ─────────────────────────────────────────────────────────────────────────────
-const memberProjects = [
+// ALU projects from the Claude Hackathon showcase (hackathon-builder-hub.vercel.app).
+// Only links that currently resolve are listed.
+type MemberProject = {
+  id: number;
+  name: string;
+  builder: string;
+  description: string;
+  tags: string[];
+  links: { demo?: string; code?: string; website?: string };
+};
+
+const memberProjects: MemberProject[] = [
   {
     id: 1,
-    name: "EduAssist AI",
-    builder: "Adanna Nwosu",
+    name: "Student Companion AI",
+    builder: "Andrew Boima & Dieudonnne Ngum",
     description:
-      "An AI-powered educational assistant that helps students with homework and concept explanations. Built with Claude API.",
-    tags: ["Claude API", "Education", "Web App"],
-    link: "#",
+      "Supports ALU students on academic work, campus navigation, and personal development. It addresses the gap between what a university formally provides and what students actually need day to day.",
+    tags: ["Productivity", "Automation", "Education", "Tool"],
+    links: {
+      demo: "https://vimeo.com/1197394938",
+      code: "https://github.com/Ngum12/alu_student_companion",
+      website: "https://alustudentcompanion.vercel.app/",
+    },
   },
   {
     id: 2,
-    name: "AgriTech Advisor",
-    builder: "Tunde Oluwaseun",
+    name: "Qobi",
+    builder: "Teninlanimi Taiwo & Raymond Otieno",
     description:
-      "Smart farming assistant providing crop recommendations and pest management advice for African farmers.",
-    tags: ["Claude API", "Agriculture", "Mobile"],
-    link: "#",
+      "An AI co-pilot for ALU students that reads your Gmail and Canvas, surfaces what is easy to miss, and shows how a single missed obligation ripples across your academics, finances, standing, and visa status, all in one calm daily brief.",
+    tags: ["Productivity", "Automation", "Education", "Tool"],
+    links: {
+      demo: "https://youtu.be/gZ7_nBJtOac",
+      website: "https://www.qobi-copilot.xyz/",
+    },
   },
   {
     id: 3,
-    name: "HealthBot Rwanda",
-    builder: "Grace Uwase",
+    name: "Daylens",
+    builder: "Iradukunda Christian Tonny",
     description:
-      "Medical information chatbot providing health guidance in Kinyarwanda and English.",
-    tags: ["Claude API", "Healthcare", "Chatbot"],
-    link: "#",
+      "Daylens logs your browsing and work sessions, uses Claude to summarise what you consumed, and lets you search your own digital history through a natural language chat interface, all stored privately on your device.",
+    tags: ["Productivity", "Automation", "Tool"],
+    links: {
+      demo: "https://youtu.be/luqeVg7IRps",
+      website: "https://christian-tonny.dev/daylens",
+    },
   },
   {
     id: 4,
-    name: "LegalAid Connect",
-    builder: "Kwesi Mensah",
+    name: "Outreach AI",
+    builder: "Michael Nwuju",
     description:
-      "AI legal assistant helping Ghanaians understand their rights and navigate legal processes.",
-    tags: ["Claude API", "Legal", "Web App"],
-    link: "#",
+      "Automates outbound sales calls for African entrepreneurs: it generates personalised pitches per lead, places AI voice calls, and analyses each transcript, giving businesses in Africa access to sales infrastructure that has historically been out of reach.",
+    tags: ["Tool", "Productivity", "Automation", "Data Analysis"],
+    links: {
+      demo: "https://youtu.be/fNtiUsfST9E",
+      code: "https://github.com/michael-alu/outreach-ai",
+    },
   },
-  {
-    id: 5,
-    name: "CodeMentor Africa",
-    builder: "Zainab Mohammed",
-    description:
-      "Interactive coding tutor for beginners learning Python, JavaScript, and web development.",
-    tags: ["Claude API", "Education", "Developer Tools"],
-    link: "#",
-  },
-  {
-    id: 6,
-    name: "SmartTranslate",
-    builder: "Jean-Paul Kabanda",
-    description:
-      "Context-aware translation tool for African languages, preserving cultural nuances.",
-    tags: ["Claude API", "Translation", "Web App"],
-    link: "#",
-  },
+];
+
+const PROJECT_LINK_LABELS: { key: keyof MemberProject["links"]; label: string }[] = [
+  { key: "demo", label: "Demo" },
+  { key: "code", label: "Code" },
+  { key: "website", label: "Website" },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -290,22 +302,22 @@ export function Projects() {
           <div className="mb-12">
             <h2 className="text-4xl font-bold mb-3">Built by the Community</h2>
             <p className="text-muted-foreground max-w-2xl leading-relaxed">
-              Projects submitted by CBC members — students building with AI on their
-              own terms. Got something to show? Scroll down to submit yours.
+              Projects ALU students built with Claude for the Claude Builder Club
+              hackathon. Got something to show? Scroll down to submit yours.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-24">
             {memberProjects.map((project) => (
               <div
                 key={project.id}
-                className="bg-card border border-border rounded-2xl p-6 hover:border-[#D97757] transition-all group"
+                className="bg-card border border-border rounded-2xl p-6 hover:border-[#D97757] transition-all group flex flex-col"
               >
                 <h3 className="text-xl font-bold mb-1 group-hover:text-[#D97757] transition-colors">
                   {project.name}
                 </h3>
                 <p className="text-muted-foreground text-sm mb-4">by {project.builder}</p>
-                <p className="text-foreground mb-6 leading-relaxed text-sm">
+                <p className="text-foreground mb-6 leading-relaxed text-sm flex-1">
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-2 mb-5">
@@ -318,10 +330,21 @@ export function Projects() {
                     </span>
                   ))}
                 </div>
-                <a href={project.link} className="flex items-center gap-2 text-[#D97757] hover:underline text-sm font-medium">
-                  View Project
-                  <ExternalLink size={14} />
-                </a>
+                <div className="flex flex-wrap gap-2">
+                  {PROJECT_LINK_LABELS.filter(({ key }) => project.links[key]).map(({ key, label }) => (
+                    <a
+                      key={key}
+                      href={project.links[key]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${label}: ${project.name} (opens in a new tab)`}
+                      className="inline-flex items-center gap-1.5 border border-border hover:border-[#D97757] hover:text-[#D97757] text-sm font-medium px-4 py-2 rounded-full transition-colors"
+                    >
+                      {label}
+                      <ExternalLink size={14} />
+                    </a>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
