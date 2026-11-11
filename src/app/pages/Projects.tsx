@@ -1,5 +1,10 @@
 import { ExternalLink, Lock, Zap, BookOpen, Users, ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  SUBMISSION_FORM_URL,
+  fetchApprovedProjects,
+  type MemberProject,
+} from "../data/memberSubmissions";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CBC TEAM INITIATIVES
@@ -57,18 +62,9 @@ const STATUS_CONFIG = {
 // ─────────────────────────────────────────────────────────────────────────────
 // ALU projects from the Claude Hackathon showcase (hackathon-builder-hub.vercel.app).
 // Only links that currently resolve are listed.
-type MemberProject = {
-  id: number;
-  name: string;
-  builder: string;
-  description: string;
-  tags: string[];
-  links: { demo?: string; code?: string; website?: string };
-};
-
 const memberProjects: MemberProject[] = [
   {
-    id: 1,
+    id: "member-1",
     name: "Student Companion AI",
     builder: "Andrew Boima & Dieudonnne Ngum",
     description:
@@ -81,7 +77,7 @@ const memberProjects: MemberProject[] = [
     },
   },
   {
-    id: 2,
+    id: "member-2",
     name: "Qobi",
     builder: "Teninlanimi Taiwo & Raymond Otieno",
     description:
@@ -93,7 +89,7 @@ const memberProjects: MemberProject[] = [
     },
   },
   {
-    id: 3,
+    id: "member-3",
     name: "Daylens",
     builder: "Iradukunda Christian Tonny",
     description:
@@ -105,7 +101,7 @@ const memberProjects: MemberProject[] = [
     },
   },
   {
-    id: 4,
+    id: "member-4",
     name: "Outreach AI",
     builder: "Michael Nwuju",
     description:
@@ -131,23 +127,24 @@ type Tab = "initiatives" | "member-builds";
 
 export function Projects() {
   const [tab, setTab] = useState<Tab>("initiatives");
-  const [formData, setFormData] = useState({
-    projectName: "",
-    builderName: "",
-    email: "",
-    description: "",
-    projectLink: "",
-  });
+  const [approvedProjects, setApprovedProjects] = useState<MemberProject[]>([]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.email.endsWith("@alustudent.com")) {
-      alert("Please use your ALU email address (@alustudent.com)");
-      return;
-    }
-    alert("Project submitted! Our team will review it soon.");
-    setFormData({ projectName: "", builderName: "", email: "", description: "", projectLink: "" });
-  };
+  // Load member submissions the CBC team has approved in the review sheet.
+  useEffect(() => {
+    const controller = new AbortController();
+    fetchApprovedProjects(controller.signal)
+      .then(setApprovedProjects)
+      .catch((err) => {
+        if (err?.name !== "AbortError") console.warn("Could not load approved projects", err);
+      });
+    return () => controller.abort();
+  }, []);
+
+  const knownNames = new Set(memberProjects.map((p) => p.name.toLowerCase()));
+  const allMemberProjects = [
+    ...memberProjects,
+    ...approvedProjects.filter((p) => !knownNames.has(p.name.toLowerCase())),
+  ];
 
   return (
     <div className="min-h-screen">
@@ -309,7 +306,7 @@ export function Projects() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-24">
-            {memberProjects.map((project) => (
+            {allMemberProjects.map((project) => (
               <div
                 key={project.id}
                 className="bg-card border border-border rounded-2xl p-6 hover:border-primary transition-all group flex flex-col"
@@ -356,7 +353,7 @@ export function Projects() {
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Submit Your Project</h2>
               <div className="h-1 w-24 bg-primary mx-auto mb-4" />
               <p className="text-muted-foreground">
-                Built something amazing with Claude? Share it with the community!
+                Built something with Claude? Share it with the club. It takes about two minutes.
               </p>
             </div>
 
@@ -373,51 +370,22 @@ export function Projects() {
                 </div>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
-                {[
-                  { id: "projectName", label: "Project Name", type: "text", placeholder: "My Awesome AI Project", key: "projectName" },
-                  { id: "builderName", label: "Your Name", type: "text", placeholder: "John Doe", key: "builderName" },
-                  { id: "email", label: "ALU Email", type: "email", placeholder: "yourname@alustudent.com", key: "email" },
-                  { id: "projectLink", label: "Project Link", type: "url", placeholder: "https://github.com/yourusername/project", key: "projectLink" },
-                ].map((field) => (
-                  <div key={field.id}>
-                    <label htmlFor={field.id} className="block text-foreground mb-2 text-sm font-medium">
-                      {field.label} *
-                    </label>
-                    <input
-                      type={field.type}
-                      id={field.id}
-                      value={formData[field.key as keyof typeof formData]}
-                      onChange={e => setFormData({ ...formData, [field.key]: e.target.value })}
-                      required
-                      className="w-full bg-background border border-border rounded-xl px-4 py-3 text-foreground focus:border-primary focus:outline-none transition-colors text-sm"
-                      placeholder={field.placeholder}
-                    />
-                  </div>
-                ))}
+              <ul className="text-sm text-muted-foreground space-y-2 mb-6">
+                <li>Tell us what you built, who built it and how it uses Claude.</li>
+                <li>Add a demo video, code or live link if you have one.</li>
+                <li>The CBC team reviews each submission. Approved projects appear on this page.</li>
+              </ul>
 
-                <div>
-                  <label htmlFor="description" className="block text-foreground mb-2 text-sm font-medium">
-                    Description *
-                  </label>
-                  <textarea
-                    id="description"
-                    value={formData.description}
-                    onChange={e => setFormData({ ...formData, description: e.target.value })}
-                    required
-                    rows={4}
-                    className="w-full bg-background border border-border rounded-xl px-4 py-3 text-foreground focus:border-primary focus:outline-none transition-colors resize-none text-sm"
-                    placeholder="Describe your project, what problem it solves, and what technologies you used..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full bg-primary text-primary-foreground py-3 rounded-xl font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:shadow-primary/20 mt-2"
-                >
-                  Submit Project
-                </button>
-              </form>
+              <a
+                href={SUBMISSION_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground py-3 rounded-xl font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:shadow-primary/20"
+              >
+                Submit Your Project
+                <ExternalLink size={16} aria-hidden />
+                <span className="sr-only">(opens Google Forms in a new tab)</span>
+              </a>
             </div>
           </div>
         </section>
