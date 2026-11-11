@@ -74,7 +74,7 @@ interface MemberCardProps {
 
 function MemberCard({ name, role, photo, linkedin, github }: MemberCardProps) {
   return (
-    <div className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-[#D97757] transition-all flex flex-col">
+    <div className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary transition-all flex flex-col">
       {/* Photo — portrait ratio for headshots */}
       <div className="relative overflow-hidden aspect-[3/4]">
         <img
@@ -87,10 +87,10 @@ function MemberCard({ name, role, photo, linkedin, github }: MemberCardProps) {
 
       {/* Info */}
       <div className="p-5 flex flex-col flex-1">
-        <h3 className="text-lg font-bold leading-snug group-hover:text-[#D97757] transition-colors">
+        <h3 className="text-lg font-bold leading-snug group-hover:text-primary transition-colors">
           {name}
         </h3>
-        <p className="text-[#D97757] text-sm font-medium mt-0.5 mb-4">{role}</p>
+        <p className="text-primary text-sm font-medium mt-0.5 mb-4">{role}</p>
 
         {/* Socials */}
         <div className="flex items-center gap-2 mt-auto">
@@ -100,7 +100,7 @@ function MemberCard({ name, role, photo, linkedin, github }: MemberCardProps) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${name} on LinkedIn`}
-              className="w-9 h-9 rounded-lg bg-background flex items-center justify-center text-muted-foreground hover:text-[#D97757] hover:bg-secondary transition-all border border-border"
+              className="w-9 h-9 rounded-lg bg-background flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-secondary transition-all border border-border"
             >
               <Linkedin size={17} />
             </a>
@@ -111,7 +111,7 @@ function MemberCard({ name, role, photo, linkedin, github }: MemberCardProps) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${name} on GitHub`}
-              className="w-9 h-9 rounded-lg bg-background flex items-center justify-center text-muted-foreground hover:text-[#D97757] hover:bg-secondary transition-all border border-border"
+              className="w-9 h-9 rounded-lg bg-background flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-secondary transition-all border border-border"
             >
               <Github size={17} />
             </a>
@@ -136,7 +136,7 @@ export function Team() {
   return (
     <div className="min-h-screen">
       {/* ── Hero ── */}
-      <section className="bg-gradient-to-b from-[#D97757]/10 to-transparent py-20 border-b border-border">
+      <section className="bg-gradient-to-b from-primary/10 to-transparent py-20 border-b border-border">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">Meet the Team</h1>
           <p className="text-xl text-muted-foreground">
@@ -168,7 +168,7 @@ export function Team() {
                 target="_blank"
                 rel="noopener noreferrer"
                 title={c.name}
-                className="flex items-center gap-2.5 bg-card border border-border hover:border-[#D97757] rounded-xl px-3 py-2 transition-all group"
+                className="flex items-center gap-2.5 bg-card border border-border hover:border-primary rounded-xl px-3 py-2 transition-all group"
               >
                 <img
                   src={`https://github.com/${c.github}.png?size=64`}
@@ -194,7 +194,7 @@ export function Team() {
           </p>
           <a
             href="/events"
-            className="inline-block bg-[#D97757] text-[#0D0D0D] px-8 py-4 rounded-xl font-semibold hover:bg-[#E08967] transition-all hover:shadow-lg hover:shadow-[#D97757]/30"
+            className="inline-block bg-primary text-primary-foreground px-8 py-4 rounded-xl font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:shadow-primary/30"
           >
             See Upcoming Events
           </a>

@@ -82,7 +82,7 @@ export function Gallery() {
   return (
     <div className="min-h-screen">
       {/* ── Hero ── */}
-      <section className="bg-gradient-to-b from-[#D97757]/10 to-transparent py-20 border-b border-border">
+      <section className="bg-gradient-to-b from-primary/10 to-transparent py-20 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">Gallery</h1>
           <p className="text-xl text-muted-foreground max-w-2xl">
@@ -99,7 +99,7 @@ export function Gallery() {
             <div
               key={item.id}
               onClick={() => open(index)}
-              className="group relative overflow-hidden rounded-2xl border border-border hover:border-[#D97757] transition-all cursor-pointer"
+              className="group relative overflow-hidden rounded-2xl border border-border hover:border-primary transition-all cursor-pointer"
             >
               <img
                 src={item.url}
@@ -111,7 +111,7 @@ export function Gallery() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
                 <p className="text-white font-semibold text-sm leading-snug">{item.title}</p>
                 {item.event && (
-                  <p className="text-[#D97757] text-xs mt-1 font-medium">{item.event}</p>
+                  <p className="text-primary text-xs mt-1 font-medium">{item.event}</p>
                 )}
               </div>
             </div>
@@ -171,7 +171,7 @@ export function Gallery() {
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-center pointer-events-none">
             <p className="text-white font-semibold text-sm">{current.title}</p>
             {current.event && (
-              <p className="text-[#D97757] text-xs mt-1">{current.event}</p>
+              <p className="text-primary text-xs mt-1">{current.event}</p>
             )}
           </div>
         </div>

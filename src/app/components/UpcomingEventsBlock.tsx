@@ -29,10 +29,10 @@ export function UpcomingEventsBlock({
           {showViewAllLink && (
             <Link
               to="/events"
-              className="inline-flex items-center gap-1.5 min-h-10 text-[#D97757] font-medium hover:text-[#E08967] transition-colors shrink-0"
+              className="inline-flex items-center gap-1.5 min-h-10 text-primary font-medium hover:text-primary/80 transition-colors shrink-0"
             >
               View All
-              <ArrowRight size={18} className="text-[#D97757]" />
+              <ArrowRight size={18} className="text-primary" />
             </Link>
           )}
         </div>
@@ -43,20 +43,20 @@ export function UpcomingEventsBlock({
               key={event.id}
               className={`relative rounded-2xl p-6 sm:p-7 flex flex-col h-full bg-[#1A1A1A] border transition-colors ${
                 event.featured
-                  ? "border-2 border-[#D97757] shadow-[0_0_0_1px_rgba(217,119,87,0.15)]"
+                  ? "border-2 border-primary shadow-[0_0_0_1px_rgba(217,119,87,0.15)]"
                   : "border border-white/10 hover:border-white/20"
               } ${event.seasonFinale ? "pt-9 sm:pt-10" : ""}`}
             >
               {event.seasonFinale && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
-                  <span className="inline-flex items-center gap-1.5 bg-[#D97757] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md whitespace-nowrap">
+                  <span className="inline-flex items-center gap-1.5 bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md whitespace-nowrap">
                     <Star size={12} className="text-amber-200 fill-amber-200 shrink-0" aria-hidden />
                     Season Finale
                   </span>
                 </div>
               )}
 
-              <p className="text-[#D97757] font-semibold text-sm sm:text-base mb-3 mt-1">{event.dateLabel}</p>
+              <p className="text-primary font-semibold text-sm sm:text-base mb-3 mt-1">{event.dateLabel}</p>
               <h3 className="text-lg sm:text-xl font-bold text-white leading-snug mb-4">{event.title}</h3>
               <div className="border-t border-white/10 mb-4" />
               <div className="space-y-3 text-zinc-400 text-sm flex-1 mb-5">

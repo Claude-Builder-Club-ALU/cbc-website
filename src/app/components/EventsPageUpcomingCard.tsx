@@ -32,9 +32,9 @@ function metaIconFor(kind: EventsPageMetaIcon): LucideIcon {
 function badgeClasses(variant: EventsPageCard["badgeVariant"]): string {
   switch (variant) {
     case "hackathon":
-      return "bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border border-emerald-500/30";
+      return "bg-primary text-primary-foreground border border-primary";
     case "workshop":
-      return "bg-[#D97757]/15 text-[#D97757] border border-[#D97757]/35";
+      return "bg-primary/15 text-primary border border-primary/35";
     default:
       return "bg-muted text-muted-foreground border border-border";
   }
@@ -59,9 +59,9 @@ export function EventsPageUpcomingCard({
       className={[
         "relative rounded-2xl p-6 sm:p-7 flex flex-col h-full bg-card transition-colors scroll-mt-28",
         isFeatured
-          ? "border-2 border-[#D97757] shadow-sm shadow-[#D97757]/10"
-          : "border border-border hover:border-[#D97757]/40",
-        highlighted ? "ring-2 ring-[#D97757] ring-offset-2 ring-offset-background" : "",
+          ? "border-2 border-primary shadow-sm shadow-primary/10"
+          : "border border-border hover:border-primary/40",
+        highlighted ? "ring-2 ring-primary ring-offset-2 ring-offset-background" : "",
         card.featuredPill ? "pt-10 sm:pt-11" : "",
       ]
         .filter(Boolean)
@@ -69,7 +69,7 @@ export function EventsPageUpcomingCard({
     >
       {card.featuredPill && (
         <div className="absolute -top-3 right-4 sm:right-6 z-10">
-          <span className="inline-flex items-center gap-1.5 bg-[#D97757] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-sm whitespace-nowrap">
+          <span className="inline-flex items-center gap-1.5 bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full shadow-sm whitespace-nowrap">
             <Star size={12} className="text-amber-200 fill-amber-200 shrink-0" aria-hidden />
             {card.featuredPill}
           </span>
@@ -90,12 +90,12 @@ export function EventsPageUpcomingCard({
         className={`flex gap-3 mb-4 rounded-xl p-3 border ${
           card.dateMuted
             ? "bg-muted/50 border-border text-muted-foreground"
-            : "bg-[#D97757]/10 border-[#D97757]/25"
+            : "bg-primary/10 border-primary/25"
         }`}
       >
         <div
           className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${
-            card.dateMuted ? "bg-muted text-muted-foreground" : "bg-[#D97757]/20 text-[#D97757]"
+            card.dateMuted ? "bg-muted text-muted-foreground" : "bg-primary/20 text-primary"
           }`}
           aria-hidden
         >
@@ -142,7 +142,7 @@ export function EventsPageUpcomingCard({
           {card.buttonVariant === "primary" && (
             <a
               href={card.buttonHref ?? "#"}
-              className="inline-flex justify-center w-full sm:w-auto min-w-[10rem] py-2.5 px-5 rounded-xl text-sm font-semibold bg-[#D97757] text-[#0D0D0D] hover:bg-[#E08967] transition-colors shadow-md text-center"
+              className="inline-flex justify-center w-full sm:w-auto min-w-[10rem] py-2.5 px-5 rounded-xl text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-md text-center"
             >
               {card.buttonLabel}
             </a>
@@ -154,7 +154,7 @@ export function EventsPageUpcomingCard({
                 if (workshopIcsSource) addToCalendarDownload(workshopIcsSource);
               }}
               disabled={!workshopIcsSource}
-              className="w-full sm:w-auto min-w-[10rem] py-2.5 px-5 rounded-xl text-sm font-semibold border-2 border-[#D97757]/50 bg-transparent hover:bg-[#D97757]/10 transition-colors disabled:opacity-50"
+              className="w-full sm:w-auto min-w-[10rem] py-2.5 px-5 rounded-xl text-sm font-semibold border-2 border-primary/50 bg-transparent hover:bg-primary/10 transition-colors disabled:opacity-50"
             >
               {card.buttonLabel}
             </button>

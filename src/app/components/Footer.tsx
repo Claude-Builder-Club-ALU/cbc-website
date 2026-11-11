@@ -25,7 +25,7 @@ export function Footer() {
             </p>
             <div className="flex items-center gap-2 text-muted-foreground">
               <Mail size={16} />
-              <a href="mailto:cbcalu.rw@gmail.com" className="inline-flex items-center min-h-10 hover:text-[#D97757] transition-colors">
+              <a href="mailto:cbcalu.rw@gmail.com" className="inline-flex items-center min-h-10 hover:text-primary transition-colors">
                 cbcalu.rw@gmail.com
               </a>
             </div>
@@ -36,27 +36,27 @@ export function Footer() {
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-0">
               <li>
-                <Link to="/" className="inline-flex items-center min-h-10 text-muted-foreground hover:text-[#D97757] transition-colors">
+                <Link to="/" className="inline-flex items-center min-h-10 text-muted-foreground hover:text-primary transition-colors">
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/events" className="inline-flex items-center min-h-10 text-muted-foreground hover:text-[#D97757] transition-colors">
+                <Link to="/events" className="inline-flex items-center min-h-10 text-muted-foreground hover:text-primary transition-colors">
                   Events
                 </Link>
               </li>
               <li>
-                <Link to="/projects" className="inline-flex items-center min-h-10 text-muted-foreground hover:text-[#D97757] transition-colors">
+                <Link to="/projects" className="inline-flex items-center min-h-10 text-muted-foreground hover:text-primary transition-colors">
                   Projects
                 </Link>
               </li>
               <li>
-                <Link to="/gallery" className="inline-flex items-center min-h-10 text-muted-foreground hover:text-[#D97757] transition-colors">
+                <Link to="/gallery" className="inline-flex items-center min-h-10 text-muted-foreground hover:text-primary transition-colors">
                   Gallery
                 </Link>
               </li>
               <li>
-                <Link to="/faq" className="inline-flex items-center min-h-10 text-muted-foreground hover:text-[#D97757] transition-colors">
+                <Link to="/faq" className="inline-flex items-center min-h-10 text-muted-foreground hover:text-primary transition-colors">
                   FAQ
                 </Link>
               </li>
@@ -71,7 +71,7 @@ export function Footer() {
                 href="https://instagram.com/cbc_alu"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg bg-card flex items-center justify-center text-muted-foreground hover:text-[#D97757] hover:bg-secondary transition-all border border-border"
+                className="w-10 h-10 rounded-lg bg-card flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-secondary transition-all border border-border"
                 aria-label="Instagram"
               >
                 <Instagram size={20} />
@@ -80,7 +80,7 @@ export function Footer() {
                 href="https://www.linkedin.com/company/claude-builder-club-alu/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg bg-card flex items-center justify-center text-muted-foreground hover:text-[#D97757] hover:bg-secondary transition-all border border-border"
+                className="w-10 h-10 rounded-lg bg-card flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-secondary transition-all border border-border"
                 aria-label="LinkedIn"
               >
                 <Linkedin size={20} />
@@ -89,7 +89,7 @@ export function Footer() {
                 href="https://twitter.com/cbc_alu"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg bg-card flex items-center justify-center text-muted-foreground hover:text-[#D97757] hover:bg-secondary transition-all border border-border"
+                className="w-10 h-10 rounded-lg bg-card flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-secondary transition-all border border-border"
                 aria-label="X (Twitter)"
               >
                 <Twitter size={20} />
@@ -98,7 +98,7 @@ export function Footer() {
                 href="https://github.com/Claude-Builder-Club-ALU"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg bg-card flex items-center justify-center text-muted-foreground hover:text-[#D97757] hover:bg-secondary transition-all border border-border"
+                className="w-10 h-10 rounded-lg bg-card flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-secondary transition-all border border-border"
                 aria-label="GitHub"
               >
                 <Github size={20} />

@@ -14,7 +14,7 @@ const faqs = [
         <p>Two things to check:</p>
         <ol className="space-y-4 list-none">
           <li className="flex gap-3">
-            <span className="text-[#D97757] font-bold shrink-0">1.</span>
+            <span className="text-primary font-bold shrink-0">1.</span>
             <div>
               <strong className="text-foreground">You're officially registered.</strong>{" "}
               Perks only go to registered members — if you skipped the sign-up form,
@@ -23,14 +23,14 @@ const faqs = [
                 href={JOTFORM}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#D97757] hover:underline"
+                className="text-primary hover:underline"
               >
                 Register here →
               </a>
             </div>
           </li>
           <li className="flex gap-3">
-            <span className="text-[#D97757] font-bold shrink-0">2.</span>
+            <span className="text-primary font-bold shrink-0">2.</span>
             <div>
               <strong className="text-foreground">You submitted the correct Org ID at check-in.</strong>{" "}
               There are two places to find your Org ID and they are{" "}
@@ -79,7 +79,7 @@ function FAQItem({ q, a }: { q: string; a: React.ReactNode }) {
         <span className="font-semibold text-lg">{q}</span>
         <ChevronDown
           size={20}
-          className={`shrink-0 text-[#D97757] transition-transform duration-200 ${open ? "rotate-180" : ""
+          className={`shrink-0 text-primary transition-transform duration-200 ${open ? "rotate-180" : ""
             }`}
         />
       </button>
@@ -99,7 +99,7 @@ export function FAQ() {
   return (
     <div className="min-h-screen">
       {/* ── Hero ── */}
-      <section className="bg-gradient-to-b from-[#D97757]/10 to-transparent py-20 border-b border-border">
+      <section className="bg-gradient-to-b from-primary/10 to-transparent py-20 border-b border-border">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">FAQ</h1>
           <p className="text-xl text-muted-foreground">
@@ -121,7 +121,7 @@ export function FAQ() {
           <p className="text-muted-foreground mb-4">Still stuck?</p>
           <a
             href="mailto:cbcalu.rw@gmail.com"
-            className="inline-block border border-border text-foreground px-6 py-3 rounded-xl hover:border-[#D97757] hover:text-[#D97757] transition-all"
+            className="inline-block border border-border text-foreground px-6 py-3 rounded-xl hover:border-primary hover:text-primary transition-all"
           >
             Reach out to us →
           </a>

@@ -26,7 +26,7 @@ function NavLinks({ isActive, showBrand }: { isActive: (path: string) => boolean
           >
             <Link
               to="/"
-              className="flex items-center pr-0 overflow-visible shrink-0 rounded-md outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#D97757]"
+              className="flex items-center pr-0 overflow-visible shrink-0 rounded-md outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
               aria-label="Claude Builder Club at ALU, home"
             >
               <img
@@ -53,13 +53,13 @@ function NavLinks({ isActive, showBrand }: { isActive: (path: string) => boolean
           {isActive(link.path) && (
             <motion.span
               layoutId="nav-active-pill"
-              className="absolute inset-0 bg-[#D97757]/10 rounded-lg"
+              className="absolute inset-0 bg-primary/10 rounded-lg"
               transition={{ type: "spring", stiffness: 380, damping: 30 }}
             />
           )}
           <span
             className={`relative z-10 transition-colors duration-200 ${
-              isActive(link.path) ? "text-[#D97757]" : "text-foreground hover:text-[#D97757]"
+              isActive(link.path) ? "text-primary" : "text-foreground hover:text-primary"
             }`}
           >
             {link.name}
@@ -75,16 +75,16 @@ export function Logo({ linkToHome = true }: { linkToHome?: boolean }) {
   const inner = (
     <>
       {/* <div className="flex items-center gap-1.5">
-        <div className="w-9 h-9 rounded-lg bg-[#D97757] flex items-center justify-center shadow-md shadow-[#D97757]/20">
+        <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center shadow-md shadow-primary/20">
           <span className="text-xs font-bold text-[#0D0D0D]">ALU</span>
         </div>
         <span className="text-muted-foreground text-sm select-none">×</span>
-        <div className="w-9 h-9 rounded-lg bg-[#D97757] flex items-center justify-center shadow-md shadow-[#D97757]/20">
+        <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center shadow-md shadow-primary/20">
           <span className="text-sm font-bold text-[#0D0D0D]">C</span>
         </div>
       </div>
       <div className="hidden sm:block leading-tight">
-        <div className="font-bold text-sm group-hover:text-[#D97757] transition-colors duration-200">CBC</div>
+        <div className="font-bold text-sm group-hover:text-primary transition-colors duration-200">CBC</div>
         <div className="text-xs text-muted-foreground">Claude Builder Club</div>
       </div> */}
       <img src="/logos/alu_colored.png" alt="ALU" className="h-[18px] max-md:h-5 dark:hidden" />
@@ -135,7 +135,7 @@ function ThemeToggleButton({ className = "" }: { className?: string }) {
           exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
           transition={{ duration: 0.1, ease: "easeInOut" }}
         >
-          {isDark ? <Sun size={15} className="text-[#D97757] fill-[#D97757]" /> : <Moon size={15} className="text-[#D97757] fill-[#D97757]" />}
+          {isDark ? <Sun size={15} className="text-primary fill-primary" /> : <Moon size={15} className="text-primary fill-primary" />}
         </motion.span>
       </AnimatePresence>
       <span>{isDark ? "Light mode" : "Dark mode"}</span>
@@ -251,7 +251,7 @@ export function Navbar() {
               href="https://www.jotform.com/253555944387168"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#D97757] text-[#ffffff] px-5 py-2 rounded-xl text-sm font-semibold hover:bg-[#E08967] transition-colors shadow-sm shadow-[#D97757]/20"
+              className="bg-primary text-primary-foreground px-5 py-2 rounded-xl text-sm font-semibold hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.15 }}
@@ -263,7 +263,7 @@ export function Navbar() {
             <div className="relative" ref={desktopMenuRef}>
               <motion.button
                 onClick={() => setDesktopMenuOpen((v) => !v)}
-                className="w-10 h-10 rounded-xl flex items-center justify-center border border-border hover:border-[#D97757]/50 hover:bg-secondary transition-all"
+                className="w-10 h-10 rounded-xl flex items-center justify-center border border-border hover:border-primary/50 hover:bg-secondary transition-all"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label="More options"
@@ -298,7 +298,7 @@ export function Navbar() {
                       className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-secondary/50 dark:hover:bg-secondary transition-colors font-medium text-sm text-foreground"
                       onClick={() => setDesktopMenuOpen(false)}
                     >
-                      {/* <HelpCircle size={15} className="text-[#D97757]" /> */}
+                      {/* <HelpCircle size={15} className="text-primary" /> */}
                       <span>FAQ</span>
                     </Link>
                     <div className="flex items-center justify-center gap-2 px-1">
@@ -316,7 +316,7 @@ export function Navbar() {
           <div className="md:hidden">
             <motion.button
               onClick={() => setMobileOpen((v) => !v)}
-              className="w-10 h-10 rounded-xl flex items-center justify-center border border-border hover:border-[#D97757]/50 hover:bg-secondary transition-all"
+              className="w-10 h-10 rounded-xl flex items-center justify-center border border-border hover:border-primary/50 hover:bg-secondary transition-all"
               whileTap={{ scale: 0.93 }}
               aria-label="Toggle menu"
             >
@@ -358,8 +358,8 @@ export function Navbar() {
                     to={link.path}
                     onClick={() => setMobileOpen(false)}
                     className={`flex items-center gap-2 px-3 rounded-md hover:bg-secondary/50 max-md:hover:bg-secondary py-2.5 text-sm font-medium transition-colors ${isActive(link.path)
-                        ? "text-[#D97757] bg-[#D97757]/10"
-                        : "text-foreground hover:bg-secondary hover:text-[#D97757]"
+                        ? "text-primary bg-primary/10"
+                        : "text-foreground hover:bg-secondary hover:text-primary"
                       }`}
                   >
                     {link.name}
@@ -376,11 +376,11 @@ export function Navbar() {
                   to="/faq"
                   onClick={() => setMobileOpen(false)}
                   className={`flex items-center gap-2.5 px-3 rounded-md hover:bg-secondary/50 max-md:hover:bg-secondary py-2.5 text-sm font-medium transition-colors ${isActive("/faq")
-                      ? "text-[#D97757] bg-[#D97757]/10"
-                      : "text-foreground hover:bg-secondary hover:text-[#D97757]"
+                      ? "text-primary bg-primary/10"
+                      : "text-foreground hover:bg-secondary hover:text-primary"
                     }`}
                 >
-                  {/* <HelpCircle size={15} className="text-[#D97757]" /> */}
+                  {/* <HelpCircle size={15} className="text-primary" /> */}
                   FAQ
                 </Link>
               </motion.div>
@@ -406,7 +406,7 @@ export function Navbar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMobileOpen(false)}
-                  className="block text-center bg-[#D97757] text-[#fbfbfb] px-6 py-3 rounded-xl font-semibold hover:bg-[#E08967] transition-colors shadow-sm shadow-[#D97757]/20"
+                  className="block text-center bg-primary text-primary-foreground px-6 py-3 rounded-xl font-semibold hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20"
                 >
                   Join the Club
                 </a>

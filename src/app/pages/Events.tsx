@@ -105,9 +105,9 @@ export function Events() {
 
   return (
     <div className="min-h-screen">
-      <section className="bg-gradient-to-b from-[#D97757]/10 to-transparent py-16 sm:py-20 border-b border-border">
+      <section className="bg-gradient-to-b from-primary/10 to-transparent py-16 sm:py-20 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#D97757] mb-2">
+          <p className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-primary mb-2">
             Claude Builder Club Programme
           </p>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 tracking-tight">Events</h1>
@@ -131,8 +131,8 @@ export function Events() {
                   className={[
                     "px-4 py-2 rounded-full text-sm font-medium transition-colors border",
                     active
-                      ? "bg-[#D97757] text-[#0D0D0D] border-[#D97757] shadow-sm"
-                      : "bg-card text-muted-foreground border-border hover:border-[#D97757]/50 hover:text-foreground",
+                      ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                      : "bg-card text-muted-foreground border-border hover:border-primary/50 hover:text-foreground",
                   ].join(" ")}
                 >
                   {label}
@@ -196,14 +196,14 @@ export function Events() {
             <p className="text-muted-foreground max-w-2xl mb-4">
               Highlights from recent CBC gatherings and collaborations.
             </p>
-            <div className="h-1 w-24 bg-[#D97757] rounded-full" />
+            <div className="h-1 w-24 bg-primary rounded-full" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {pastEvents.map((event) => (
               <div
                 key={event.id}
-                className="bg-background border border-border rounded-2xl overflow-hidden hover:border-[#D97757] transition-all group"
+                className="bg-background border border-border rounded-2xl overflow-hidden hover:border-primary transition-all group"
               >
                 <div className="relative h-48 overflow-hidden">
                   <img
@@ -216,20 +216,20 @@ export function Events() {
 
                 <div className="p-6">
                   <div className="flex items-center justify-between gap-3 mb-2">
-                    <span className="text-[#D97757] text-sm font-semibold">
+                    <span className="text-primary text-sm font-semibold">
                       {formatPastEventDate(event.date)}
                     </span>
                     <span className="text-xs text-muted-foreground bg-secondary px-2.5 py-1 rounded-full">
                       {event.category}
                     </span>
                   </div>
-                  <h3 className="text-xl font-bold mb-4 group-hover:text-[#D97757] transition-colors">
+                  <h3 className="text-xl font-bold mb-4 group-hover:text-primary transition-colors">
                     {event.title}
                   </h3>
 
                   <Link
                     to="/gallery"
-                    className="inline-flex items-center gap-1 min-h-10 text-xs bg-secondary text-foreground px-3 py-1.5 rounded-lg hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all"
+                    className="inline-flex items-center gap-1 min-h-10 text-xs bg-secondary text-foreground px-3 py-1.5 rounded-lg hover:bg-primary hover:text-primary-foreground transition-all"
                   >
                     <ImageIcon size={14} />
                     Photos

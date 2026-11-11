@@ -48,7 +48,7 @@ const initiatives = [
 
 const STATUS_CONFIG = {
   live: { label: "Live", className: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" },
-  "in-progress": { label: "In Progress", className: "bg-[#D97757]/20 text-[#D97757] border-[#D97757]/30" },
+  "in-progress": { label: "In Progress", className: "bg-primary/20 text-primary border-primary/30" },
   planned: { label: "Planned", className: "bg-muted text-muted-foreground border-border" },
 };
 
@@ -152,7 +152,7 @@ export function Projects() {
   return (
     <div className="min-h-screen">
       {/* ── Hero ── */}
-      <section className="bg-gradient-to-b from-[#D97757]/10 to-transparent py-20 border-b border-border">
+      <section className="bg-gradient-to-b from-primary/10 to-transparent py-20 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">Projects</h1>
           <p className="text-xl text-muted-foreground max-w-2xl">
@@ -169,15 +169,15 @@ export function Projects() {
             <button
               onClick={() => setTab("initiatives")}
               className={`relative px-6 py-4 text-sm font-semibold transition-colors ${tab === "initiatives"
-                ? "text-[#D97757]"
+                ? "text-primary"
                 : "text-muted-foreground hover:text-foreground"
                 }`}
             >
               CBC Initiatives
               {tab === "initiatives" && (
-                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#D97757] rounded-full" />
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full" />
               )}
-              <span className="ml-2 text-[10px] bg-[#D97757] text-[#0D0D0D] px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wide">
+              <span className="ml-2 text-[10px] bg-primary text-primary-foreground px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wide">
                 Team
               </span>
             </button>
@@ -185,13 +185,13 @@ export function Projects() {
             <button
               onClick={() => setTab("member-builds")}
               className={`relative px-6 py-4 text-sm font-semibold transition-colors ${tab === "member-builds"
-                ? "text-[#D97757]"
+                ? "text-primary"
                 : "text-muted-foreground hover:text-foreground"
                 }`}
             >
               Member Builds
               {tab === "member-builds" && (
-                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#D97757] rounded-full" />
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full" />
               )}
             </button>
           </div>
@@ -216,11 +216,11 @@ export function Projects() {
               return (
                 <div
                   key={project.id}
-                  className="bg-card border border-border rounded-2xl p-7 hover:border-[#D97757] transition-all group flex flex-col"
+                  className="bg-card border border-border rounded-2xl p-7 hover:border-primary transition-all group flex flex-col"
                 >
                   {/* Icon + status */}
                   <div className="flex items-start justify-between mb-5">
-                    <div className="w-11 h-11 rounded-xl bg-[#D97757]/20 flex items-center justify-center text-[#D97757]">
+                    <div className="w-11 h-11 rounded-xl bg-primary/20 flex items-center justify-center text-primary">
                       {project.icon}
                     </div>
                     <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${status.className}`}>
@@ -229,7 +229,7 @@ export function Projects() {
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-xl font-bold mb-1 group-hover:text-[#D97757] transition-colors">
+                  <h3 className="text-xl font-bold mb-1 group-hover:text-primary transition-colors">
                     {project.title}
                   </h3>
 
@@ -239,8 +239,8 @@ export function Projects() {
                   </p>
 
                   {/* Impact callout */}
-                  <div className="bg-[#D97757]/10 border border-[#D97757]/20 rounded-xl px-3 py-2.5 mb-4">
-                    <p className="text-xs text-[#D97757] font-medium leading-snug">
+                  <div className="bg-primary/10 border border-primary/20 rounded-xl px-3 py-2.5 mb-4">
+                    <p className="text-xs text-primary font-medium leading-snug">
                       {project.impact}
                     </p>
                   </div>
@@ -268,7 +268,7 @@ export function Projects() {
                     {project.link !== "#" && (
                       <a
                         href={project.link}
-                        className="flex items-center gap-1.5 text-[#D97757] hover:underline font-medium"
+                        className="flex items-center gap-1.5 text-primary hover:underline font-medium"
                       >
                         View <ExternalLink size={14} />
                       </a>
@@ -286,7 +286,7 @@ export function Projects() {
             </p>
             <button
               onClick={() => setTab("member-builds")}
-              className="inline-flex items-center gap-2 text-[#D97757] font-semibold hover:underline"
+              className="inline-flex items-center gap-2 text-primary font-semibold hover:underline"
             >
               See Member Builds & submit your project
               <ArrowRight size={18} />
@@ -311,9 +311,9 @@ export function Projects() {
             {memberProjects.map((project) => (
               <div
                 key={project.id}
-                className="bg-card border border-border rounded-2xl p-6 hover:border-[#D97757] transition-all group flex flex-col"
+                className="bg-card border border-border rounded-2xl p-6 hover:border-primary transition-all group flex flex-col"
               >
-                <h3 className="text-xl font-bold mb-1 group-hover:text-[#D97757] transition-colors">
+                <h3 className="text-xl font-bold mb-1 group-hover:text-primary transition-colors">
                   {project.name}
                 </h3>
                 <p className="text-muted-foreground text-sm mb-4">by {project.builder}</p>
@@ -324,7 +324,7 @@ export function Projects() {
                   {project.tags.map((tag, i) => (
                     <span
                       key={i}
-                      className="text-xs bg-[#D97757]/20 text-[#D97757] px-3 py-1 rounded-full"
+                      className="text-xs bg-primary/20 text-primary px-3 py-1 rounded-full"
                     >
                       {tag}
                     </span>
@@ -338,7 +338,7 @@ export function Projects() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`${label}: ${project.name} (opens in a new tab)`}
-                      className="inline-flex items-center gap-1.5 border border-border hover:border-[#D97757] hover:text-[#D97757] text-sm font-medium px-4 py-2 rounded-full transition-colors"
+                      className="inline-flex items-center gap-1.5 border border-border hover:border-primary hover:text-primary text-sm font-medium px-4 py-2 rounded-full transition-colors"
                     >
                       {label}
                       <ExternalLink size={14} />
@@ -353,7 +353,7 @@ export function Projects() {
           <div className="max-w-3xl mx-auto">
             <div className="mb-8 text-center">
               <h2 className="text-4xl font-bold mb-4">Submit Your Project</h2>
-              <div className="h-1 w-24 bg-[#D97757] mx-auto mb-4" />
+              <div className="h-1 w-24 bg-primary mx-auto mb-4" />
               <p className="text-muted-foreground">
                 Built something amazing with Claude? Share it with the community!
               </p>
@@ -361,8 +361,8 @@ export function Projects() {
 
             <div className="bg-card border border-border rounded-2xl p-8">
               {/* ALU-only notice */}
-              <div className="bg-[#D97757]/10 border border-[#D97757]/30 rounded-xl p-4 mb-6 flex items-start gap-3">
-                <Lock className="text-[#D97757] mt-0.5 flex-shrink-0" size={18} />
+              <div className="bg-primary/10 border border-primary/30 rounded-xl p-4 mb-6 flex items-start gap-3">
+                <Lock className="text-primary mt-0.5 flex-shrink-0" size={18} />
                 <div className="text-sm">
                   <p className="text-foreground font-semibold mb-1">ALU Students Only</p>
                   <p className="text-muted-foreground">
@@ -389,7 +389,7 @@ export function Projects() {
                       value={formData[field.key as keyof typeof formData]}
                       onChange={e => setFormData({ ...formData, [field.key]: e.target.value })}
                       required
-                      className="w-full bg-background border border-border rounded-xl px-4 py-3 text-foreground focus:border-[#D97757] focus:outline-none transition-colors text-sm"
+                      className="w-full bg-background border border-border rounded-xl px-4 py-3 text-foreground focus:border-primary focus:outline-none transition-colors text-sm"
                       placeholder={field.placeholder}
                     />
                   </div>
@@ -405,14 +405,14 @@ export function Projects() {
                     onChange={e => setFormData({ ...formData, description: e.target.value })}
                     required
                     rows={4}
-                    className="w-full bg-background border border-border rounded-xl px-4 py-3 text-foreground focus:border-[#D97757] focus:outline-none transition-colors resize-none text-sm"
+                    className="w-full bg-background border border-border rounded-xl px-4 py-3 text-foreground focus:border-primary focus:outline-none transition-colors resize-none text-sm"
                     placeholder="Describe your project, what problem it solves, and what technologies you used..."
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-[#D97757] text-[#0D0D0D] py-3 rounded-xl font-semibold hover:bg-[#E08967] transition-all hover:shadow-lg hover:shadow-[#D97757]/20 mt-2"
+                  className="w-full bg-primary text-primary-foreground py-3 rounded-xl font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:shadow-primary/20 mt-2"
                 >
                   Submit Project
                 </button>
