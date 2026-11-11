@@ -16,7 +16,7 @@ const initiatives = [
       "An AI-powered automation system that handles SDL workflow tasks — reducing manual overhead for the SDL team and improving turnaround time for student submissions.",
     tags: ["Claude API", "Automation", "ALU Internal"],
     icon: <Zap size={22} />,
-    link: "https://www.google.com",
+    link: "#",
   },
   {
     id: 2,
