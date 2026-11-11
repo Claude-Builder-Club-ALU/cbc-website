@@ -31,7 +31,6 @@ export const UPCOMING_EVENTS: HomeUpcomingEvent[] = [
     title: "Workshop: Claude Code + Skills",
     rows: [
       { icon: "calendar", text: "Set up Claude Code live and build your first project" },
-      { icon: "user", text: "Led by CBC ambassadors" },
     ],
     featured: false,
     action: "checkBack",
@@ -42,7 +41,6 @@ export const UPCOMING_EVENTS: HomeUpcomingEvent[] = [
     title: "Workshop: Building with MCP",
     rows: [
       { icon: "calendar", text: "See MCP in action, then build your own MCP server" },
-      { icon: "user", text: "Led by CBC ambassadors" },
     ],
     featured: false,
     action: "checkBack",
@@ -53,7 +51,6 @@ export const UPCOMING_EVENTS: HomeUpcomingEvent[] = [
     title: "Workshop: Building Agents",
     rows: [
       { icon: "calendar", text: "Learn what an agent is, when to build one, and build one" },
-      { icon: "user", text: "Led by CBC ambassadors" },
     ],
     featured: false,
     action: "checkBack",
@@ -64,7 +61,6 @@ export const UPCOMING_EVENTS: HomeUpcomingEvent[] = [
     title: "AI Research Salon",
     rows: [
       { icon: "calendar", text: "Live discussion of current AI research, including alignment and interpretability" },
-      { icon: "user", text: "Led by CBC ambassadors" },
     ],
     featured: false,
     action: "checkBack",

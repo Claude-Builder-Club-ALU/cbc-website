@@ -135,7 +135,9 @@ export function EventsPageUpcomingCard({
       </div>
 
       <div className="mt-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-1 border-t border-border/60">
-        <p className="text-xs text-muted-foreground max-w-[18rem] leading-snug">{card.footerNote}</p>
+        {card.footerNote && (
+          <p className="text-xs text-muted-foreground max-w-[18rem] leading-snug">{card.footerNote}</p>
+        )}
         <div className="shrink-0 sm:ml-auto">
           {card.buttonVariant === "primary" && (
             <a

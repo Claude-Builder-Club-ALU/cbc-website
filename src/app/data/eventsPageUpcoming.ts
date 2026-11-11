@@ -30,7 +30,7 @@ export interface EventsPageCard {
   description: string;
   metaRows: { icon: EventsPageMetaIcon; text: string }[];
   highlightTags: string[];
-  footerNote: string;
+  footerNote?: string;
   buttonLabel: string;
   buttonVariant: "primary" | "outline" | "muted";
   buttonHref?: string;
@@ -55,7 +55,6 @@ const DATE_TBA = {
   datePrimary: "Date to be announced",
   dateSecondary: "Check back here or on our socials for the date and venue",
   dateMuted: true,
-  footerNote: "Led by CBC ambassadors during a club meeting",
   buttonLabel: "Watch for announcements",
   buttonVariant: "muted",
 } as const;
