@@ -26,18 +26,18 @@ function NavLinks({ isActive, showBrand }: { isActive: (path: string) => boolean
           >
             <Link
               to="/"
-              className="flex items-center pr-0 overflow-visible shrink-0 rounded-md outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+              className="flex items-center mr-5 overflow-visible shrink-0 rounded-md outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
               aria-label="Claude Builder Club at ALU, home"
             >
               <img
                 src="/logos/cbc-logo_coloured.png"
                 alt=""
-                className="relative z-10 h-9 sm:h-10 md:h-11 lg:h-12 xl:h-14 w-auto max-w-[min(82vw,260px)] object-contain object-left drop-shadow-[0_2px_6px_rgba(0,0,0,0.1)] dark:hidden"
+                className="relative z-10 h-10 lg:h-11 w-auto max-w-[min(82vw,260px)] object-contain object-left drop-shadow-[0_2px_6px_rgba(0,0,0,0.1)] dark:hidden"
               />
               <img
                 src="/logos/cbc-logo.png"
                 alt=""
-                className="relative z-10 hidden h-9 sm:h-10 md:h-11 lg:h-12 xl:h-14 w-auto max-w-[min(82vw,260px)] object-contain object-left dark:block drop-shadow-[0_0_22px_rgba(255,255,255,0.09)]"
+                className="relative z-10 hidden h-10 lg:h-11 w-auto max-w-[min(82vw,260px)] object-contain object-left dark:block drop-shadow-[0_0_22px_rgba(255,255,255,0.09)]"
               />
             </Link>
           </motion.div>
@@ -87,15 +87,16 @@ export function Logo({ linkToHome = true }: { linkToHome?: boolean }) {
         <div className="font-bold text-sm group-hover:text-primary transition-colors duration-200">CBC</div>
         <div className="text-xs text-muted-foreground">Claude Builder Club</div>
       </div> */}
-      <img src="/logos/alu_colored.png" alt="ALU" className="h-[18px] max-md:h-5 dark:hidden" />
-      <img src="/logos/alu_white.png" alt="ALU" className="h-[18px] max-md:h-5 hidden dark:flex" />
-      <img src="/logos/cbc-logo_coloured.png" alt="Claude Builder Club" className="h-[20px] max-md:h-5 dark:hidden" />
-      <img src="/logos/cbc-logo.png" alt="Claude Builder Club" className="h-[20px] max-md:h-5 hidden dark:flex" />
+      <img src="/logos/cbc-logo_coloured.png" alt="Claude Builder Club" className="h-9 md:h-10 w-auto dark:hidden" />
+      <img src="/logos/cbc-logo.png" alt="Claude Builder Club" className="h-9 md:h-10 w-auto hidden dark:block" />
+      <span aria-hidden className="h-7 w-px bg-border" />
+      <img src="/logos/alu_colored.png" alt="African Leadership University" className="h-4 md:h-[18px] w-auto dark:hidden" />
+      <img src="/logos/alu_white.png" alt="African Leadership University" className="h-4 md:h-[18px] w-auto hidden dark:block" />
     </>
   );
 
   const className =
-    "flex items-center flex-col max-md:items-start gap-2.5 group";
+    "flex items-center gap-3 group";
 
   if (linkToHome) {
     return (

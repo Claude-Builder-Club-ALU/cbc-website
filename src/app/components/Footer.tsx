@@ -12,12 +12,12 @@ export function Footer() {
               <img
                 src="/logos/cbc-logo_coloured.png"
                 alt="Claude Builder Club at African Leadership University"
-                className="h-9 sm:h-10 md:h-11 lg:h-12 xl:h-14 w-auto max-w-[min(100%,260px)] object-contain object-left drop-shadow-[0_2px_6px_rgba(0,0,0,0.1)] dark:hidden"
+                className="h-11 lg:h-12 w-auto max-w-[min(100%,260px)] object-contain object-left drop-shadow-[0_2px_6px_rgba(0,0,0,0.1)] dark:hidden"
               />
               <img
                 src="/logos/cbc-logo.png"
                 alt="Claude Builder Club at African Leadership University"
-                className="hidden h-9 sm:h-10 md:h-11 lg:h-12 xl:h-14 w-auto max-w-[min(100%,260px)] object-contain object-left dark:block drop-shadow-[0_0_22px_rgba(255,255,255,0.09)]"
+                className="hidden h-11 lg:h-12 w-auto max-w-[min(100%,260px)] object-contain object-left dark:block drop-shadow-[0_0_22px_rgba(255,255,255,0.09)]"
               />
             </div>
             <p className="text-muted-foreground max-w-sm mb-6">

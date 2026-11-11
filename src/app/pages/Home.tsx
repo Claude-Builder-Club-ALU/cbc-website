@@ -17,11 +17,12 @@ export function Home() {
           {/* ── Desktop center: Logo ── */}
           <div id="hero-logo" className="hidden md:flex flex-1 justify-center mb-4 ">
             {/* <Logo /> */}
-            <Link to="/" className="flex items-center max-md:items-start group md:translate-x-4">
-              <img src="/logos/alu_colored.png" alt="ALU" className="h-8 max-md:h-5 dark:hidden" />
-              <img src="/logos/alu_white.png" alt="ALU" className="h-8 max-md:h-5 hidden dark:flex" />
-              <img src="/logos/cbc-logo_coloured.png" alt="Claude Builder Club" className="h-20 max-md:h-5 dark:hidden" />
-              <img src="/logos/cbc-logo.png" alt="Claude Builder Club" className="h-20 max-md:h-5 hidden dark:flex" />
+            <Link to="/" className="flex items-center gap-6 group" aria-label="Claude Builder Club at African Leadership University, home">
+              <img src="/logos/alu_colored.png" alt="" className="h-8 w-auto dark:hidden" />
+              <img src="/logos/alu_white.png" alt="" className="h-8 w-auto hidden dark:block" />
+              <span aria-hidden className="h-12 w-px bg-border" />
+              <img src="/logos/cbc-logo_coloured.png" alt="" className="h-14 w-auto dark:hidden" />
+              <img src="/logos/cbc-logo.png" alt="" className="h-14 w-auto hidden dark:block" />
             </Link>
           </div>
 
