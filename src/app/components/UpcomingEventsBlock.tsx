@@ -29,7 +29,7 @@ export function UpcomingEventsBlock({
           {showViewAllLink && (
             <Link
               to="/events"
-              className="inline-flex items-center gap-1.5 text-[#D97757] font-medium hover:text-[#E08967] transition-colors shrink-0"
+              className="inline-flex items-center gap-1.5 min-h-10 text-[#D97757] font-medium hover:text-[#E08967] transition-colors shrink-0"
             >
               View All
               <ArrowRight size={18} className="text-[#D97757]" />

@@ -25,7 +25,7 @@ export function Footer() {
             </p>
             <div className="flex items-center gap-2 text-muted-foreground">
               <Mail size={16} />
-              <a href="mailto:cbcalu.rw@gmail.com" className="hover:text-[#D97757] transition-colors">
+              <a href="mailto:cbcalu.rw@gmail.com" className="inline-flex items-center min-h-10 hover:text-[#D97757] transition-colors">
                 cbcalu.rw@gmail.com
               </a>
             </div>
@@ -34,29 +34,29 @@ export function Footer() {
           {/* Quick Links */}
           <div>
             <h4 className="font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2">
+            <ul className="space-y-0">
               <li>
-                <Link to="/" className="text-muted-foreground hover:text-[#D97757] transition-colors">
+                <Link to="/" className="inline-flex items-center min-h-10 text-muted-foreground hover:text-[#D97757] transition-colors">
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/events" className="text-muted-foreground hover:text-[#D97757] transition-colors">
+                <Link to="/events" className="inline-flex items-center min-h-10 text-muted-foreground hover:text-[#D97757] transition-colors">
                   Events
                 </Link>
               </li>
               <li>
-                <Link to="/projects" className="text-muted-foreground hover:text-[#D97757] transition-colors">
+                <Link to="/projects" className="inline-flex items-center min-h-10 text-muted-foreground hover:text-[#D97757] transition-colors">
                   Projects
                 </Link>
               </li>
               <li>
-                <Link to="/gallery" className="text-muted-foreground hover:text-[#D97757] transition-colors">
+                <Link to="/gallery" className="inline-flex items-center min-h-10 text-muted-foreground hover:text-[#D97757] transition-colors">
                   Gallery
                 </Link>
               </li>
               <li>
-                <Link to="/faq" className="text-muted-foreground hover:text-[#D97757] transition-colors">
+                <Link to="/faq" className="inline-flex items-center min-h-10 text-muted-foreground hover:text-[#D97757] transition-colors">
                   FAQ
                 </Link>
               </li>

@@ -115,28 +115,28 @@ export function EventCalendar({ events, calendarId, onEventDayClick }: EventCale
     <>
       <div className="bg-card border border-border rounded-2xl p-5 lg:p-6 w-full">
         {/* ── Header ── */}
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-3xl font-bold tracking-tight">
+        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 mb-6">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
             {MONTHS[viewMonth]}
-            <span className="text-muted-foreground text-xl font-normal ml-2">{viewYear}</span>
+            <span className="text-muted-foreground text-lg sm:text-xl font-normal ml-2">{viewYear}</span>
           </h2>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 shrink-0">
             <button
               onClick={goBack}
-              className="p-2 rounded-full hover:bg-[#D97757]/20 transition-colors"
+              className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#D97757]/20 transition-colors"
               aria-label="Previous month"
             >
               <ChevronLeft size={18} />
             </button>
             <button
               onClick={goToday}
-              className="px-3 py-1.5 text-sm rounded-full hover:bg-[#D97757]/20 transition-colors font-medium"
+              className="h-10 px-3 text-sm rounded-full hover:bg-[#D97757]/20 transition-colors font-medium"
             >
               Today
             </button>
             <button
               onClick={goForward}
-              className="p-2 rounded-full hover:bg-[#D97757]/20 transition-colors"
+              className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#D97757]/20 transition-colors"
               aria-label="Next month"
             >
               <ChevronRight size={18} />
@@ -213,7 +213,7 @@ export function EventCalendar({ events, calendarId, onEventDayClick }: EventCale
                 alert("Calendar subscription coming soon! Ask a CBC officer for the link.");
               }
             }}
-            className="flex items-center gap-2 bg-[#D97757] text-[#0D0D0D] px-4 py-2 rounded-xl text-sm font-semibold hover:bg-[#E08967] transition-all shadow-md"
+            className="flex items-center gap-2 h-10 bg-[#D97757] text-[#0D0D0D] px-4 rounded-xl text-sm font-semibold hover:bg-[#E08967] transition-all shadow-md"
           >
             <Calendar size={15} />
             Add CBC Calendar

@@ -229,7 +229,7 @@ export function Events() {
 
                   <Link
                     to="/gallery"
-                    className="inline-flex items-center gap-1 text-xs bg-secondary text-foreground px-3 py-1.5 rounded-lg hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all"
+                    className="inline-flex items-center gap-1 min-h-10 text-xs bg-secondary text-foreground px-3 py-1.5 rounded-lg hover:bg-[#D97757] hover:text-[#0D0D0D] transition-all"
                   >
                     <ImageIcon size={14} />
                     Photos
