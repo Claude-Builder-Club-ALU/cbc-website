@@ -26,7 +26,9 @@ export function Home() {
           fetchPriority="high"
           className="absolute inset-0 w-full h-full object-cover object-[center_40%]"
         />
-        <div className="absolute inset-0 bg-background/85 dark:bg-background/80"></div>
+        <div className="absolute inset-0 bg-background/55 dark:bg-background/80"></div>
+        {/* Light mode: a soft glow behind the text keeps it readable while the photo stays visible */}
+        <div className="absolute inset-0 dark:hidden bg-[radial-gradient(ellipse_50%_45%_at_50%_50%,var(--background)_0%,transparent_100%)] opacity-80"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-background"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32 text-center">
