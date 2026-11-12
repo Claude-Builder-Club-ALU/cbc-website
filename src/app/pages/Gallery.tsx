@@ -40,6 +40,18 @@ const galleryItems = [
   { id: 19, url: "/tabling-3/IMG-20260330-WA0019.jpg", title: "Tabling", event: "Tabling 3" },
   { id: 20, url: "/tabling-3/IMG_5295.jpg", title: "Tabling", event: "Tabling 3" },
   { id: 21, url: "/tabling-3/IMG_5298.jpg", title: "Tabling", event: "Tabling 3" },
+
+  // From the club Drive folder
+  { id: 22, url: "/events/term-kickoff.jpg", title: "Term Kickoff", event: "Term Kickoff" },
+  { id: 23, url: "/events/claude-code-1.jpg", title: "Claude Code & Skills", event: "Claude Code & Skills Workshop" },
+  { id: 24, url: "/events/claude-code-2.jpg", title: "Claude Code & Skills", event: "Claude Code & Skills Workshop" },
+  { id: 25, url: "/events/mcp-workshop.jpg", title: "Building Your Own MCP Server", event: "MCP Workshop · Mar 2026" },
+  { id: 26, url: "/events/agents-workshop.jpg", title: "Building Agents", event: "Building Agents Workshop" },
+  { id: 27, url: "/events/hackathon-spring-2026.jpg", title: "Hackathon", event: "Hackathon · Spring 2026" },
+  { id: 28, url: "/events/cbc-group-photo.jpg", title: "The Club", event: "Claude Builder Club at ALU" },
+  { id: 29, url: "/events/info-session-1.jpg", title: "Info Session", event: "Info Session · Fall 2026" },
+  { id: 30, url: "/events/info-session-2.jpg", title: "Info Session", event: "Info Session · Fall 2026" },
+  { id: 31, url: "/events/info-session-3.jpg", title: "Info Session", event: "Info Session · Fall 2026" },
 ];
 
 export function Gallery() {

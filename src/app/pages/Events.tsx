@@ -35,6 +35,20 @@ type PastEvent = {
 
 const pastEvents: PastEvent[] = [
   {
+    id: 7,
+    date: "2026-10-29",
+    title: "Info Session: Fall 2026",
+    category: "Club meeting",
+    photo: "/events/info-session-2.jpg",
+  },
+  {
+    id: 6,
+    date: "2026-05-29",
+    title: "Spring 2026 Hackathon",
+    category: "Hackathon",
+    photo: "/events/hackathon-spring-2026.jpg",
+  },
+  {
     id: 1,
     date: "2026-03-24",
     title: "Club Tabling",
@@ -44,16 +58,16 @@ const pastEvents: PastEvent[] = [
   {
     id: 2,
     date: "2026-03-20",
-    title: "Intro to MCP",
+    title: "Building with MCP",
     category: "Workshop",
-    photo: "/cbc-meeting-3/IMG_1688.jpg",
+    photo: "/events/mcp-workshop.jpg",
   },
   {
     id: 3,
     date: "2026-03",
-    title: "Claude Code Workshop: Intro to Claude Code",
+    title: "Claude Code & Skills Workshop",
     category: "Workshop",
-    photo: "/cbc-meeting-2/1ee16cd9-a55b-4dba-8e90-94fd14e311d0.jpg",
+    photo: "/events/claude-code-2.jpg",
   },
   {
     id: 4,
