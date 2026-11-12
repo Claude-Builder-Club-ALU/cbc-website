@@ -3,15 +3,25 @@ import { Sun, Moon, HelpCircle, AlignJustify, X } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
+import { scrollToSection } from "../utils/scrollToSection";
+
+const ABOUT_PATH = "/#about";
 
 const navLinks = [
+  { name: "About", path: ABOUT_PATH },
   { name: "Events", path: "/events" },
   { name: "Projects", path: "/projects" },
   { name: "Gallery", path: "/gallery" },
   // { name: "Team", path: "/team" },
 ];
 
+/** "About" points at a home-page section; when already on Home, scroll there smoothly. */
+function scrollIfAboutOnHome(path: string, pathname: string) {
+  if (path === ABOUT_PATH && pathname === "/") scrollToSection("about");
+}
+
 function NavLinks({ isActive, showBrand }: { isActive: (path: string) => boolean; showBrand: boolean }) {
+  const { pathname } = useLocation();
   return (
     <div className="hidden md:flex flex-1 items-center gap-0 overflow-visible">
       {/* CBC @ ALU lockup: links home; hidden while center wordmarks show (scroll down) */}
@@ -48,6 +58,8 @@ function NavLinks({ isActive, showBrand }: { isActive: (path: string) => boolean
         <Link
           key={link.path}
           to={link.path}
+          onClick={() => scrollIfAboutOnHome(link.path, pathname)}
+          aria-current={isActive(link.path) ? "page" : undefined}
           className="relative px-3 py-1.5 text-sm font-medium"
         >
           {isActive(link.path) && (
@@ -185,7 +197,29 @@ export function Navbar() {
   const showLeftCbcLockup = !scrollShowsCenterLogo;
   const showCenterWordmarks = scrollShowsCenterLogo;
 
-  const isActive = (path: string) => location.pathname.startsWith(path);
+  // Highlight "About" while the About / What we do sections fill the middle of the screen.
+  const [aboutInView, setAboutInView] = useState(false);
+  useEffect(() => {
+    setAboutInView(false);
+    if (location.pathname !== "/") return;
+    const sections = document.querySelectorAll<HTMLElement>('[data-nav-section="about"]');
+    if (!sections.length) return;
+    const visible = new Set<Element>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => (e.isIntersecting ? visible.add(e.target) : visible.delete(e.target)));
+        setAboutInView(visible.size > 0);
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    sections.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [location.pathname]);
+
+  const isActive = (path: string) =>
+    path === ABOUT_PATH
+      ? location.pathname === "/" && aboutInView
+      : location.pathname.startsWith(path);
 
   // Scroll detection for background opacity
   useEffect(() => {
@@ -338,7 +372,12 @@ export function Navbar() {
       </div>
 
       {/* ── Mobile Menu ── */}
-      <AnimatePresence>
+      {/* The open menu pushes the page down; once it has closed, re-align any #section target. */}
+      <AnimatePresence
+        onExitComplete={() => {
+          if (window.location.hash) scrollToSection(decodeURIComponent(window.location.hash.slice(1)));
+        }}
+      >
         {mobileOpen && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
@@ -357,7 +396,10 @@ export function Navbar() {
                 >
                   <Link
                     to={link.path}
-                    onClick={() => setMobileOpen(false)}
+                    onClick={() => {
+                      setMobileOpen(false);
+                      scrollIfAboutOnHome(link.path, location.pathname);
+                    }}
                     className={`flex items-center gap-2 px-3 rounded-md hover:bg-secondary/50 max-md:hover:bg-secondary py-2.5 text-sm font-medium transition-colors ${isActive(link.path)
                         ? "text-primary bg-primary/10"
                         : "text-foreground hover:bg-secondary hover:text-primary"

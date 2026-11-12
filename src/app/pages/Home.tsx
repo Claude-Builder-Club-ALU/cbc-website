@@ -1,10 +1,11 @@
 import { Link } from "react-router";
-import { ArrowRight, User, Star, BookOpen, Heart, Gift, Code2, Trophy, Shield, Zap, Globe } from "lucide-react";
+import { ArrowDown, ArrowRight, ChevronDown, User, Star, BookOpen, Heart, Gift, Code2, Trophy, Shield, Zap, Globe } from "lucide-react";
 import { PhotoCarousel } from "../components/PhotoCarousel";
 import { TestimonialCarousel } from "../components/TestimonialCarousel";
 import { LogoPool } from "../components/LogoPool";
 import { UpcomingEventsBlock } from "../components/UpcomingEventsBlock";
 import { AboutCbc } from "../components/AboutCbc";
+import { scrollToSection } from "../utils/scrollToSection";
 
 export function Home() {
   return (
@@ -57,10 +58,12 @@ export function Home() {
               <ArrowRight size={20} />
             </a>
             <Link
-              to="/projects"
+              to="/#about"
+              onClick={() => scrollToSection("about")}
               className="border-2 border-primary text-primary px-8 h-12 rounded-full font-semibold hover:bg-primary hover:text-primary-foreground transition-all flex items-center gap-2 w-full sm:w-auto justify-center"
             >
-              See Our Work
+              Learn about CBC
+              <ArrowDown size={18} aria-hidden />
             </Link>
           </div>
         </div>
@@ -72,6 +75,16 @@ export function Home() {
         <div className="absolute bottom-0 left-0 right-0">
           <LogoPool className="h-44" />
         </div>
+
+        {/* ── Scroll cue ── */}
+        <Link
+          to="/#about"
+          onClick={() => scrollToSection("about")}
+          className="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 min-h-10 px-3 text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors"
+        >
+          Scroll to explore
+          <ChevronDown size={20} className="animate-bounce motion-reduce:animate-none" aria-hidden />
+        </Link>
       </section>
 
       {/* ── Photo Carousel ────────────────────────────────────────────────────── */}

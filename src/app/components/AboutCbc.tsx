@@ -83,7 +83,7 @@ export function AboutCbc() {
   return (
     <>
       {/* ── What is CBC ── */}
-      <section className="py-20 sm:py-24 border-t border-border">
+      <section id="about" data-nav-section="about" className="py-20 sm:py-24 border-t border-border scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <p className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-primary mb-3">
@@ -116,7 +116,7 @@ export function AboutCbc() {
       </section>
 
       {/* ── What we do ── */}
-      <section className="py-20 sm:py-24 border-t border-border bg-card/40">
+      <section id="what-we-do" data-nav-section="about" className="py-20 sm:py-24 border-t border-border bg-card/40 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <p className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-primary mb-3">
