@@ -10,8 +10,8 @@ import {
 
 /** Official CBC sign-up form (needed for member perks). */
 export const SIGNUP_URL = "https://www.jotform.com/253555944387168";
-/** CBC WhatsApp community invite link. Leave empty until it is available. */
-export const WHATSAPP_COMMUNITY_URL = "";
+/** CBC WhatsApp community invite link. */
+export const WHATSAPP_COMMUNITY_URL = "https://chat.whatsapp.com/If3lsEYAb0NG5x1JHJdgfu";
 
 type JoinOption = {
   Icon: LucideIcon;
