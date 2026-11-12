@@ -151,7 +151,7 @@ export function Home() {
               </div>
               <h3 className="text-xl font-bold mb-3">Hackathon + $50 API Credits</h3>
               <p className="text-muted-foreground leading-relaxed text-sm">
-              Everyone who takes part in the end-of-semester hackathon gets $50 in API credits to build their project, whether or not they win. Ship something real with Claude, present it to the community and compete for prizes. Open to all CBC members, whatever your technical background.
+              Everyone who takes part in the end-of-semester hackathon gets $50 in API credits to build their project, whether or not they win. Ship something real with Claude, present it to the community and compete for prizes. Open to all CBC members.
               </p>
             </div>
           </div>
