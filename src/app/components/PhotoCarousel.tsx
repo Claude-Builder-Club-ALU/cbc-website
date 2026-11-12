@@ -14,7 +14,7 @@ interface Photo {
 const CAROUSEL_PHOTOS: Photo[] = [
   { url: "/events/cbc-group-photo.jpg", caption: "Claude Builder Club at ALU" },
   { url: "/events/info-session-2.jpg", caption: "Info Session · Oct 2026" },
-  { url: "/events/hackathon-spring-2026-4.jpg", caption: "Hackathon · May 2026" },
+  { url: "/events/hackathon-spring-2026-5.jpg", caption: "Hackathon · May 2026" },
   { url: "/events/agents-workshop.jpg", caption: "Building Agents Workshop" },
   { url: "/events/mcp-workshop.jpg", caption: "Building with MCP · Mar 2026" },
   { url: "/events/claude-code-2.jpg", caption: "Claude Code & Skills Workshop" },
