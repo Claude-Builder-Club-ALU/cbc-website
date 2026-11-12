@@ -18,23 +18,39 @@ const LINKS: { key: keyof TeamLinks; label: string; Icon: LucideIcon }[] = [
 const isRealUrl = (url?: string) => !!url && /^https?:\/\//i.test(url);
 
 function SocialLinks({ member, className = "justify-center" }: { member: TeamMember; className?: string }) {
-  const links = LINKS.filter(({ key }) => isRealUrl(member.links?.[key]));
-  if (links.length === 0) return null;
+  const base = "w-10 h-10 rounded-lg flex items-center justify-center ring-1 transition-colors";
   return (
     <div className={`flex items-center gap-2 mt-4 ${className}`}>
-      {links.map(({ key, label, Icon }) => (
-        <a
-          key={key}
-          href={member.links![key]}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${member.name}: ${label} (opens in a new tab)`}
-          title={label}
-          className="w-10 h-10 rounded-lg flex items-center justify-center text-muted-foreground hover:text-primary-foreground hover:bg-primary ring-1 ring-border hover:ring-primary transition-colors"
-        >
-          <Icon size={17} aria-hidden />
-        </a>
-      ))}
+      {LINKS.map(({ key, label, Icon }) => {
+        const url = member.links?.[key];
+        if (isRealUrl(url)) {
+          return (
+            <a
+              key={key}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${member.name}: ${label} (opens in a new tab)`}
+              title={label}
+              className={`${base} text-muted-foreground ring-border hover:text-primary-foreground hover:bg-primary hover:ring-primary`}
+            >
+              <Icon size={17} aria-hidden />
+            </a>
+          );
+        }
+        // No link yet: show the icon greyed out so every card has the same row.
+        return (
+          <span
+            key={key}
+            role="img"
+            aria-label={`${member.name}: ${label} coming soon`}
+            title={`${label} coming soon`}
+            className={`${base} text-muted-foreground/40 ring-border/60 cursor-not-allowed`}
+          >
+            <Icon size={17} aria-hidden />
+          </span>
+        );
+      })}
     </div>
   );
 }
@@ -46,13 +62,13 @@ function Photo({ member, className = "" }: { member: TeamMember; className?: str
         src={member.photo}
         alt={`${member.name}, ${member.role}`}
         loading="lazy"
-        className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 group-hover:scale-[1.03] transition duration-500"
+        className="w-full h-full object-cover object-top group-hover:grayscale group-hover:scale-[1.03] transition duration-500"
       />
     </div>
   );
 }
 
-/** Larger card for the President, Vice President and Staff Advisor. */
+/** Larger card for the President, Vice President, Technical Director and Staff Advisor. */
 function LeaderCard({ member }: { member: TeamMember }) {
   return (
     // Phones: photo beside the details. From 640px: photo on top.
@@ -85,18 +101,18 @@ function LeadCard({ member }: { member: TeamMember }) {
   );
 }
 
-/** Placeholder for a role that has not been filled yet. */
+/** Placeholder for a role that has not been filled yet (stretches to its row's height). */
 function OpenRoleCard({ role }: { role: string }) {
   return (
-    <article className="rounded-2xl overflow-hidden flex flex-col bg-card/40 outline-2 outline-dashed outline-border -outline-offset-2">
-      <div className="aspect-[4/5] flex items-center justify-center">
-        <span className="w-16 h-16 rounded-full flex items-center justify-center bg-secondary text-muted-foreground">
-          <UserRound size={30} aria-hidden />
-        </span>
-      </div>
-      <div className="p-4 text-center flex flex-col flex-1">
-        <h3 className="text-base font-bold leading-snug text-muted-foreground">To be announced</h3>
-        <p className="text-primary text-xs font-semibold mt-1">{role}</p>
+    <article className="rounded-2xl flex flex-col items-center justify-center text-center gap-3 px-4 py-8 min-h-48 bg-card/40 outline-2 outline-dashed outline-border -outline-offset-2">
+      <span className="w-14 h-14 rounded-full flex items-center justify-center bg-secondary text-muted-foreground">
+        <UserRound size={26} aria-hidden />
+      </span>
+      <div>
+        <h3 className="text-base font-bold leading-snug">{role}</h3>
+        <p className="text-muted-foreground text-xs font-medium uppercase tracking-wider mt-1.5">
+          To be announced
+        </p>
       </div>
     </article>
   );
@@ -136,12 +152,12 @@ export function TeamSection() {
         </div>
 
         <TierHeading>Leadership</TierHeading>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 max-w-5xl mx-auto mb-14">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 mb-14">
           {LEADERSHIP.map((e) => renderEntry(e, "leader"))}
         </div>
 
         <TierHeading>Leads</TierHeading>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           {LEADS.map((e) => renderEntry(e, "lead"))}
         </div>
       </div>

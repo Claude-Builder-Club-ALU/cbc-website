@@ -1,13 +1,14 @@
 // CBC at ALU executive team, shown in the "Meet the Executive Team" section on the home page.
 //
 // Two tiers:
-//   LEADERSHIP: President, Vice President and Staff Advisor (larger cards)
+//   LEADERSHIP: President, Vice President, Technical Director and Staff Advisor (larger cards)
 //   LEADS:      the club's leads (smaller cards)
 //
 // To fill an open role, replace its `{ role: "...", vacant: true }` entry with a
 // full member entry. For each member:
 //   - photo: put the image in public/team/ (portrait or square, at least 600px wide)
-//   - links: full URLs (https://...). A link that is left out has no icon.
+//   - links: full URLs (https://...). A link that is left out shows a greyed-out
+//            "coming soon" icon until it is added.
 //            website can be a personal site, portfolio or link-in-bio page.
 
 export type TeamLinks = { linkedin?: string; github?: string; website?: string };
@@ -32,12 +33,31 @@ export const LEADERSHIP: TeamEntry[] = [
     role: "President",
     title: "Claude Ambassador",
     photo: "/team/Chiagoziem.jpeg",
+    links: {
+      linkedin: "https://www.linkedin.com/in/chiago/",
+      github: "https://github.com/El-Gibbor",
+    },
   },
   {
     name: "Favour Michael",
     role: "Vice President",
     title: "Claude Ambassador",
     photo: "/team/Favour.jpeg",
+    links: {
+      linkedin: "https://www.linkedin.com/in/froches/",
+      github: "https://github.com/Froches",
+      website: "https://portfolio.froches.tech/",
+    },
+  },
+  {
+    name: "Divine Ifechukwude",
+    role: "Technical Director",
+    photo: "/team/Divine.jpeg",
+    links: {
+      linkedin: "https://www.linkedin.com/in/ebitech14/",
+      github: "https://github.com/Ebi-Tech",
+      website: "https://divineifechukwude.vercel.app/",
+    },
   },
   {
     name: "Marvin Ogore",
@@ -47,11 +67,6 @@ export const LEADERSHIP: TeamEntry[] = [
 ];
 
 export const LEADS: TeamEntry[] = [
-  {
-    name: "Divine Ifechukwude",
-    role: "Technical Lead",
-    photo: "/team/Divine.jpeg",
-  },
   { role: "Programs Lead", vacant: true },
   { role: "Marketing & Outreach Lead", vacant: true },
   { role: "Secretary & Operations Lead", vacant: true },
