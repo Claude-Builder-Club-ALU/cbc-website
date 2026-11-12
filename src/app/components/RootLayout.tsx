@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
+import { JoinModalProvider } from "./JoinModal";
 import { scrollToSection } from "../utils/scrollToSection";
 
 /** On navigation, jump to the #section in the URL if there is one, otherwise to the top. */
@@ -23,6 +24,7 @@ function ScrollToTop() {
 
 export function RootLayout() {
   return (
+    <JoinModalProvider>
     <div className="min-h-screen bg-background text-foreground">
       <ScrollToTop />
       <Navbar />
@@ -31,5 +33,6 @@ export function RootLayout() {
       </main>
       <Footer />
     </div>
+    </JoinModalProvider>
   );
 }

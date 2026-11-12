@@ -6,9 +6,11 @@ import { LogoPool } from "../components/LogoPool";
 import { UpcomingEventsBlock } from "../components/UpcomingEventsBlock";
 import { AboutCbc } from "../components/AboutCbc";
 import { TeamSection } from "../components/TeamSection";
+import { useJoinModal } from "../components/JoinModal";
 import { scrollToSection } from "../utils/scrollToSection";
 
 export function Home() {
+  const openJoin = useJoinModal();
   return (
     <div>
       {/* ── Hero ──────────────────────────────────────────────────────────────── */}
@@ -58,15 +60,6 @@ export function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href="https://www.jotform.com/253555944387168"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-primary text-primary-foreground px-8 h-12 rounded-full font-bold hover:bg-primary/90 transition-all hover:shadow-lg hover:shadow-primary/30 flex items-center gap-2 w-full sm:w-auto justify-center"
-            >
-              Join Us
-              <ArrowRight size={20} />
-            </a>
             <Link
               to="/#about"
               onClick={() => scrollToSection("about")}
@@ -166,15 +159,15 @@ export function Home() {
           </div>
 
           <div className="text-center mt-10">
-            <a
-              href="https://www.jotform.com/253555944387168"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
+              onClick={openJoin}
+              aria-haspopup="dialog"
               className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3.5 rounded-xl font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:shadow-primary/30"
             >
               Start Building with CBC
               <ArrowRight size={18} />
-            </a>
+            </button>
           </div>
         </div>
       </section>

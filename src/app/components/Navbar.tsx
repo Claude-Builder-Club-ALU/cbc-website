@@ -1,3 +1,4 @@
+import { useJoinModal } from "./JoinModal";
 import { Link, useLocation } from "react-router";
 import { Sun, Moon, AlignJustify, X } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
@@ -193,6 +194,7 @@ function ThemeToggleButton({ className = "" }: { className?: string }) {
 }
 
 export function Navbar() {
+  const openJoin = useJoinModal();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -319,17 +321,17 @@ export function Navbar() {
 
             <ThemeIconButton />
 
-            <motion.a
-              href="https://www.jotform.com/253555944387168"
-              target="_blank"
-              rel="noopener noreferrer"
+            <motion.button
+              type="button"
+              onClick={openJoin}
+              aria-haspopup="dialog"
               className="ml-1 lg:ml-2 shrink-0 whitespace-nowrap bg-primary text-primary-foreground px-4 lg:px-5 py-2 rounded-xl text-sm font-semibold hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.15 }}
             >
               Join the Club
-            </motion.a>
+            </motion.button>
           </div>
 
           {/* ── Mobile: Hamburger button ── */}
@@ -429,15 +431,17 @@ export function Navbar() {
                 transition={{ delay: 0.03 + (navLinks.length + 2) * 0.045, duration: 0.22 }}
                 className="mt-2"
               >
-                <a
-                  href="https://www.jotform.com/253555944387168"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setMobileOpen(false)}
-                  className="block text-center bg-primary text-primary-foreground px-6 py-3 rounded-xl font-semibold hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20"
+                <button
+                  type="button"
+                  aria-haspopup="dialog"
+                  onClick={() => {
+                    setMobileOpen(false);
+                    openJoin();
+                  }}
+                  className="block w-full text-center bg-primary text-primary-foreground px-6 py-3 rounded-xl font-semibold hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20"
                 >
                   Join the Club
-                </a>
+                </button>
               </motion.div>
             </div>
           </motion.div>

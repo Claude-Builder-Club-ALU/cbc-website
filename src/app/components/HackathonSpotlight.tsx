@@ -1,6 +1,6 @@
-import { ArrowUpRight, Code2, Coins, Sparkles, Trophy, type LucideIcon } from "lucide-react";
+import { useJoinModal } from "./JoinModal";
+import { ArrowRight, Code2, Coins, Sparkles, Trophy, type LucideIcon } from "lucide-react";
 
-const JOIN_URL = "https://www.jotform.com/253555944387168";
 
 const HIGHLIGHTS: { Icon: LucideIcon; title: string; text: string }[] = [
   { Icon: Coins, title: "$50 API credits", text: "For every participant, to build your project" },
@@ -10,6 +10,7 @@ const HIGHLIGHTS: { Icon: LucideIcon; title: string; text: string }[] = [
 
 /** Featured card for the end-of-program hackathon (home page and Events page). */
 export function HackathonSpotlight({ className = "" }: { className?: string }) {
+  const openJoin = useJoinModal();
   return (
     <article
       id="event-card-hackathon"
@@ -59,15 +60,15 @@ export function HackathonSpotlight({ className = "" }: { className?: string }) {
           </ul>
 
           <div className="mt-7 flex flex-col @xl:flex-row @xl:items-center gap-3">
-            <a
-              href={JOIN_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
+              onClick={openJoin}
+              aria-haspopup="dialog"
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground font-semibold px-6 py-3 whitespace-nowrap hover:bg-primary/90 transition-colors shadow-md"
             >
               Join CBC to take part
-              <ArrowUpRight size={18} aria-hidden />
-            </a>
+              <ArrowRight size={18} aria-hidden />
+            </button>
             <p className="text-sm text-muted-foreground">Open to all CBC members. Exact dates announced soon.</p>
           </div>
         </div>
