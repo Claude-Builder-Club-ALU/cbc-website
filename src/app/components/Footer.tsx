@@ -34,7 +34,7 @@ export function Footer() {
           {/* Quick Links */}
           <div className="md:col-span-2">
             <h4 className="font-semibold mb-4">Quick Links</h4>
-            <ul className="grid grid-cols-3 gap-x-6">
+            <ul className="grid grid-cols-[repeat(3,max-content)] gap-x-8 sm:gap-x-10">
               <li>
                 <Link to="/" className="inline-flex items-center min-h-10 text-muted-foreground hover:text-primary transition-colors">
                   Home
