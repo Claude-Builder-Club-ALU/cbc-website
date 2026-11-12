@@ -14,7 +14,7 @@ export const SUBMISSION_FORM_URL =
 
 // Must be the published CSV of the "Published" tab only.
 export const APPROVED_PROJECTS_CSV_URL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vS1ScQYMHdf_7ZbiRK_bjWaKXp21BDVVRfDcHziwpA1ikXefdGA1iXKsKie37QMov1GpEPrrqbqzKbW/pub?output=csv";
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vS1ScQYMHdf_7ZbiRK_bjWaKXp21BDVVRfDcHziwpA1ikXefdGA1iXKsKie37QMov1GpEPrrqbqzKbW/pub?gid=0&single=true&output=csv";
 
 export type MemberProject = {
   id: string;
