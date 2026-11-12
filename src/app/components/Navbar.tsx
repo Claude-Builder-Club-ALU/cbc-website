@@ -102,7 +102,7 @@ export function Logo({ linkToHome = true }: { linkToHome?: boolean }) {
       </div> */}
       <img src="/logos/cbc-logo_coloured.png" alt="Claude Builder Club" className="h-9 md:h-10 w-auto dark:hidden" />
       <img src="/logos/cbc-logo.png" alt="Claude Builder Club" className="h-9 md:h-10 w-auto hidden dark:block" />
-      <span aria-hidden className="alu-mark h-7 w-px bg-border" />
+      <span aria-hidden className="alu-mark h-7 w-0.5 rounded-full bg-foreground/40" />
       <img src="/logos/alu_colored.png" alt="African Leadership University" className="alu-mark h-4 md:h-[18px] w-auto dark:hidden" />
       <img src="/logos/alu_white.png" alt="African Leadership University" className="alu-mark h-4 md:h-[18px] w-auto hidden dark:block" />
     </>

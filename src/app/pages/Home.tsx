@@ -37,7 +37,7 @@ export function Home() {
             <Link to="/" className="flex items-center gap-6 group" aria-label="Claude Builder Club at African Leadership University, home">
               <img src="/logos/alu_colored.png" alt="" className="h-8 w-auto dark:hidden" />
               <img src="/logos/alu_white.png" alt="" className="h-8 w-auto hidden dark:block" />
-              <span aria-hidden className="h-12 w-px bg-border" />
+              <span aria-hidden className="h-12 w-0.5 rounded-full bg-foreground/40" />
               <img src="/logos/cbc-logo_coloured.png" alt="" className="h-14 w-auto dark:hidden" />
               <img src="/logos/cbc-logo.png" alt="" className="h-14 w-auto hidden dark:block" />
             </Link>
@@ -65,7 +65,6 @@ export function Home() {
               className="border-2 border-primary text-primary px-8 h-12 rounded-full font-semibold hover:bg-primary hover:text-primary-foreground transition-all flex items-center gap-2 w-full sm:w-auto justify-center"
             >
               Learn about CBC
-              {/* <ArrowDown size={18} aria-hidden /> */}
             </Link>
           </div>
         </div>
