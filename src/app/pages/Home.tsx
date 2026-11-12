@@ -141,12 +141,17 @@ export function Home() {
 
             {/* Perk 3: Hackathon */}
             <div className="bg-card border border-border rounded-2xl p-8 hover:border-primary/50 transition-all group">
-              <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
-                <Trophy size={24} className="text-primary" />
+              <div className="flex items-start justify-between gap-3 mb-5">
+                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                  <Trophy size={24} className="text-primary" />
+                </div>
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-primary bg-primary/10 ring-1 ring-primary/30 rounded-full px-2.5 py-1">
+                  Every participant
+                </span>
               </div>
-              <h3 className="text-xl font-bold mb-3">End-of-Semester Hackathon</h3>
+              <h3 className="text-xl font-bold mb-3">Hackathon + $50 API Credits</h3>
               <p className="text-muted-foreground leading-relaxed text-sm">
-              Compete for prizes, build real projects, and demonstrate what you have created over the course of the semester. Open to all CBC members regardless of technical background or experience level.
+              Everyone who takes part in the end-of-semester hackathon gets $50 in API credits to build their project, whether or not they win. Ship something real with Claude, present it to the community and compete for prizes. Open to all CBC members, whatever your technical background.
               </p>
             </div>
           </div>
