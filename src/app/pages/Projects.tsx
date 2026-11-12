@@ -31,7 +31,7 @@ const initiatives = [
     partner: "Student Success Team",
     impact: "Equipping ALU students with foundational Linux & CLI skills",
     description:
-      "A hands-on workshop curriculum co-developed with the Student Success Team. Covers shell basics, file systems, scripting, and developer tooling — built to run as a recurring ALU programme.",
+      "A hands-on workshop curriculum co-developed with the Student Success Team. Covers shell basics, file systems, scripting, and developer tooling, built to run as a recurring ALU programme.",
     tags: ["Education", "Linux", "ALU Programme"],
     icon: <BookOpen size={22} />,
     link: "#",
@@ -44,7 +44,7 @@ const initiatives = [
     partner: "Academic Affairs",
     impact: "Bringing AI fundamentals to every ALU student",
     description:
-      "A structured curriculum covering LLM concepts, prompt engineering, and responsible AI use — currently in scoping discussions with Academic Affairs to integrate into the broader ALU learning journey.",
+      "A structured curriculum covering LLM concepts, prompt engineering, and responsible AI use. It is currently in scoping discussions with Academic Affairs to integrate into the broader ALU learning journey.",
     tags: ["Curriculum", "AI Education", "Institutional"],
     icon: <Users size={22} />,
     link: "#",
@@ -201,7 +201,7 @@ export function Projects() {
           <div className="mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">CBC × ALU</h2>
             <p className="text-muted-foreground max-w-2xl leading-relaxed">
-              These are projects the CBC core team is building <em>for</em> ALU —
+              These are projects the CBC core team is building <em>for</em> ALU:
               tools and programmes that directly serve students, faculty, and the
               institution. Not experiments. Real impact.
             </p>

@@ -10,12 +10,12 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 // new entries here with the matching url and event label.
 // ─────────────────────────────────────────────────────────────────────────────
 const galleryItems = [
-  // CBC Kickoff — Feb 2026
+  // CBC Kickoff: Feb 2026
   { id: 1, url: "/cbc-meeting-1/IMG_6927.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
   { id: 2, url: "/cbc-meeting-1/IMG_0328.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
   { id: 3, url: "/cbc-meeting-1/IMG_7894.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
 
-  // Claude Code Workshop — Mar 2026
+  // Claude Code Workshop: Mar 2026
   { id: 4, url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
   { id: 5, url: "/cbc-meeting-2/2a92db3b-b5c8-41eb-ba4b-6a219e28f92a.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
   { id: 6, url: "/cbc-meeting-2/13336e25-ce99-4e77-ba8d-3249f029b2aa.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
@@ -23,7 +23,7 @@ const galleryItems = [
   { id: 8, url: "/cbc-meeting-2/bac3e2b9-b607-4bdf-8f53-ec39e3778041.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
   { id: 9, url: "/cbc-meeting-2/d9ff5c2b-4093-4ebb-aa74-1204e0b67b27.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
 
-  // Intro to MCP — Meeting 3
+  // Intro to MCP: Meeting 3
   { id: 10, url: "/cbc-meeting-3/IMG_1683.jpg", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
   { id: 11, url: "/cbc-meeting-3/IMG_1688.jpg", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
   { id: 12, url: "/cbc-meeting-3/IMG_1693.jpg", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
@@ -86,7 +86,7 @@ export function Gallery() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">Gallery</h1>
           <p className="text-xl text-muted-foreground max-w-2xl">
-            Moments that matter — from our meetings, workshops, and events.
+            Moments that matter, from our meetings, workshops, and events.
           </p>
         </div>
       </section>
@@ -107,7 +107,7 @@ export function Gallery() {
                 className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
                 draggable={false}
               />
-              {/* Hover overlay — always dark for text readability on images */}
+              {/* Hover overlay: always dark for text readability on images */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
                 <p className="text-white font-semibold text-sm leading-snug">{item.title}</p>
                 {item.event && (

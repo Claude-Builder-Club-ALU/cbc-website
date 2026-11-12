@@ -14,7 +14,7 @@ const navLinks = [
 function NavLinks({ isActive, showBrand }: { isActive: (path: string) => boolean; showBrand: boolean }) {
   return (
     <div className="hidden md:flex flex-1 items-center gap-0 overflow-visible">
-      {/* CBC @ ALU lockup — links home; hidden while center wordmarks show (scroll down) */}
+      {/* CBC @ ALU lockup: links home; hidden while center wordmarks show (scroll down) */}
       <AnimatePresence initial={false}>
         {showBrand && (
           <motion.div

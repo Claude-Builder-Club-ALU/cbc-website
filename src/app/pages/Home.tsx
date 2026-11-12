@@ -87,18 +87,18 @@ export function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Perk 1 — Claude Pro */}
+            {/* Perk 1: Claude Pro */}
             <div className="bg-card border border-border rounded-2xl p-8 hover:border-primary/50 transition-all group">
               <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
                 <Gift size={24} className="text-primary" />
               </div>
               <h3 className="text-xl font-bold mb-3">Free Claude Pro</h3>
               <p className="text-muted-foreground leading-relaxed text-sm">
-              Five times more usage than the free tier, with access to Claude's most capable models including Sonnet and Opus - available to active CBC members to power their projects all semester long.
+              Five times more usage than the free tier, with access to Claude's most capable models including Sonnet and Opus, available to active CBC members to power their projects all semester long.
               </p>
             </div>
 
-            {/* Perk 2 — API Credits */}
+            {/* Perk 2: API Credits */}
             <div className="bg-card border border-border rounded-2xl p-8 hover:border-primary/50 transition-all group">
               <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
                 <Code2 size={24} className="text-primary" />
@@ -109,7 +109,7 @@ export function Home() {
               </p>
             </div>
 
-            {/* Perk 3 — Hackathon */}
+            {/* Perk 3: Hackathon */}
             <div className="bg-card border border-border rounded-2xl p-8 hover:border-primary/50 transition-all group">
               <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
                 <Trophy size={24} className="text-primary" />
@@ -204,7 +204,7 @@ export function Home() {
             </div>
             <h3 className="text-xl font-bold mb-3">Safety-First</h3>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Built by Anthropic with Constitutional AI — designed to be helpful, harmless, and honest. Claude is engineered to be transparent about what it doesn't know.
+              Built by Anthropic with Constitutional AI and designed to be helpful, harmless, and honest. Claude is engineered to be transparent about what it doesn't know.
             </p>
           </div>
 
@@ -214,7 +214,7 @@ export function Home() {
             </div>
             <h3 className="text-xl font-bold mb-3">Built for Builders</h3>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Claude Code lets you delegate complex coding tasks from your terminal. From architecture to deployment — Claude accelerates every step of the software development lifecycle.
+              Claude Code lets you delegate complex coding tasks from your terminal. From architecture to deployment, Claude speeds up every step of the software development lifecycle.
             </p>
           </div>
 

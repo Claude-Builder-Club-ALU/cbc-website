@@ -4,7 +4,7 @@ import { ChevronDown } from "lucide-react";
 const JOTFORM = "https://www.jotform.com/253555944387168";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// FAQ DATA — add new questions here as needed
+// FAQ DATA: add new questions here as needed
 // ─────────────────────────────────────────────────────────────────────────────
 const faqs = [
   {
@@ -17,7 +17,7 @@ const faqs = [
             <span className="text-primary font-bold shrink-0">1.</span>
             <div>
               <strong className="text-foreground">You're officially registered.</strong>{" "}
-              Perks only go to registered members — if you skipped the sign-up form,
+              Perks only go to registered members. If you skipped the sign-up form,
               that's likely why.{" "}
               <a
                 href={JOTFORM}
@@ -42,7 +42,7 @@ const faqs = [
                     <code className="text-foreground bg-secondary px-1.5 py-0.5 rounded text-sm">
                       platform.claude.com
                     </code>{" "}
-                    — this is the correct one
+                    (this is the correct one)
                   </span>
                 </li>
                 <li className="flex items-center gap-2">
@@ -51,7 +51,7 @@ const faqs = [
                     <code className="text-foreground bg-secondary px-1.5 py-0.5 rounded text-sm">
                       claude.ai
                     </code>{" "}
-                    — this won't work
+                    (this won't work)
                   </span>
                 </li>
               </ul>

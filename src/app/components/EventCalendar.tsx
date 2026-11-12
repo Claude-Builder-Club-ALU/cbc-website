@@ -28,7 +28,7 @@ interface EventCalendarProps {
    *  4. Paste it here.
    *
    * When a visitor clicks "Add CBC Calendar" they'll see Google Calendar's
-   * "Add to My Calendars" dialog — exactly the shared-calendar subscribe flow.
+   * "Add to My Calendars" dialog: exactly the shared-calendar subscribe flow.
    */
   calendarId?: string;
 }

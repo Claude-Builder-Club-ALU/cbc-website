@@ -75,7 +75,7 @@ interface MemberCardProps {
 function MemberCard({ name, role, photo, linkedin, github }: MemberCardProps) {
   return (
     <div className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary transition-all flex flex-col">
-      {/* Photo — portrait ratio for headshots */}
+      {/* Photo: portrait ratio for headshots */}
       <div className="relative overflow-hidden aspect-[3/4]">
         <img
           src={photo}

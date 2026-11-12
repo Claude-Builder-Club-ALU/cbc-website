@@ -46,7 +46,7 @@
   --cbc-gray: #9CA3AF;
 }
 
-/* Dark mode — keep brand identity intact */
+/* Dark mode: keep brand identity intact */
 .dark {
   --background: #0D0D0D;
   --foreground: #F5F5F5;
@@ -77,7 +77,7 @@
   --sidebar-ring: #D97757;
 }
 
-/* Light mode — warm cream palette inspired by the brand's orange */
+/* Light mode: warm cream palette inspired by the brand's orange */
 .light {
   --background: #F9F6F3;
   --foreground: #1C1A18;
