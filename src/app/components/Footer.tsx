@@ -41,6 +41,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/#team" className="inline-flex items-center min-h-10 text-muted-foreground hover:text-primary transition-colors">
+                  Team
+                </Link>
+              </li>
+              <li>
                 <Link to="/events" className="inline-flex items-center min-h-10 text-muted-foreground hover:text-primary transition-colors">
                   Events
                 </Link>

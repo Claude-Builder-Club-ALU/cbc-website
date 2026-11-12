@@ -5,6 +5,7 @@ import { TestimonialCarousel } from "../components/TestimonialCarousel";
 import { LogoPool } from "../components/LogoPool";
 import { UpcomingEventsBlock } from "../components/UpcomingEventsBlock";
 import { AboutCbc } from "../components/AboutCbc";
+import { TeamSection } from "../components/TeamSection";
 import { scrollToSection } from "../utils/scrollToSection";
 
 export function Home() {
@@ -216,6 +217,8 @@ export function Home() {
           </div>
         </div>
       </section>
+
+      <TeamSection />
 
       {/* ── Why Claude? ──────────────────────────────────────────────────────── */}
       <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
