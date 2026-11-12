@@ -58,10 +58,6 @@ export function Home() {
             Starting with <span className="text-primary">You</span>
           </h1>
 
-          {/* <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
-          Africa does not lack problems. It needs builders. Claude Builder Club at ALU is where students come to build the answers.
-          </p> */}
-
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to="/#about"
@@ -69,7 +65,7 @@ export function Home() {
               className="border-2 border-primary text-primary px-8 h-12 rounded-full font-semibold hover:bg-primary hover:text-primary-foreground transition-all flex items-center gap-2 w-full sm:w-auto justify-center"
             >
               Learn about CBC
-              <ArrowDown size={18} aria-hidden />
+              {/* <ArrowDown size={18} aria-hidden /> */}
             </Link>
           </div>
         </div>
@@ -87,7 +83,7 @@ export function Home() {
           to="/#about"
           onClick={() => scrollToSection("about")}
           aria-label="Scroll to learn about the club"
-          className="group absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2.5"
+          className="group absolute bottom-26 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2.5"
         >
           <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-foreground/70 group-hover:text-primary transition-colors">
             Scroll to explore
