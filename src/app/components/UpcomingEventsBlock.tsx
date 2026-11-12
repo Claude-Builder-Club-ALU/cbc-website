@@ -1,11 +1,12 @@
 import { Link } from "react-router";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight, Clock, Star } from "lucide-react";
 import {
   UPCOMING_EVENTS,
   addToCalendarDownload,
   getEventRowIcon,
   type HomeUpcomingEvent,
 } from "../data/upcomingEvents";
+import { HackathonSpotlight } from "./HackathonSpotlight";
 
 interface UpcomingEventsBlockProps {
   showViewAllLink?: boolean;
@@ -17,54 +18,56 @@ export function UpcomingEventsBlock({
   events = UPCOMING_EVENTS,
 }: UpcomingEventsBlockProps) {
   return (
-    <section className="py-20 sm:py-24 bg-[#0D0D0D] text-[#F5F5F5] border-y border-white/10">
+    <section className="py-20 sm:py-24 bg-background text-foreground border-y border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6 mb-12 lg:mb-14">
           <div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-2">Upcoming Events</h2>
-            <p className="text-zinc-400 text-base sm:text-lg max-w-xl">
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground tracking-tight mb-2">Upcoming Events</h2>
+            <p className="text-muted-foreground text-base sm:text-lg max-w-xl">
               Stay engaged with what is coming up this semester
             </p>
           </div>
           {showViewAllLink && (
             <Link
               to="/events"
-              className="inline-flex items-center gap-1.5 text-[#D97757] font-medium hover:text-[#E08967] transition-colors shrink-0"
+              className="inline-flex items-center gap-1.5 min-h-10 text-primary font-medium hover:text-primary/80 transition-colors shrink-0"
             >
               View All
-              <ArrowRight size={18} className="text-[#D97757]" />
+              <ArrowRight size={18} className="text-primary" />
             </Link>
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <HackathonSpotlight className="mb-8 lg:mb-10" />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8">
           {events.map((event) => (
             <div
               key={event.id}
-              className={`relative rounded-2xl p-6 sm:p-7 flex flex-col h-full bg-[#1A1A1A] border transition-colors ${
+              className={`relative rounded-2xl p-6 sm:p-7 flex flex-col h-full bg-card border transition-colors ${
                 event.featured
-                  ? "border-2 border-[#D97757] shadow-[0_0_0_1px_rgba(217,119,87,0.15)]"
-                  : "border border-white/10 hover:border-white/20"
+                  ? "border-2 border-primary shadow-[0_0_0_1px_rgba(217,119,87,0.15)]"
+                  : "border border-border hover:border-primary/50"
               } ${event.seasonFinale ? "pt-9 sm:pt-10" : ""}`}
             >
               {event.seasonFinale && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
-                  <span className="inline-flex items-center gap-1.5 bg-[#D97757] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md whitespace-nowrap">
-                    <Star size={12} className="text-amber-200 fill-amber-200 shrink-0" aria-hidden />
+                  <span className="inline-flex items-center gap-1.5 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full shadow-md whitespace-nowrap">
+                    <Star size={12} className="fill-current shrink-0" aria-hidden />
                     Season Finale
                   </span>
                 </div>
               )}
 
-              <p className="text-[#D97757] font-semibold text-sm sm:text-base mb-3 mt-1">{event.dateLabel}</p>
-              <h3 className="text-lg sm:text-xl font-bold text-white leading-snug mb-4">{event.title}</h3>
-              <div className="border-t border-white/10 mb-4" />
-              <div className="space-y-3 text-zinc-400 text-sm flex-1 mb-5">
+              <p className="text-primary font-semibold text-sm sm:text-base mb-3 mt-1">{event.dateLabel}</p>
+              <h3 className="text-lg sm:text-xl font-bold text-foreground leading-snug mb-4">{event.title}</h3>
+              <div className="border-t border-border mb-4" />
+              <div className="space-y-3 text-muted-foreground text-sm flex-1 mb-5">
                 {event.rows.map((row, i) => {
                   const Icon = getEventRowIcon(row.icon);
                   return (
                     <div key={i} className="flex items-start gap-2.5">
-                      <Icon size={16} className="shrink-0 mt-0.5 text-zinc-500" aria-hidden />
+                      <Icon size={16} className="shrink-0 mt-0.5 text-muted-foreground" aria-hidden />
                       <span className="leading-snug">{row.text}</span>
                     </div>
                   );
@@ -73,24 +76,23 @@ export function UpcomingEventsBlock({
 
               {event.chip && (
                 <div className="mb-5">
-                  <span className="inline-block text-xs font-medium text-zinc-400 bg-zinc-800/80 border border-white/10 rounded-full px-3 py-1">
+                  <span className="inline-block text-xs font-medium text-muted-foreground bg-secondary border border-border rounded-full px-3 py-1">
                     {event.chip}
                   </span>
                 </div>
               )}
 
               {event.action === "checkBack" ? (
-                <button
-                  type="button"
-                  className="w-full mt-auto py-3 rounded-xl font-semibold text-white border border-white/80 bg-transparent hover:bg-white/10 transition-colors"
-                >
-                  Check Back Soon
-                </button>
+                // Status, not an action: the date has not been announced yet.
+                <p className="w-full mt-auto py-3 rounded-xl text-sm font-medium text-muted-foreground border border-dashed border-border flex items-center justify-center gap-2">
+                  <Clock size={15} aria-hidden className="text-primary" />
+                  Watch for announcements
+                </p>
               ) : (
                 <button
                   type="button"
                   onClick={() => addToCalendarDownload(event)}
-                  className="w-full mt-auto py-3 rounded-xl font-semibold text-white border border-white/80 bg-transparent hover:bg-white/10 transition-colors"
+                  className="w-full mt-auto py-3 rounded-xl font-semibold text-foreground border border-foreground/70 bg-transparent hover:bg-foreground/10 transition-colors"
                 >
                   Add to Calendar
                 </button>

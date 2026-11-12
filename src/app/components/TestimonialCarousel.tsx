@@ -12,7 +12,7 @@ export function TestimonialCarousel() {
     {
       name: "Kwame Mensah",
       role: "Entrepreneurship, Class of 2025",
-      content: "The Claude Builder Club isn't just a tech club—it's a launchpad. I've connected with amazing people and learned skills that directly apply to my startup.",
+      content: "The Claude Builder Club isn't just a tech club. It's a launchpad. I've connected with amazing people and learned skills that directly apply to my startup.",
       avatar: "https://images.unsplash.com/photo-1596580817363-a4a8f67d4bc8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxibGFjayUyMG1hbiUyMHNvZnR3YXJlJTIwZGV2ZWxvcGVyJTIwcG9ydHJhaXQlMjBwcm9mZXNzaW9uYWx8ZW58MXx8fHwxNzczODY2NzUyfDA&ixlib=rb-4.1.0&q=80&w=400",
     },
     {
@@ -40,7 +40,7 @@ export function TestimonialCarousel() {
         {testimonials.map((testimonial, index) => (
           <div key={index} className="px-4">
             <div className="bg-card border border-border rounded-2xl p-8 md:p-12">
-              <Quote className="text-[#D97757] mb-6" size={40} />
+              <Quote className="text-primary mb-6" size={40} />
               <p className="text-lg md:text-xl text-foreground mb-8 leading-relaxed">
                 "{testimonial.content}"
               </p>
@@ -48,7 +48,7 @@ export function TestimonialCarousel() {
                 <img
                   src={testimonial.avatar}
                   alt={testimonial.name}
-                  className="w-16 h-16 rounded-full object-cover border-2 border-[#D97757]"
+                  className="w-16 h-16 rounded-full object-cover border-2 border-primary"
                 />
                 <div>
                   <div className="font-semibold text-foreground">{testimonial.name}</div>
@@ -66,13 +66,13 @@ export function TestimonialCarousel() {
           bottom: -40px;
         }
         .slick-dots li button:before {
-          color: #D97757;
+          color: var(--primary);
           opacity: 0.3;
           font-size: 10px;
         }
         .slick-dots li.slick-active button:before {
           opacity: 1;
-          color: #D97757;
+          color: var(--primary);
         }
       `}</style>
     </div>

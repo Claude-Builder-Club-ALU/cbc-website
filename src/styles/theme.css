@@ -46,7 +46,7 @@
   --cbc-gray: #9CA3AF;
 }
 
-/* Dark mode — keep brand identity intact */
+/* Dark mode: keep brand identity intact */
 .dark {
   --background: #0D0D0D;
   --foreground: #F5F5F5;
@@ -77,7 +77,7 @@
   --sidebar-ring: #D97757;
 }
 
-/* Light mode — warm cream palette inspired by the brand's orange */
+/* Light mode: warm cream palette inspired by the brand's orange */
 .light {
   --background: #F9F6F3;
   --foreground: #1C1A18;
@@ -85,29 +85,29 @@
   --card-foreground: #1C1A18;
   --popover: #FFFFFF;
   --popover-foreground: #1C1A18;
-  --primary: #D97757;
-  --primary-foreground: #0D0D0D;
+  --primary: #B5532F;
+  --primary-foreground: #FFFFFF;
   --secondary: #EDE6DF;
   --secondary-foreground: #1C1A18;
   --muted: #EDE6DF;
   --muted-foreground: #7A746E;
-  --accent: #D97757;
-  --accent-foreground: #0D0D0D;
+  --accent: #B5532F;
+  --accent-foreground: #FFFFFF;
   --destructive: #DC2626;
   --destructive-foreground: #FFFFFF;
   --border: #E5DDD6;
   --input: #FFFFFF;
   --input-background: #FFFFFF;
   --switch-background: #E5DDD6;
-  --ring: #D97757;
+  --ring: #B5532F;
   --sidebar: #F9F6F3;
   --sidebar-foreground: #1C1A18;
-  --sidebar-primary: #D97757;
-  --sidebar-primary-foreground: #0D0D0D;
+  --sidebar-primary: #B5532F;
+  --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent: #EDE6DF;
   --sidebar-accent-foreground: #1C1A18;
   --sidebar-border: #E5DDD6;
-  --sidebar-ring: #D97757;
+  --sidebar-ring: #B5532F;
 }
 
 @theme inline {
@@ -229,4 +229,22 @@
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
   }
+}
+/* Hero "Scroll to explore" cue: arrow glides down and fades, then repeats */
+@keyframes scroll-cue-arrow {
+  0% { transform: translateY(-6px); opacity: 0; }
+  35% { opacity: 1; }
+  100% { transform: translateY(7px); opacity: 0; }
+}
+
+@keyframes scroll-cue-ring {
+  0% { transform: scale(1); opacity: 0.55; }
+  80%, 100% { transform: scale(1.6); opacity: 0; }
+}
+
+.scroll-cue-arrow { animation: scroll-cue-arrow 1.8s ease-in-out infinite; }
+.scroll-cue-ring { animation: scroll-cue-ring 2.4s ease-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue-arrow, .scroll-cue-ring { animation: none; }
 }

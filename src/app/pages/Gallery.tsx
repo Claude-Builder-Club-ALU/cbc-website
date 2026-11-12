@@ -1,52 +1,97 @@
 import { useState, useEffect, useCallback } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { useSearchParams } from "react-router";
+import { photoSrcSet, smallPhoto } from "../utils/responsiveImage";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// GALLERY PHOTOS
+// GALLERY PHOTOS (newest first)
 //
-// Photos are served from /public and available at the paths below.
-// To add new events: copy photos to public/<event-folder>/ and push
-// new entries here with the matching url and event label.
+// To add photos: save both sizes in public/<folder>/ (see utils/responsiveImage.ts),
+// then add entries here with a category so the filter chips pick them up.
 // ─────────────────────────────────────────────────────────────────────────────
-const galleryItems = [
-  // CBC Kickoff — Feb 2026
-  { id: 1, url: "/cbc-meeting-1/IMG_6927.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
-  { id: 2, url: "/cbc-meeting-1/IMG_0328.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
-  { id: 3, url: "/cbc-meeting-1/IMG_7894.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
+type GalleryCategory = "workshops" | "hackathon" | "meetings" | "tabling" | "community";
 
-  // Claude Code Workshop — Mar 2026
-  { id: 4, url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
-  { id: 5, url: "/cbc-meeting-2/2a92db3b-b5c8-41eb-ba4b-6a219e28f92a.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
-  { id: 6, url: "/cbc-meeting-2/13336e25-ce99-4e77-ba8d-3249f029b2aa.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
-  { id: 7, url: "/cbc-meeting-2/1ee16cd9-a55b-4dba-8e90-94fd14e311d0.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
-  { id: 8, url: "/cbc-meeting-2/bac3e2b9-b607-4bdf-8f53-ec39e3778041.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
-  { id: 9, url: "/cbc-meeting-2/d9ff5c2b-4093-4ebb-aa74-1204e0b67b27.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
+type GalleryItem = { id: number; url: string; title: string; event: string; category: GalleryCategory };
 
-  // Intro to MCP — Meeting 3
-  { id: 10, url: "/cbc-meeting-3/IMG_1683.jpg", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
-  { id: 11, url: "/cbc-meeting-3/IMG_1688.jpg", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
-  { id: 12, url: "/cbc-meeting-3/IMG_1693.jpg", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
-
-  // Tabling 1
-  { id: 13, url: "/tabling-1/IMG_0112.jpg", title: "Tabling", event: "Tabling 1" },
-  { id: 14, url: "/tabling-1/IMG_0157.jpg", title: "Tabling", event: "Tabling 1" },
-  { id: 15, url: "/tabling-1/IMG_0167.jpg", title: "Tabling", event: "Tabling 1" },
-  { id: 16, url: "/tabling-1/IMG_7694.jpg", title: "Tabling", event: "Tabling 1" },
-  { id: 17, url: "/tabling-1/IMG_7721.jpg", title: "Tabling", event: "Tabling 1" },
-
-  // Tabling 3
-  { id: 18, url: "/tabling-3/IMG-20260330-WA0016.jpg", title: "Tabling", event: "Tabling 3" },
-  { id: 19, url: "/tabling-3/IMG-20260330-WA0019.jpg", title: "Tabling", event: "Tabling 3" },
-  { id: 20, url: "/tabling-3/IMG_5295.jpg", title: "Tabling", event: "Tabling 3" },
-  { id: 21, url: "/tabling-3/IMG_5298.jpg", title: "Tabling", event: "Tabling 3" },
+const FILTERS: { key: GalleryCategory | "all"; label: string }[] = [
+  { key: "all", label: "All photos" },
+  { key: "hackathon", label: "Hackathon" },
+  { key: "workshops", label: "Workshops" },
+  { key: "meetings", label: "Info sessions & meetings" },
+  { key: "tabling", label: "Tabling" },
 ];
 
+const galleryItems: GalleryItem[] = [
+  // Info Session: Fall 2026
+  { id: 29, url: "/events/info-session-1.webp", title: "Info Session", event: "Info Session · Fall 2026", category: "meetings" },
+  { id: 30, url: "/events/info-session-2.webp", title: "Info Session", event: "Info Session · Fall 2026", category: "meetings" },
+  { id: 31, url: "/events/info-session-3.webp", title: "Info Session", event: "Info Session · Fall 2026", category: "meetings" },
+
+  // Hackathon: Spring 2026
+  { id: 40, url: "/events/hackathon-spring-2026-5.webp", title: "Hackathon", event: "Hackathon · Spring 2026", category: "hackathon" },
+  { id: 39, url: "/events/hackathon-spring-2026-4.webp", title: "Hackathon", event: "Hackathon · Spring 2026", category: "hackathon" },
+  { id: 38, url: "/events/hackathon-spring-2026-3.webp", title: "Hackathon", event: "Hackathon · Spring 2026", category: "hackathon" },
+  { id: 37, url: "/events/hackathon-spring-2026-2.webp", title: "Hackathon", event: "Hackathon · Spring 2026", category: "hackathon" },
+  { id: 27, url: "/events/hackathon-spring-2026.webp", title: "Hackathon", event: "Hackathon · Spring 2026", category: "hackathon" },
+  { id: 41, url: "/events/hackathon-spring-2026-6.webp", title: "Hackathon", event: "Hackathon · Spring 2026", category: "hackathon" },
+
+  // The club
+  { id: 28, url: "/events/cbc-group-photo.webp", title: "The Club", event: "Claude Builder Club at ALU", category: "community" },
+
+  // Building Agents Workshop
+  { id: 26, url: "/events/agents-workshop.webp", title: "Building Agents", event: "Building Agents Workshop", category: "workshops" },
+
+  // Tabling 3
+  { id: 18, url: "/tabling-3/IMG-20260330-WA0016.webp", title: "Tabling", event: "Tabling · Mar 2026", category: "tabling" },
+  { id: 19, url: "/tabling-3/IMG-20260330-WA0019.webp", title: "Tabling", event: "Tabling · Mar 2026", category: "tabling" },
+
+  // MCP workshop: Mar 2026
+  { id: 25, url: "/events/mcp-workshop.webp", title: "Building Your Own MCP Server", event: "MCP Workshop · Mar 2026", category: "workshops" },
+  { id: 10, url: "/cbc-meeting-3/IMG_1683.webp", title: "Intro to MCP", event: "MCP Workshop · Mar 2026", category: "workshops" },
+  { id: 11, url: "/cbc-meeting-3/IMG_1688.webp", title: "Intro to MCP", event: "MCP Workshop · Mar 2026", category: "workshops" },
+
+  // Claude Code & Skills workshop: Mar 2026
+  { id: 23, url: "/events/claude-code-1.webp", title: "Claude Code & Skills", event: "Claude Code & Skills Workshop · Mar 2026", category: "workshops" },
+  { id: 24, url: "/events/claude-code-2.webp", title: "Claude Code & Skills", event: "Claude Code & Skills Workshop · Mar 2026", category: "workshops" },
+  { id: 4, url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.webp", title: "Intro to Claude Code", event: "Claude Code & Skills Workshop · Mar 2026", category: "workshops" },
+  { id: 6, url: "/cbc-meeting-2/13336e25-ce99-4e77-ba8d-3249f029b2aa.webp", title: "Intro to Claude Code", event: "Claude Code & Skills Workshop · Mar 2026", category: "workshops" },
+  { id: 8, url: "/cbc-meeting-2/bac3e2b9-b607-4bdf-8f53-ec39e3778041.webp", title: "Intro to Claude Code", event: "Claude Code & Skills Workshop · Mar 2026", category: "workshops" },
+  { id: 9, url: "/cbc-meeting-2/d9ff5c2b-4093-4ebb-aa74-1204e0b67b27.webp", title: "Intro to Claude Code", event: "Claude Code & Skills Workshop · Mar 2026", category: "workshops" },
+
+  // CBC Kickoff: Feb 2026
+  { id: 22, url: "/events/term-kickoff.webp", title: "Term Kickoff", event: "Term Kickoff", category: "meetings" },
+  { id: 1, url: "/cbc-meeting-1/IMG_6927.webp", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026", category: "meetings" },
+  { id: 2, url: "/cbc-meeting-1/IMG_0328.webp", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026", category: "meetings" },
+  { id: 3, url: "/cbc-meeting-1/IMG_7894.webp", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026", category: "meetings" },
+
+  // Tabling 1: Feb 2026
+  { id: 13, url: "/tabling-1/IMG_0112.webp", title: "Tabling", event: "Tabling · Feb 2026", category: "tabling" },
+  { id: 14, url: "/tabling-1/IMG_0157.webp", title: "Tabling", event: "Tabling · Feb 2026", category: "tabling" },
+  { id: 15, url: "/tabling-1/IMG_0167.webp", title: "Tabling", event: "Tabling · Feb 2026", category: "tabling" },
+  { id: 16, url: "/tabling-1/IMG_7694.webp", title: "Tabling", event: "Tabling · Feb 2026", category: "tabling" },
+  { id: 17, url: "/tabling-1/IMG_7721.webp", title: "Tabling", event: "Tabling · Feb 2026", category: "tabling" },
+];
+
+const isFilterKey = (v: string | null): v is GalleryCategory | "all" =>
+  !!v && FILTERS.some((f) => f.key === v);
+
 export function Gallery() {
+  // The active filter lives in the URL (?filter=hackathon) so it can be linked to.
+  const [params, setParams] = useSearchParams();
+  const raw = params.get("filter") ?? params.get("event");
+  const filter = isFilterKey(raw) ? raw : "all";
+  const items = filter === "all" ? galleryItems : galleryItems.filter((g) => g.category === filter);
+  const countFor = (key: GalleryCategory | "all") =>
+    key === "all" ? galleryItems.length : galleryItems.filter((g) => g.category === key).length;
+  const setFilter = (key: GalleryCategory | "all") => {
+    setLightboxIndex(null);
+    setParams(key === "all" ? {} : { filter: key }, { replace: true, preventScrollReset: true });
+  };
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const isOpen = lightboxIndex !== null;
-  const total = galleryItems.length;
+  const total = items.length;
 
   const open = (i: number) => setLightboxIndex(i);
   const close = () => setLightboxIndex(null);
@@ -77,41 +122,65 @@ export function Gallery() {
     return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
-  const current = lightboxIndex !== null ? galleryItems[lightboxIndex] : null;
+  const current = lightboxIndex !== null ? items[lightboxIndex] : null;
 
   return (
     <div className="min-h-screen">
       {/* ── Hero ── */}
-      <section className="bg-gradient-to-b from-[#D97757]/10 to-transparent py-20 border-b border-border">
+      <section className="bg-gradient-to-b from-primary/10 to-transparent py-20 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">Gallery</h1>
           <p className="text-xl text-muted-foreground max-w-2xl">
-            Moments that matter — from our meetings, workshops, and events.
+            Moments that matter, from our meetings, workshops, and events.
           </p>
         </div>
       </section>
 
       {/* ── Masonry grid ── */}
       <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-wrap gap-2 mb-8" role="group" aria-label="Filter photos">
+          {FILTERS.map(({ key, label }) => {
+            const active = filter === key;
+            return (
+              <button
+                key={key}
+                type="button"
+                onClick={() => setFilter(key)}
+                aria-pressed={active}
+                className={`inline-flex items-center gap-2 min-h-10 px-4 rounded-full text-sm font-medium transition-colors ring-1 ${
+                  active
+                    ? "bg-primary text-primary-foreground ring-primary shadow-sm"
+                    : "bg-card text-muted-foreground ring-border hover:ring-primary/50 hover:text-foreground"
+                }`}
+              >
+                {label}
+                <span className={`text-xs tabular-nums ${active ? "opacity-80" : "opacity-60"}`}>{countFor(key)}</span>
+              </button>
+            );
+          })}
+        </div>
         <ResponsiveMasonry columnsCountBreakPoints={{ 0: 1, 640: 2, 1024: 3 }}>
         <Masonry gutter="1rem">
-          {galleryItems.map((item, index) => (
+          {items.map((item, index) => (
             <div
               key={item.id}
               onClick={() => open(index)}
-              className="group relative overflow-hidden rounded-2xl border border-border hover:border-[#D97757] transition-all cursor-pointer"
+              className="group relative overflow-hidden rounded-2xl border border-border hover:border-primary transition-all cursor-pointer"
             >
               <img
-                src={item.url}
+                src={smallPhoto(item.url)}
+                srcSet={photoSrcSet(item.url)}
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                loading="lazy"
                 alt={item.title}
                 className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
                 draggable={false}
               />
-              {/* Hover overlay — always dark for text readability on images */}
+              {/* Hover overlay: always dark for text readability on images */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
                 <p className="text-white font-semibold text-sm leading-snug">{item.title}</p>
                 {item.event && (
-                  <p className="text-[#D97757] text-xs mt-1 font-medium">{item.event}</p>
+                  <p className="text-primary text-xs mt-1 font-medium">{item.event}</p>
                 )}
               </div>
             </div>
@@ -171,7 +240,7 @@ export function Gallery() {
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-center pointer-events-none">
             <p className="text-white font-semibold text-sm">{current.title}</p>
             {current.event && (
-              <p className="text-[#D97757] text-xs mt-1">{current.event}</p>
+              <p className="text-primary text-xs mt-1">{current.event}</p>
             )}
           </div>
         </div>

@@ -28,7 +28,7 @@ interface EventCalendarProps {
    *  4. Paste it here.
    *
    * When a visitor clicks "Add CBC Calendar" they'll see Google Calendar's
-   * "Add to My Calendars" dialog — exactly the shared-calendar subscribe flow.
+   * "Add to My Calendars" dialog: exactly the shared-calendar subscribe flow.
    */
   calendarId?: string;
 }
@@ -115,28 +115,28 @@ export function EventCalendar({ events, calendarId, onEventDayClick }: EventCale
     <>
       <div className="bg-card border border-border rounded-2xl p-5 lg:p-6 w-full">
         {/* ── Header ── */}
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-3xl font-bold tracking-tight">
+        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 mb-6">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
             {MONTHS[viewMonth]}
-            <span className="text-muted-foreground text-xl font-normal ml-2">{viewYear}</span>
+            <span className="text-muted-foreground text-lg sm:text-xl font-normal ml-2">{viewYear}</span>
           </h2>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 shrink-0">
             <button
               onClick={goBack}
-              className="p-2 rounded-full hover:bg-[#D97757]/20 transition-colors"
+              className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary/20 transition-colors"
               aria-label="Previous month"
             >
               <ChevronLeft size={18} />
             </button>
             <button
               onClick={goToday}
-              className="px-3 py-1.5 text-sm rounded-full hover:bg-[#D97757]/20 transition-colors font-medium"
+              className="h-10 px-3 text-sm rounded-full hover:bg-primary/20 transition-colors font-medium"
             >
               Today
             </button>
             <button
               onClick={goForward}
-              className="p-2 rounded-full hover:bg-[#D97757]/20 transition-colors"
+              className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary/20 transition-colors"
               aria-label="Next month"
             >
               <ChevronRight size={18} />
@@ -182,18 +182,18 @@ export function EventCalendar({ events, calendarId, onEventDayClick }: EventCale
                 className={[
                   "h-16 sm:h-20 rounded-lg transition-all duration-200 flex flex-col items-start justify-start relative p-1.5",
                   ev
-                    ? "cursor-pointer bg-[#D97757]/60 hover:bg-[#D97757]/80"
-                    : "hover:bg-[#D97757]/10",
-                  tod && !ev ? "ring-2 ring-[#D97757] bg-[#D97757]/10" : "",
+                    ? "cursor-pointer bg-primary hover:bg-primary/90"
+                    : "hover:bg-primary/10",
+                  tod && !ev ? "ring-2 ring-primary bg-primary/10" : "",
                   cell.type === "current" ? "text-foreground" : "text-muted-foreground/40",
                 ].join(" ")}
               >
-                <span className={`text-xs font-semibold leading-none ${ev ? "text-white" : ""}`}>
+                <span className={`text-xs font-semibold leading-none ${ev ? "text-primary-foreground" : ""}`}>
                   {cell.day}
                 </span>
                 {ev && (
                   <div className="absolute inset-x-1 bottom-1.5 flex items-end justify-center">
-                    <p className="text-white text-[9px] font-medium text-center leading-tight line-clamp-2">
+                    <p className="text-primary-foreground text-[9px] font-medium text-center leading-tight line-clamp-2">
                       {ev.title}
                     </p>
                   </div>
@@ -203,22 +203,18 @@ export function EventCalendar({ events, calendarId, onEventDayClick }: EventCale
           })}
         </div>
 
-        {/* ── Subscribe button ── */}
+        {/* ── Subscribe button (only once a public calendar ID is set) ── */}
+        {subscribeUrl && (
         <div className="flex justify-end mt-4">
           <button
-            onClick={() => {
-              if (subscribeUrl) {
-                window.open(subscribeUrl, "_blank");
-              } else {
-                alert("Calendar subscription coming soon! Ask a CBC officer for the link.");
-              }
-            }}
-            className="flex items-center gap-2 bg-[#D97757] text-[#0D0D0D] px-4 py-2 rounded-xl text-sm font-semibold hover:bg-[#E08967] transition-all shadow-md"
+            onClick={() => window.open(subscribeUrl, "_blank", "noopener,noreferrer")}
+            className="flex items-center gap-2 h-10 bg-primary text-primary-foreground px-4 rounded-xl text-sm font-semibold hover:bg-primary/90 transition-all shadow-md"
           >
             <Calendar size={15} />
             Add CBC Calendar
           </button>
         </div>
+        )}
       </div>
 
       {/* ── Event detail popup ──────────────────────────────────────────────── */}
@@ -242,8 +238,8 @@ export function EventCalendar({ events, calendarId, onEventDayClick }: EventCale
             </div>
 
             {/* Date & time */}
-            <div className="bg-[#D97757]/20 border border-[#D97757]/30 rounded-xl p-4 mb-3 flex items-center gap-3">
-              <Clock className="text-[#D97757] flex-shrink-0" size={18} />
+            <div className="bg-primary/20 border border-primary/30 rounded-xl p-4 mb-3 flex items-center gap-3">
+              <Clock className="text-primary flex-shrink-0" size={18} />
               <span className="text-sm">
                 {new Date(selected.date + "T00:00:00").toLocaleDateString("en-US", {
                   month: "long", day: "numeric", year: "numeric",
@@ -253,8 +249,8 @@ export function EventCalendar({ events, calendarId, onEventDayClick }: EventCale
 
             {/* Location */}
             {selected.location && (
-              <div className="bg-[#D97757]/10 border border-[#D97757]/20 rounded-xl p-4 mb-4 flex items-center gap-3">
-                <MapPin className="text-[#D97757] flex-shrink-0" size={18} />
+              <div className="bg-primary/10 border border-primary/20 rounded-xl p-4 mb-4 flex items-center gap-3">
+                <MapPin className="text-primary flex-shrink-0" size={18} />
                 <span className="text-sm">{selected.location}</span>
               </div>
             )}
@@ -271,7 +267,7 @@ export function EventCalendar({ events, calendarId, onEventDayClick }: EventCale
               href={buildGCalEventLink(selected)}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm text-[#D97757] hover:underline font-medium"
+              className="inline-flex items-center gap-2 text-sm text-primary hover:underline font-medium"
             >
               Add to Google Calendar
               <ExternalLink size={14} />

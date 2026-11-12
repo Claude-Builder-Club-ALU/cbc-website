@@ -21,53 +21,49 @@ export interface HomeUpcomingEvent {
   };
 }
 
+// Workshops from the Claude Builder Club programme (Claude Ambassador hub).
+// Dates are not set yet: when one is confirmed, set dateLabel, switch action to
+// "calendar" and add `ics` so it appears on the calendar.
 export const UPCOMING_EVENTS: HomeUpcomingEvent[] = [
   {
     id: 1,
     dateLabel: "Date to be announced",
-    title: "AI Fluency and Ethical Use of AI Workshop",
+    title: "Workshop: Claude Code + Skills",
     rows: [
-      { icon: "calendar", text: "Scheduled by Student Success office" },
-      { icon: "user", text: "ALU Kigali Campus" },
+      { icon: "calendar", text: "Set up Claude Code live and build your first project" },
     ],
-    chip: "Official date TBD",
     featured: false,
     action: "checkBack",
   },
   {
     id: 2,
-    dateLabel: "May 15, 2026",
-    title: "Workshop: Building with AI Agents",
+    dateLabel: "Date to be announced",
+    title: "Workshop: Building with MCP",
     rows: [
-      { icon: "calendar", text: "02:30 - 04:00" },
-      { icon: "map", text: "Algeria Classroom, Social commons" },
+      { icon: "calendar", text: "See MCP in action, then build your own MCP server" },
     ],
     featured: false,
-    action: "calendar",
-    ics: {
-      date: "2026-05-15",
-      start: "14:30",
-      end: "16:00",
-      location: "Algeria Classroom, Social commons, ALU",
-    },
+    action: "checkBack",
   },
   {
     id: 3,
-    dateLabel: "May 29, 2026",
-    title: "Hackathon: AI for Social Impact",
+    dateLabel: "Date to be announced",
+    title: "Workshop: Building Agents",
     rows: [
-      { icon: "calendar", text: "09:00 - 17:00" },
-      { icon: "map", text: "Kenya-Burundi Hall, Enterprise commons" },
+      { icon: "calendar", text: "Learn what an agent is, when to build one, and build one" },
     ],
-    featured: true,
-    seasonFinale: true,
-    action: "calendar",
-    ics: {
-      date: "2026-05-29",
-      start: "09:00",
-      end: "21:00",
-      location: "Kenya-Burundi Hall, Enterprise commons, ALU",
-    },
+    featured: false,
+    action: "checkBack",
+  },
+  {
+    id: 4,
+    dateLabel: "Date to be announced",
+    title: "AI Research Salon",
+    rows: [
+      { icon: "calendar", text: "Live discussion of current AI research, including alignment and interpretability" },
+    ],
+    featured: false,
+    action: "checkBack",
   },
 ];
 

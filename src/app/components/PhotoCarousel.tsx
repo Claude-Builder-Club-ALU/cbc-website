@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState, useMemo } from "react";
 import { X } from "lucide-react";
+import { smallPhoto } from "../utils/responsiveImage";
 
 // Width of each slide slot (image + gap). Adjust to taste.
 const SLIDE_WIDTH = 320; // px
@@ -12,32 +13,34 @@ interface Photo {
 }
 
 const CAROUSEL_PHOTOS: Photo[] = [
-  // CBC Kickoff — Feb 2026
-  { url: "/cbc-meeting-1/IMG_6927.jpg", caption: "CBC Kickoff · Feb 2026" },
-  { url: "/cbc-meeting-1/IMG_0328.jpg", caption: "AI Fluency and Claude Demo · CBC Kickoff" },
-  { url: "/cbc-meeting-1/IMG_7894.jpg", caption: "CBC Kickoff · Feb 2026" },
-  // Claude Code Workshop — Mar 2026
-  { url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.jpg", caption: "Intro to Claude Code · Mar 2026" },
-  { url: "/cbc-meeting-2/2a92db3b-b5c8-41eb-ba4b-6a219e28f92a.jpg", caption: "Live Coding with Claude Code · Mar 2026" },
-  { url: "/cbc-meeting-2/13336e25-ce99-4e77-ba8d-3249f029b2aa.jpg", caption: "Claude Code Workshop · Mar 2026" },
-  { url: "/cbc-meeting-2/1ee16cd9-a55b-4dba-8e90-94fd14e311d0.jpg", caption: "Claude Code Workshop · Mar 2026" },
-  { url: "/cbc-meeting-2/bac3e2b9-b607-4bdf-8f53-ec39e3778041.jpg", caption: "Claude Code Workshop · Mar 2026" },
-  { url: "/cbc-meeting-2/d9ff5c2b-4093-4ebb-aa74-1204e0b67b27.jpg", caption: "Claude Code Workshop · Mar 2026" },
-  // Intro to MCP — Meeting 3
-  { url: "/cbc-meeting-3/IMG_1683.jpg", caption: "Intro to MCP · CBC Meeting 3" },
-  { url: "/cbc-meeting-3/IMG_1688.jpg", caption: "Intro to MCP · CBC Meeting 3" },
-  { url: "/cbc-meeting-3/IMG_1693.jpg", caption: "Intro to MCP · CBC Meeting 3" },
+  { url: "/events/cbc-group-photo.webp", caption: "Claude Builder Club at ALU" },
+  { url: "/events/info-session-2.webp", caption: "Info Session · Oct 2026" },
+  { url: "/events/hackathon-spring-2026-5.webp", caption: "Hackathon · May 2026" },
+  { url: "/events/agents-workshop.webp", caption: "Building Agents Workshop" },
+  { url: "/events/mcp-workshop.webp", caption: "Building with MCP · Mar 2026" },
+  { url: "/events/claude-code-2.webp", caption: "Claude Code & Skills Workshop" },
+  { url: "/events/term-kickoff.webp", caption: "Term Kickoff" },
+  // CBC Kickoff: Feb 2026
+  { url: "/cbc-meeting-1/IMG_6927.webp", caption: "CBC Kickoff · Feb 2026" },
+  { url: "/cbc-meeting-1/IMG_0328.webp", caption: "AI Fluency and Claude Demo · CBC Kickoff" },
+  { url: "/cbc-meeting-1/IMG_7894.webp", caption: "CBC Kickoff · Feb 2026" },
+  // Claude Code Workshop: Mar 2026
+  { url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.webp", caption: "Intro to Claude Code · Mar 2026" },
+  { url: "/cbc-meeting-2/13336e25-ce99-4e77-ba8d-3249f029b2aa.webp", caption: "Claude Code Workshop · Mar 2026" },
+  { url: "/cbc-meeting-2/bac3e2b9-b607-4bdf-8f53-ec39e3778041.webp", caption: "Claude Code Workshop · Mar 2026" },
+  { url: "/cbc-meeting-2/d9ff5c2b-4093-4ebb-aa74-1204e0b67b27.webp", caption: "Claude Code Workshop · Mar 2026" },
+  // Intro to MCP: Meeting 3
+  { url: "/cbc-meeting-3/IMG_1683.webp", caption: "Intro to MCP · CBC Meeting 3" },
+  { url: "/cbc-meeting-3/IMG_1688.webp", caption: "Intro to MCP · CBC Meeting 3" },
   // Tabling 1
-  { url: "/tabling-1/IMG_0112.jpg", caption: "Tabling · ALU Campus" },
-  { url: "/tabling-1/IMG_0157.jpg", caption: "Tabling · ALU Campus" },
-  { url: "/tabling-1/IMG_0167.jpg", caption: "Tabling · ALU Campus" },
-  { url: "/tabling-1/IMG_7694.jpg", caption: "Tabling · ALU Campus" },
-  { url: "/tabling-1/IMG_7721.jpg", caption: "Tabling · ALU Campus" },
+  { url: "/tabling-1/IMG_0112.webp", caption: "Tabling · ALU Campus" },
+  { url: "/tabling-1/IMG_0157.webp", caption: "Tabling · ALU Campus" },
+  { url: "/tabling-1/IMG_0167.webp", caption: "Tabling · ALU Campus" },
+  { url: "/tabling-1/IMG_7694.webp", caption: "Tabling · ALU Campus" },
+  { url: "/tabling-1/IMG_7721.webp", caption: "Tabling · ALU Campus" },
   // Tabling 3
-  { url: "/tabling-3/IMG-20260330-WA0016.jpg", caption: "Tabling · ALU Campus" },
-  { url: "/tabling-3/IMG-20260330-WA0019.jpg", caption: "Tabling · ALU Campus" },
-  { url: "/tabling-3/IMG_5295.jpg", caption: "Tabling · ALU Campus" },
-  { url: "/tabling-3/IMG_5298.jpg", caption: "Tabling · ALU Campus" },
+  { url: "/tabling-3/IMG-20260330-WA0016.webp", caption: "Tabling · ALU Campus" },
+  { url: "/tabling-3/IMG-20260330-WA0019.webp", caption: "Tabling · ALU Campus" },
 ];
 
 function shufflePhotos(items: Photo[]): Photo[] {
@@ -151,12 +154,12 @@ export function PhotoCarousel() {
             >
               <div className="relative h-72 rounded-2xl overflow-hidden group border border-border">
                 <img
-                  src={photo.url}
+                  src={smallPhoto(photo.url)}
                   alt={photo.caption}
                   draggable={false}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 pointer-events-none"
                 />
-                {/* Caption overlay — always dark for readability on images */}
+                {/* Caption overlay: always dark for readability on images */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                   <p className="text-white text-sm font-semibold">{photo.caption}</p>
                 </div>
