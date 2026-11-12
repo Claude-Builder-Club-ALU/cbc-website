@@ -1,69 +1,93 @@
 import { useState, useEffect, useCallback } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import { Link, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 import { photoSrcSet, smallPhoto } from "../utils/responsiveImage";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// GALLERY PHOTOS
+// GALLERY PHOTOS (newest first)
 //
-// Photos are served from /public and available at the paths below.
-// To add new events: copy photos to public/<event-folder>/ and push
-// new entries here with the matching url and event label.
+// To add photos: save both sizes in public/<folder>/ (see utils/responsiveImage.ts),
+// then add entries here with a category so the filter chips pick them up.
 // ─────────────────────────────────────────────────────────────────────────────
-const galleryItems = [
-  // CBC Kickoff: Feb 2026
-  { id: 1, url: "/cbc-meeting-1/IMG_6927.webp", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
-  { id: 2, url: "/cbc-meeting-1/IMG_0328.webp", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
-  { id: 3, url: "/cbc-meeting-1/IMG_7894.webp", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
+type GalleryCategory = "workshops" | "hackathon" | "meetings" | "tabling" | "community";
 
-  // Claude Code Workshop: Mar 2026
-  { id: 4, url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.webp", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
-  { id: 6, url: "/cbc-meeting-2/13336e25-ce99-4e77-ba8d-3249f029b2aa.webp", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
-  { id: 8, url: "/cbc-meeting-2/bac3e2b9-b607-4bdf-8f53-ec39e3778041.webp", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
-  { id: 9, url: "/cbc-meeting-2/d9ff5c2b-4093-4ebb-aa74-1204e0b67b27.webp", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
+type GalleryItem = { id: number; url: string; title: string; event: string; category: GalleryCategory };
 
-  // Intro to MCP: Meeting 3
-  { id: 10, url: "/cbc-meeting-3/IMG_1683.webp", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
-  { id: 11, url: "/cbc-meeting-3/IMG_1688.webp", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
-
-  // Tabling 1
-  { id: 13, url: "/tabling-1/IMG_0112.webp", title: "Tabling", event: "Tabling 1" },
-  { id: 14, url: "/tabling-1/IMG_0157.webp", title: "Tabling", event: "Tabling 1" },
-  { id: 15, url: "/tabling-1/IMG_0167.webp", title: "Tabling", event: "Tabling 1" },
-  { id: 16, url: "/tabling-1/IMG_7694.webp", title: "Tabling", event: "Tabling 1" },
-  { id: 17, url: "/tabling-1/IMG_7721.webp", title: "Tabling", event: "Tabling 1" },
-
-  // Tabling 3
-  { id: 18, url: "/tabling-3/IMG-20260330-WA0016.webp", title: "Tabling", event: "Tabling 3" },
-  { id: 19, url: "/tabling-3/IMG-20260330-WA0019.webp", title: "Tabling", event: "Tabling 3" },
-
-  // From the club Drive folder
-  { id: 22, url: "/events/term-kickoff.webp", title: "Term Kickoff", event: "Term Kickoff" },
-  { id: 23, url: "/events/claude-code-1.webp", title: "Claude Code & Skills", event: "Claude Code & Skills Workshop" },
-  { id: 24, url: "/events/claude-code-2.webp", title: "Claude Code & Skills", event: "Claude Code & Skills Workshop" },
-  { id: 25, url: "/events/mcp-workshop.webp", title: "Building Your Own MCP Server", event: "MCP Workshop · Mar 2026" },
-  { id: 26, url: "/events/agents-workshop.webp", title: "Building Agents", event: "Building Agents Workshop" },
-  { id: 27, url: "/events/hackathon-spring-2026.webp", title: "Hackathon", event: "Hackathon · Spring 2026" },
-  { id: 37, url: "/events/hackathon-spring-2026-2.webp", title: "Hackathon", event: "Hackathon · Spring 2026" },
-  { id: 38, url: "/events/hackathon-spring-2026-3.webp", title: "Hackathon", event: "Hackathon · Spring 2026" },
-  { id: 39, url: "/events/hackathon-spring-2026-4.webp", title: "Hackathon", event: "Hackathon · Spring 2026" },
-  { id: 40, url: "/events/hackathon-spring-2026-5.webp", title: "Hackathon", event: "Hackathon · Spring 2026" },
-  { id: 41, url: "/events/hackathon-spring-2026-6.webp", title: "Hackathon", event: "Hackathon · Spring 2026" },
-  { id: 28, url: "/events/cbc-group-photo.webp", title: "The Club", event: "Claude Builder Club at ALU" },
-  { id: 29, url: "/events/info-session-1.webp", title: "Info Session", event: "Info Session · Fall 2026" },
-  { id: 30, url: "/events/info-session-2.webp", title: "Info Session", event: "Info Session · Fall 2026" },
-  { id: 31, url: "/events/info-session-3.webp", title: "Info Session", event: "Info Session · Fall 2026" },
+const FILTERS: { key: GalleryCategory | "all"; label: string }[] = [
+  { key: "all", label: "All photos" },
+  { key: "hackathon", label: "Hackathon" },
+  { key: "workshops", label: "Workshops" },
+  { key: "meetings", label: "Info sessions & meetings" },
+  { key: "tabling", label: "Tabling" },
 ];
 
+const galleryItems: GalleryItem[] = [
+  // Info Session: Fall 2026
+  { id: 29, url: "/events/info-session-1.webp", title: "Info Session", event: "Info Session · Fall 2026", category: "meetings" },
+  { id: 30, url: "/events/info-session-2.webp", title: "Info Session", event: "Info Session · Fall 2026", category: "meetings" },
+  { id: 31, url: "/events/info-session-3.webp", title: "Info Session", event: "Info Session · Fall 2026", category: "meetings" },
+
+  // Hackathon: Spring 2026
+  { id: 40, url: "/events/hackathon-spring-2026-5.webp", title: "Hackathon", event: "Hackathon · Spring 2026", category: "hackathon" },
+  { id: 39, url: "/events/hackathon-spring-2026-4.webp", title: "Hackathon", event: "Hackathon · Spring 2026", category: "hackathon" },
+  { id: 38, url: "/events/hackathon-spring-2026-3.webp", title: "Hackathon", event: "Hackathon · Spring 2026", category: "hackathon" },
+  { id: 37, url: "/events/hackathon-spring-2026-2.webp", title: "Hackathon", event: "Hackathon · Spring 2026", category: "hackathon" },
+  { id: 27, url: "/events/hackathon-spring-2026.webp", title: "Hackathon", event: "Hackathon · Spring 2026", category: "hackathon" },
+  { id: 41, url: "/events/hackathon-spring-2026-6.webp", title: "Hackathon", event: "Hackathon · Spring 2026", category: "hackathon" },
+
+  // The club
+  { id: 28, url: "/events/cbc-group-photo.webp", title: "The Club", event: "Claude Builder Club at ALU", category: "community" },
+
+  // Building Agents Workshop
+  { id: 26, url: "/events/agents-workshop.webp", title: "Building Agents", event: "Building Agents Workshop", category: "workshops" },
+
+  // Tabling 3
+  { id: 18, url: "/tabling-3/IMG-20260330-WA0016.webp", title: "Tabling", event: "Tabling · Mar 2026", category: "tabling" },
+  { id: 19, url: "/tabling-3/IMG-20260330-WA0019.webp", title: "Tabling", event: "Tabling · Mar 2026", category: "tabling" },
+
+  // MCP workshop: Mar 2026
+  { id: 25, url: "/events/mcp-workshop.webp", title: "Building Your Own MCP Server", event: "MCP Workshop · Mar 2026", category: "workshops" },
+  { id: 10, url: "/cbc-meeting-3/IMG_1683.webp", title: "Intro to MCP", event: "MCP Workshop · Mar 2026", category: "workshops" },
+  { id: 11, url: "/cbc-meeting-3/IMG_1688.webp", title: "Intro to MCP", event: "MCP Workshop · Mar 2026", category: "workshops" },
+
+  // Claude Code & Skills workshop: Mar 2026
+  { id: 23, url: "/events/claude-code-1.webp", title: "Claude Code & Skills", event: "Claude Code & Skills Workshop · Mar 2026", category: "workshops" },
+  { id: 24, url: "/events/claude-code-2.webp", title: "Claude Code & Skills", event: "Claude Code & Skills Workshop · Mar 2026", category: "workshops" },
+  { id: 4, url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.webp", title: "Intro to Claude Code", event: "Claude Code & Skills Workshop · Mar 2026", category: "workshops" },
+  { id: 6, url: "/cbc-meeting-2/13336e25-ce99-4e77-ba8d-3249f029b2aa.webp", title: "Intro to Claude Code", event: "Claude Code & Skills Workshop · Mar 2026", category: "workshops" },
+  { id: 8, url: "/cbc-meeting-2/bac3e2b9-b607-4bdf-8f53-ec39e3778041.webp", title: "Intro to Claude Code", event: "Claude Code & Skills Workshop · Mar 2026", category: "workshops" },
+  { id: 9, url: "/cbc-meeting-2/d9ff5c2b-4093-4ebb-aa74-1204e0b67b27.webp", title: "Intro to Claude Code", event: "Claude Code & Skills Workshop · Mar 2026", category: "workshops" },
+
+  // CBC Kickoff: Feb 2026
+  { id: 22, url: "/events/term-kickoff.webp", title: "Term Kickoff", event: "Term Kickoff", category: "meetings" },
+  { id: 1, url: "/cbc-meeting-1/IMG_6927.webp", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026", category: "meetings" },
+  { id: 2, url: "/cbc-meeting-1/IMG_0328.webp", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026", category: "meetings" },
+  { id: 3, url: "/cbc-meeting-1/IMG_7894.webp", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026", category: "meetings" },
+
+  // Tabling 1: Feb 2026
+  { id: 13, url: "/tabling-1/IMG_0112.webp", title: "Tabling", event: "Tabling · Feb 2026", category: "tabling" },
+  { id: 14, url: "/tabling-1/IMG_0157.webp", title: "Tabling", event: "Tabling · Feb 2026", category: "tabling" },
+  { id: 15, url: "/tabling-1/IMG_0167.webp", title: "Tabling", event: "Tabling · Feb 2026", category: "tabling" },
+  { id: 16, url: "/tabling-1/IMG_7694.webp", title: "Tabling", event: "Tabling · Feb 2026", category: "tabling" },
+  { id: 17, url: "/tabling-1/IMG_7721.webp", title: "Tabling", event: "Tabling · Feb 2026", category: "tabling" },
+];
+
+const isFilterKey = (v: string | null): v is GalleryCategory | "all" =>
+  !!v && FILTERS.some((f) => f.key === v);
+
 export function Gallery() {
-  // ?event=hackathon shows only the photos whose event label contains that word.
-  const [params] = useSearchParams();
-  const eventFilter = params.get("event")?.trim().toLowerCase() ?? "";
-  const filtered = eventFilter
-    ? galleryItems.filter((g) => g.event.toLowerCase().includes(eventFilter))
-    : [];
-  const items = filtered.length ? filtered : galleryItems;
+  // The active filter lives in the URL (?filter=hackathon) so it can be linked to.
+  const [params, setParams] = useSearchParams();
+  const raw = params.get("filter") ?? params.get("event");
+  const filter = isFilterKey(raw) ? raw : "all";
+  const items = filter === "all" ? galleryItems : galleryItems.filter((g) => g.category === filter);
+  const countFor = (key: GalleryCategory | "all") =>
+    key === "all" ? galleryItems.length : galleryItems.filter((g) => g.category === key).length;
+  const setFilter = (key: GalleryCategory | "all") => {
+    setLightboxIndex(null);
+    setParams(key === "all" ? {} : { filter: key }, { replace: true, preventScrollReset: true });
+  };
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const isOpen = lightboxIndex !== null;
@@ -114,16 +138,27 @@ export function Gallery() {
 
       {/* ── Masonry grid ── */}
       <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {filtered.length > 0 && (
-          <div className="flex flex-wrap items-center gap-3 mb-6 text-sm">
-            <span className="text-muted-foreground">
-              Showing <span className="font-semibold text-foreground capitalize">{eventFilter}</span> photos
-            </span>
-            <Link to="/gallery" className="inline-flex items-center min-h-10 text-primary font-medium hover:underline">
-              Show all photos
-            </Link>
-          </div>
-        )}
+        <div className="flex flex-wrap gap-2 mb-8" role="group" aria-label="Filter photos">
+          {FILTERS.map(({ key, label }) => {
+            const active = filter === key;
+            return (
+              <button
+                key={key}
+                type="button"
+                onClick={() => setFilter(key)}
+                aria-pressed={active}
+                className={`inline-flex items-center gap-2 min-h-10 px-4 rounded-full text-sm font-medium transition-colors ring-1 ${
+                  active
+                    ? "bg-primary text-primary-foreground ring-primary shadow-sm"
+                    : "bg-card text-muted-foreground ring-border hover:ring-primary/50 hover:text-foreground"
+                }`}
+              >
+                {label}
+                <span className={`text-xs tabular-nums ${active ? "opacity-80" : "opacity-60"}`}>{countFor(key)}</span>
+              </button>
+            );
+          })}
+        </div>
         <ResponsiveMasonry columnsCountBreakPoints={{ 0: 1, 640: 2, 1024: 3 }}>
         <Masonry gutter="1rem">
           {items.map((item, index) => (

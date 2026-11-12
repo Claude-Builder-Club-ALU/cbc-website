@@ -54,7 +54,7 @@ const pastEvents: PastEvent[] = [
     title: "Spring 2026 Hackathon",
     category: "Hackathon",
     photo: "/events/hackathon-spring-2026-5.webp",
-    photosLink: "/gallery?event=hackathon",
+    photosLink: "/gallery?filter=hackathon",
   },
   {
     id: 8,
