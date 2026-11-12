@@ -14,7 +14,7 @@ interface Photo {
 const CAROUSEL_PHOTOS: Photo[] = [
   { url: "/events/cbc-group-photo.jpg", caption: "Claude Builder Club at ALU" },
   { url: "/events/info-session-2.jpg", caption: "Info Session · Oct 2026" },
-  { url: "/events/hackathon-spring-2026.jpg", caption: "Hackathon · May 2026" },
+  { url: "/events/hackathon-spring-2026-4.jpg", caption: "Hackathon · May 2026" },
   { url: "/events/agents-workshop.jpg", caption: "Building Agents Workshop" },
   { url: "/events/mcp-workshop.jpg", caption: "Building with MCP · Mar 2026" },
   { url: "/events/claude-code-2.jpg", caption: "Claude Code & Skills Workshop" },
@@ -25,7 +25,6 @@ const CAROUSEL_PHOTOS: Photo[] = [
   { url: "/cbc-meeting-1/IMG_7894.jpg", caption: "CBC Kickoff · Feb 2026" },
   // Claude Code Workshop: Mar 2026
   { url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.jpg", caption: "Intro to Claude Code · Mar 2026" },
-  { url: "/cbc-meeting-2/2a92db3b-b5c8-41eb-ba4b-6a219e28f92a.jpg", caption: "Live Coding with Claude Code · Mar 2026" },
   { url: "/cbc-meeting-2/13336e25-ce99-4e77-ba8d-3249f029b2aa.jpg", caption: "Claude Code Workshop · Mar 2026" },
   { url: "/cbc-meeting-2/bac3e2b9-b607-4bdf-8f53-ec39e3778041.jpg", caption: "Claude Code Workshop · Mar 2026" },
   { url: "/cbc-meeting-2/d9ff5c2b-4093-4ebb-aa74-1204e0b67b27.jpg", caption: "Claude Code Workshop · Mar 2026" },

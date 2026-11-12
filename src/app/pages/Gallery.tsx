@@ -18,7 +18,6 @@ const galleryItems = [
 
   // Claude Code Workshop: Mar 2026
   { id: 4, url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
-  { id: 5, url: "/cbc-meeting-2/2a92db3b-b5c8-41eb-ba4b-6a219e28f92a.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
   { id: 6, url: "/cbc-meeting-2/13336e25-ce99-4e77-ba8d-3249f029b2aa.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
   { id: 8, url: "/cbc-meeting-2/bac3e2b9-b607-4bdf-8f53-ec39e3778041.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
   { id: 9, url: "/cbc-meeting-2/d9ff5c2b-4093-4ebb-aa74-1204e0b67b27.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
@@ -45,6 +44,11 @@ const galleryItems = [
   { id: 25, url: "/events/mcp-workshop.jpg", title: "Building Your Own MCP Server", event: "MCP Workshop · Mar 2026" },
   { id: 26, url: "/events/agents-workshop.jpg", title: "Building Agents", event: "Building Agents Workshop" },
   { id: 27, url: "/events/hackathon-spring-2026.jpg", title: "Hackathon", event: "Hackathon · Spring 2026" },
+  { id: 37, url: "/events/hackathon-spring-2026-2.jpg", title: "Hackathon", event: "Hackathon · Spring 2026" },
+  { id: 38, url: "/events/hackathon-spring-2026-3.jpg", title: "Hackathon", event: "Hackathon · Spring 2026" },
+  { id: 39, url: "/events/hackathon-spring-2026-4.jpg", title: "Hackathon", event: "Hackathon · Spring 2026" },
+  { id: 40, url: "/events/hackathon-spring-2026-5.jpg", title: "Hackathon", event: "Hackathon · Spring 2026" },
+  { id: 41, url: "/events/hackathon-spring-2026-6.jpg", title: "Hackathon", event: "Hackathon · Spring 2026" },
   { id: 28, url: "/events/cbc-group-photo.jpg", title: "The Club", event: "Claude Builder Club at ALU" },
   { id: 29, url: "/events/info-session-1.jpg", title: "Info Session", event: "Info Session · Fall 2026" },
   { id: 30, url: "/events/info-session-2.jpg", title: "Info Session", event: "Info Session · Fall 2026" },
