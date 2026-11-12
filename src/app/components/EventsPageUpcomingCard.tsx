@@ -160,12 +160,11 @@ export function EventsPageUpcomingCard({
             </button>
           )}
           {card.buttonVariant === "muted" && (
-            <button
-              type="button"
-              className="w-full sm:w-auto min-w-[10rem] py-2.5 px-5 rounded-xl text-sm font-semibold border border-border bg-muted/60 text-muted-foreground hover:bg-muted transition-colors cursor-default"
-            >
+            // Status, not an action: shown until the date is announced.
+            <p className="inline-flex items-center justify-center gap-2 w-full sm:w-auto min-w-[10rem] py-2.5 px-5 rounded-xl text-sm font-medium border border-dashed border-border text-muted-foreground">
+              <Clock size={15} aria-hidden className="text-primary" />
               {card.buttonLabel}
-            </button>
+            </p>
           )}
         </div>
       </div>

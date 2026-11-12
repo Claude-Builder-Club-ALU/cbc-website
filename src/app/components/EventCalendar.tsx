@@ -203,22 +203,18 @@ export function EventCalendar({ events, calendarId, onEventDayClick }: EventCale
           })}
         </div>
 
-        {/* ── Subscribe button ── */}
+        {/* ── Subscribe button (only once a public calendar ID is set) ── */}
+        {subscribeUrl && (
         <div className="flex justify-end mt-4">
           <button
-            onClick={() => {
-              if (subscribeUrl) {
-                window.open(subscribeUrl, "_blank");
-              } else {
-                alert("Calendar subscription coming soon! Ask a CBC officer for the link.");
-              }
-            }}
+            onClick={() => window.open(subscribeUrl, "_blank", "noopener,noreferrer")}
             className="flex items-center gap-2 h-10 bg-primary text-primary-foreground px-4 rounded-xl text-sm font-semibold hover:bg-primary/90 transition-all shadow-md"
           >
             <Calendar size={15} />
             Add CBC Calendar
           </button>
         </div>
+        )}
       </div>
 
       {/* ── Event detail popup ──────────────────────────────────────────────── */}

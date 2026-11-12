@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight, Clock, Star } from "lucide-react";
 import {
   UPCOMING_EVENTS,
   addToCalendarDownload,
@@ -80,12 +80,11 @@ export function UpcomingEventsBlock({
               )}
 
               {event.action === "checkBack" ? (
-                <button
-                  type="button"
-                  className="w-full mt-auto py-3 rounded-xl font-semibold text-foreground border border-foreground/70 bg-transparent hover:bg-foreground/10 transition-colors"
-                >
-                  Check Back Soon
-                </button>
+                // Status, not an action: the date has not been announced yet.
+                <p className="w-full mt-auto py-3 rounded-xl text-sm font-medium text-muted-foreground border border-dashed border-border flex items-center justify-center gap-2">
+                  <Clock size={15} aria-hidden className="text-primary" />
+                  Watch for announcements
+                </p>
               ) : (
                 <button
                   type="button"
