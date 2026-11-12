@@ -73,7 +73,7 @@ export function Footer() {
             <h4 className="font-semibold mb-4">Connect With Us</h4>
             <div className="flex gap-3">
               <a
-                href="https://instagram.com/cbc_alu"
+                href="https://www.instagram.com/cbc_alu/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg bg-card flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-secondary transition-all border border-border"
