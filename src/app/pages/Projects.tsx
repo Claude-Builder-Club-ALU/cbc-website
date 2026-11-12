@@ -370,11 +370,23 @@ export function Projects() {
                 </div>
               </div>
 
-              <ul className="text-sm text-muted-foreground space-y-2 mb-6">
-                <li>Tell us what you built, who built it and how it uses Claude.</li>
-                <li>Add a demo video, code or live link if you have one.</li>
-                <li>The CBC team reviews each submission. Approved projects appear on this page.</li>
-              </ul>
+              <ol className="space-y-4 mb-8">
+                {[
+                  "Tell us what you built, who built it and how it uses Claude.",
+                  "Add a demo video, code or live link if you have one.",
+                  "The CBC team reviews each submission. Approved projects appear on this page.",
+                ].map((step, i) => (
+                  <li key={step} className="flex items-start gap-3.5">
+                    <span
+                      aria-hidden
+                      className="shrink-0 w-7 h-7 rounded-full bg-primary/15 ring-1 ring-primary/40 text-primary text-xs font-bold flex items-center justify-center shadow-[0_0_12px_-2px] shadow-primary/40"
+                    >
+                      {i + 1}
+                    </span>
+                    <span className="text-sm text-foreground/85 leading-relaxed pt-1">{step}</span>
+                  </li>
+                ))}
+              </ol>
 
               <a
                 href={SUBMISSION_FORM_URL}
