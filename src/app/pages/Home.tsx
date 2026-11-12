@@ -31,7 +31,7 @@ export function Home() {
         <div className="absolute inset-0 dark:hidden bg-[radial-gradient(ellipse_50%_45%_at_50%_50%,var(--background)_0%,transparent_100%)] opacity-80"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-background"></div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-48 text-center">
 
           {/* ── Desktop center: Logo ── */}
           <div id="hero-logo" className="hidden md:flex flex-1 justify-center mb-4 ">
@@ -69,6 +69,29 @@ export function Home() {
               Learn about CBC
             </Link>
           </div>
+
+          {/* ── Scroll cue ── */}
+          <Link
+            to="/#about"
+            onClick={() => scrollToSection("about")}
+            aria-label="Scroll to learn about the club"
+            className="group relative z-20 mt-12 inline-flex flex-col items-center gap-2.5"
+          >
+            <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-foreground/70 group-hover:text-primary transition-colors">
+              Scroll to explore
+            </span>
+            <span className="relative flex items-center justify-center w-12 h-12">
+              <span aria-hidden className="scroll-cue-ring absolute inset-0 rounded-full border border-primary/60" />
+              <span className="relative flex items-center justify-center w-12 h-12 rounded-full overflow-hidden ring-2 ring-primary/70 bg-primary/10 shadow-[0_0_22px_-6px] shadow-primary/60 group-hover:bg-primary group-hover:ring-primary transition-colors">
+                <ChevronDown
+                  size={22}
+                  strokeWidth={2.25}
+                  aria-hidden
+                  className="scroll-cue-arrow text-primary group-hover:text-primary-foreground transition-colors"
+                />
+              </span>
+            </span>
+          </Link>
         </div>
 
         <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -79,28 +102,6 @@ export function Home() {
           <LogoPool className="h-44" />
         </div>
 
-        {/* ── Scroll cue ── */}
-        <Link
-          to="/#about"
-          onClick={() => scrollToSection("about")}
-          aria-label="Scroll to learn about the club"
-          className="group absolute bottom-26 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2.5"
-        >
-          <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-foreground/70 group-hover:text-primary transition-colors">
-            Scroll to explore
-          </span>
-          <span className="relative flex items-center justify-center w-12 h-12">
-            <span aria-hidden className="scroll-cue-ring absolute inset-0 rounded-full border border-primary/60" />
-            <span className="relative flex items-center justify-center w-12 h-12 rounded-full overflow-hidden ring-2 ring-primary/70 bg-primary/10 shadow-[0_0_22px_-6px] shadow-primary/60 group-hover:bg-primary group-hover:ring-primary transition-colors">
-              <ChevronDown
-                size={22}
-                strokeWidth={2.25}
-                aria-hidden
-                className="scroll-cue-arrow text-primary group-hover:text-primary-foreground transition-colors"
-              />
-            </span>
-          </span>
-        </Link>
       </section>
 
       {/* ── Photo Carousel ────────────────────────────────────────────────────── */}
