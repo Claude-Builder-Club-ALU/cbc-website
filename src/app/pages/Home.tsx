@@ -13,7 +13,16 @@ export function Home() {
     <div>
       {/* ── Hero ──────────────────────────────────────────────────────────────── */}
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent"></div>
+        {/* Club group photo behind the hero, tinted with the page colour so the text stays readable in both themes */}
+        <img
+          src="/events/cbc-group-photo.jpg"
+          alt=""
+          aria-hidden
+          fetchPriority="high"
+          className="absolute inset-0 w-full h-full object-cover object-[center_40%]"
+        />
+        <div className="absolute inset-0 bg-background/85 dark:bg-background/80"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-background"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32 text-center">
 
