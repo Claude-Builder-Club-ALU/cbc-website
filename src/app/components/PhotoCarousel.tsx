@@ -27,13 +27,11 @@ const CAROUSEL_PHOTOS: Photo[] = [
   { url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.jpg", caption: "Intro to Claude Code · Mar 2026" },
   { url: "/cbc-meeting-2/2a92db3b-b5c8-41eb-ba4b-6a219e28f92a.jpg", caption: "Live Coding with Claude Code · Mar 2026" },
   { url: "/cbc-meeting-2/13336e25-ce99-4e77-ba8d-3249f029b2aa.jpg", caption: "Claude Code Workshop · Mar 2026" },
-  { url: "/cbc-meeting-2/1ee16cd9-a55b-4dba-8e90-94fd14e311d0.jpg", caption: "Claude Code Workshop · Mar 2026" },
   { url: "/cbc-meeting-2/bac3e2b9-b607-4bdf-8f53-ec39e3778041.jpg", caption: "Claude Code Workshop · Mar 2026" },
   { url: "/cbc-meeting-2/d9ff5c2b-4093-4ebb-aa74-1204e0b67b27.jpg", caption: "Claude Code Workshop · Mar 2026" },
   // Intro to MCP: Meeting 3
   { url: "/cbc-meeting-3/IMG_1683.jpg", caption: "Intro to MCP · CBC Meeting 3" },
   { url: "/cbc-meeting-3/IMG_1688.jpg", caption: "Intro to MCP · CBC Meeting 3" },
-  { url: "/cbc-meeting-3/IMG_1693.jpg", caption: "Intro to MCP · CBC Meeting 3" },
   // Tabling 1
   { url: "/tabling-1/IMG_0112.jpg", caption: "Tabling · ALU Campus" },
   { url: "/tabling-1/IMG_0157.jpg", caption: "Tabling · ALU Campus" },
@@ -43,8 +41,6 @@ const CAROUSEL_PHOTOS: Photo[] = [
   // Tabling 3
   { url: "/tabling-3/IMG-20260330-WA0016.jpg", caption: "Tabling · ALU Campus" },
   { url: "/tabling-3/IMG-20260330-WA0019.jpg", caption: "Tabling · ALU Campus" },
-  { url: "/tabling-3/IMG_5295.jpg", caption: "Tabling · ALU Campus" },
-  { url: "/tabling-3/IMG_5298.jpg", caption: "Tabling · ALU Campus" },
 ];
 
 function shufflePhotos(items: Photo[]): Photo[] {

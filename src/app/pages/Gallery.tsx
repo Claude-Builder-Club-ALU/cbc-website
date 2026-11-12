@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Link, useSearchParams } from "react-router";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // GALLERY PHOTOS
@@ -19,14 +20,12 @@ const galleryItems = [
   { id: 4, url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
   { id: 5, url: "/cbc-meeting-2/2a92db3b-b5c8-41eb-ba4b-6a219e28f92a.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
   { id: 6, url: "/cbc-meeting-2/13336e25-ce99-4e77-ba8d-3249f029b2aa.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
-  { id: 7, url: "/cbc-meeting-2/1ee16cd9-a55b-4dba-8e90-94fd14e311d0.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
   { id: 8, url: "/cbc-meeting-2/bac3e2b9-b607-4bdf-8f53-ec39e3778041.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
   { id: 9, url: "/cbc-meeting-2/d9ff5c2b-4093-4ebb-aa74-1204e0b67b27.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
 
   // Intro to MCP: Meeting 3
   { id: 10, url: "/cbc-meeting-3/IMG_1683.jpg", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
   { id: 11, url: "/cbc-meeting-3/IMG_1688.jpg", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
-  { id: 12, url: "/cbc-meeting-3/IMG_1693.jpg", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
 
   // Tabling 1
   { id: 13, url: "/tabling-1/IMG_0112.jpg", title: "Tabling", event: "Tabling 1" },
@@ -38,8 +37,6 @@ const galleryItems = [
   // Tabling 3
   { id: 18, url: "/tabling-3/IMG-20260330-WA0016.jpg", title: "Tabling", event: "Tabling 3" },
   { id: 19, url: "/tabling-3/IMG-20260330-WA0019.jpg", title: "Tabling", event: "Tabling 3" },
-  { id: 20, url: "/tabling-3/IMG_5295.jpg", title: "Tabling", event: "Tabling 3" },
-  { id: 21, url: "/tabling-3/IMG_5298.jpg", title: "Tabling", event: "Tabling 3" },
 
   // From the club Drive folder
   { id: 22, url: "/events/term-kickoff.jpg", title: "Term Kickoff", event: "Term Kickoff" },
@@ -55,10 +52,17 @@ const galleryItems = [
 ];
 
 export function Gallery() {
+  // ?event=hackathon shows only the photos whose event label contains that word.
+  const [params] = useSearchParams();
+  const eventFilter = params.get("event")?.trim().toLowerCase() ?? "";
+  const filtered = eventFilter
+    ? galleryItems.filter((g) => g.event.toLowerCase().includes(eventFilter))
+    : [];
+  const items = filtered.length ? filtered : galleryItems;
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const isOpen = lightboxIndex !== null;
-  const total = galleryItems.length;
+  const total = items.length;
 
   const open = (i: number) => setLightboxIndex(i);
   const close = () => setLightboxIndex(null);
@@ -89,7 +93,7 @@ export function Gallery() {
     return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
-  const current = lightboxIndex !== null ? galleryItems[lightboxIndex] : null;
+  const current = lightboxIndex !== null ? items[lightboxIndex] : null;
 
   return (
     <div className="min-h-screen">
@@ -105,9 +109,19 @@ export function Gallery() {
 
       {/* ── Masonry grid ── */}
       <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {filtered.length > 0 && (
+          <div className="flex flex-wrap items-center gap-3 mb-6 text-sm">
+            <span className="text-muted-foreground">
+              Showing <span className="font-semibold text-foreground capitalize">{eventFilter}</span> photos
+            </span>
+            <Link to="/gallery" className="inline-flex items-center min-h-10 text-primary font-medium hover:underline">
+              Show all photos
+            </Link>
+          </div>
+        )}
         <ResponsiveMasonry columnsCountBreakPoints={{ 0: 1, 640: 2, 1024: 3 }}>
         <Masonry gutter="1rem">
-          {galleryItems.map((item, index) => (
+          {items.map((item, index) => (
             <div
               key={item.id}
               onClick={() => open(index)}

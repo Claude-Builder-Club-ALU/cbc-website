@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import { ImageIcon } from "lucide-react";
+import { ImageIcon, Presentation } from "lucide-react";
 import { EventCalendar, type CalEvent } from "../components/EventCalendar";
 import { EventsPageUpcomingCard } from "../components/EventsPageUpcomingCard";
 import { HackathonSpotlight } from "../components/HackathonSpotlight";
@@ -31,6 +31,11 @@ type PastEvent = {
   title: string;
   category: string;
   photo: string;
+  /** Shown instead of the formatted date when the exact date is not known. */
+  dateLabel?: string;
+  /** Link to the gallery filtered to this event's photos. */
+  photosLink?: string;
+  slidesUrl?: string;
 };
 
 const pastEvents: PastEvent[] = [
@@ -47,13 +52,16 @@ const pastEvents: PastEvent[] = [
     title: "Spring 2026 Hackathon",
     category: "Hackathon",
     photo: "/events/hackathon-spring-2026.jpg",
+    photosLink: "/gallery?event=hackathon",
   },
   {
-    id: 1,
-    date: "2026-03-24",
-    title: "Club Tabling",
-    category: "Tabling",
-    photo: "/tabling-3/IMG_5295.jpg",
+    id: 8,
+    date: "2026-04",
+    dateLabel: "Spring 2026",
+    title: "Building Agents Workshop",
+    category: "Workshop",
+    photo: "/events/agents-workshop.jpg",
+    slidesUrl: "https://docs.google.com/presentation/d/19WsdznfwZZp5rr2KTFNnk0jIiocy-v42y3Ra4lWFKAs/view",
   },
   {
     id: 2,
@@ -225,7 +233,7 @@ export function Events() {
                 <div className="relative h-48 overflow-hidden">
                   <img
                     src={event.photo}
-                    alt={`${event.title}, ${formatPastEventDate(event.date)}`}
+                    alt={`${event.title}, ${event.dateLabel ?? formatPastEventDate(event.date)}`}
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
@@ -234,23 +242,40 @@ export function Events() {
                 <div className="p-6">
                   <div className="flex items-center justify-between gap-3 mb-2">
                     <span className="text-primary text-sm font-semibold">
-                      {formatPastEventDate(event.date)}
+                      {event.dateLabel ?? formatPastEventDate(event.date)}
                     </span>
                     <span className="text-xs text-muted-foreground bg-secondary px-2.5 py-1 rounded-full">
                       {event.category}
                     </span>
                   </div>
-                  <h3 className="text-xl font-bold mb-4 group-hover:text-primary transition-colors">
+                  <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
                     {event.title}
                   </h3>
 
-                  <Link
-                    to="/gallery"
-                    className="inline-flex items-center gap-1 min-h-10 text-xs bg-secondary text-foreground px-3 py-1.5 rounded-lg hover:bg-primary hover:text-primary-foreground transition-all"
-                  >
-                    <ImageIcon size={14} />
-                    Photos
-                  </Link>
+                  {(event.photosLink || event.slidesUrl) && (
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      {event.photosLink && (
+                        <Link
+                          to={event.photosLink}
+                          className="inline-flex items-center gap-1.5 min-h-10 text-xs font-medium bg-secondary text-foreground px-3 py-1.5 rounded-lg hover:bg-primary hover:text-primary-foreground transition-all"
+                        >
+                          <ImageIcon size={14} aria-hidden />
+                          Photos
+                        </Link>
+                      )}
+                      {event.slidesUrl && (
+                        <a
+                          href={event.slidesUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 min-h-10 text-xs font-medium bg-secondary text-foreground px-3 py-1.5 rounded-lg hover:bg-primary hover:text-primary-foreground transition-all"
+                        >
+                          <Presentation size={14} aria-hidden />
+                          Slides
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
