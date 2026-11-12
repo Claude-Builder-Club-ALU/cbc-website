@@ -1,5 +1,6 @@
+import { Pagination, usePaged, useRowsPageSize } from "../components/Pagination";
 import { ExternalLink, Lock, Zap, BookOpen, Users, ArrowRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   SUBMISSION_FORM_URL,
   fetchApprovedProjects,
@@ -112,6 +113,17 @@ const memberProjects: MemberProject[] = [
       code: "https://github.com/michael-alu/outreach-ai",
     },
   },
+  {
+    id: "member-5",
+    name: "VitalWatch",
+    builder: "Nkem Jeferson Achia",
+    description:
+      "A bedside patient monitor that pairs a camera with Claude to recognise signs of distress or seizure-like movement, then triggers a physical LCD and buzzer alert on an ESP32. A blend of computer vision and real hardware.",
+    tags: ["Healthcare", "Computer Vision", "Hardware", "ESP32"],
+    links: {
+      website: "https://devpost.com/software/vitalwatch-du4qbs",
+    },
+  },
 ];
 
 const PROJECT_LINK_LABELS: { key: keyof MemberProject["links"]; label: string }[] = [
@@ -145,6 +157,11 @@ export function Projects() {
     ...memberProjects,
     ...approvedProjects.filter((p) => !knownNames.has(p.name.toLowerCase())),
   ];
+
+  // Member builds: at most two rows of cards per page.
+  const buildsRef = useRef<HTMLDivElement>(null);
+  const buildsPageSize = useRowsPageSize({ base: 1, md: 2 });
+  const builds = usePaged(allMemberProjects, buildsPageSize);
 
   return (
     <div className="min-h-screen">
@@ -296,7 +313,7 @@ export function Projects() {
       {tab === "member-builds" && (
         <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Grid */}
-          <div className="mb-12">
+          <div ref={buildsRef} className="mb-12 scroll-mt-40">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">Built by the Community</h2>
             <p className="text-muted-foreground max-w-2xl leading-relaxed">
               Working products built by club members with Claude, from AI study
@@ -305,8 +322,8 @@ export function Projects() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-24">
-            {allMemberProjects.map((project) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {builds.pageItems.map((project) => (
               <div
                 key={project.id}
                 className="bg-card border border-border rounded-2xl p-6 hover:border-primary transition-all group flex flex-col"
@@ -347,7 +364,16 @@ export function Projects() {
             ))}
           </div>
 
+          <Pagination
+            label="Member builds pages"
+            page={builds.page}
+            pageCount={builds.pageCount}
+            onChange={builds.setPage}
+            scrollTargetRef={buildsRef}
+          />
+
           {/* Submission form */}
+          <div className="mt-24" />
           <div className="max-w-3xl mx-auto">
             <div className="mb-8 text-center">
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Submit Your Project</h2>

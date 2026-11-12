@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { ImageIcon, Presentation } from "lucide-react";
 import { EventCalendar, type CalEvent } from "../components/EventCalendar";
 import { EventsPageUpcomingCard } from "../components/EventsPageUpcomingCard";
 import { HackathonSpotlight } from "../components/HackathonSpotlight";
+import { Pagination, usePaged, useRowsPageSize } from "../components/Pagination";
 import {
   EVENTS_PAGE_CALENDAR_EVENTS,
   EVENTS_PAGE_CARDS,
@@ -103,6 +104,10 @@ function formatPastEventDate(date: string) {
 }
 
 export function Events() {
+  // Past events: at most two rows of cards per page.
+  const pastRef = useRef<HTMLElement>(null);
+  const pastPageSize = useRowsPageSize({ base: 1, md: 2, lg: 3 });
+  const past = usePaged(pastEvents, pastPageSize);
   const [filter, setFilter] = useState<EventsPageFilter>("all");
   const [calendarFocusedId, setCalendarFocusedId] = useState<string | null>(null);
 
@@ -214,7 +219,7 @@ export function Events() {
         </div>
       </section>
 
-      <section className="py-20 bg-card/50 border-y border-border">
+      <section ref={pastRef} className="py-20 bg-card/50 border-y border-border scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Past Events</h2>
@@ -225,7 +230,7 @@ export function Events() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {pastEvents.map((event) => (
+            {past.pageItems.map((event) => (
               <div
                 key={event.id}
                 className="bg-background border border-border rounded-2xl overflow-hidden hover:border-primary transition-all group"
@@ -280,6 +285,14 @@ export function Events() {
               </div>
             ))}
           </div>
+
+          <Pagination
+            label="Past events pages"
+            page={past.page}
+            pageCount={past.pageCount}
+            onChange={past.setPage}
+            scrollTargetRef={pastRef}
+          />
         </div>
       </section>
     </div>
