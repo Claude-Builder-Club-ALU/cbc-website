@@ -5,7 +5,7 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-background mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
@@ -32,9 +32,9 @@ export function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className="md:col-span-2">
             <h4 className="font-semibold mb-4">Quick Links</h4>
-            <ul className="grid grid-cols-2 gap-x-6">
+            <ul className="grid grid-cols-3 gap-x-6">
               <li>
                 <Link to="/" className="inline-flex items-center min-h-10 text-muted-foreground hover:text-primary transition-colors">
                   Home
