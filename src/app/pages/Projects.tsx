@@ -279,7 +279,7 @@ export function Projects() {
           {/* CTA to switch tab */}
           <div className="mt-16 border border-border rounded-2xl p-8 text-center bg-card/50">
             <p className="text-muted-foreground mb-4">
-              Are you a CBC member who built something with AI?
+              Are you a CBC member who built something with Claude?
             </p>
             <button
               onClick={() => setTab("member-builds")}
