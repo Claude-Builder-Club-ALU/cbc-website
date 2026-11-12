@@ -6,6 +6,7 @@ import {
   getEventRowIcon,
   type HomeUpcomingEvent,
 } from "../data/upcomingEvents";
+import { HackathonSpotlight } from "./HackathonSpotlight";
 
 interface UpcomingEventsBlockProps {
   showViewAllLink?: boolean;
@@ -36,6 +37,8 @@ export function UpcomingEventsBlock({
             </Link>
           )}
         </div>
+
+        <HackathonSpotlight className="mb-8 lg:mb-10" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8">
           {events.map((event) => (

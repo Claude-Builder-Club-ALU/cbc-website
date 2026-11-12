@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { ImageIcon } from "lucide-react";
 import { EventCalendar, type CalEvent } from "../components/EventCalendar";
 import { EventsPageUpcomingCard } from "../components/EventsPageUpcomingCard";
+import { HackathonSpotlight } from "../components/HackathonSpotlight";
 import {
   EVENTS_PAGE_CALENDAR_EVENTS,
   EVENTS_PAGE_CARDS,
@@ -89,6 +90,7 @@ export function Events() {
       : filter === "tabling"
         ? []
         : EVENTS_PAGE_CARDS.filter((c) => c.filterKeys.includes(filter));
+  const showHackathon = filter === "all" || filter === "hackathon";
 
   useEffect(() => {
     if (!calendarFocusedId) return;
@@ -149,7 +151,7 @@ export function Events() {
         </p>
         <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Upcoming Events</h2>
         <p className="text-muted-foreground text-base sm:text-lg max-w-3xl mb-10 sm:mb-12">
-          The workshops coming up this semester. Each one is added to the calendar as soon as its
+          The end-of-program hackathon and the workshops leading up to it. Each one is added to the calendar as soon as its
           date is confirmed.
         </p>
 
@@ -168,12 +170,13 @@ export function Events() {
             <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
               Details
             </h3>
-            {visibleCards.length === 0 ? (
+            {showHackathon && <HackathonSpotlight />}
+            {visibleCards.length === 0 && !showHackathon ? (
               <p className="text-sm text-muted-foreground rounded-2xl border border-dashed border-border p-8">
                 No events match this filter in the upcoming list. Choose another filter or All
                 events to see the full programme.
               </p>
-            ) : (
+            ) : visibleCards.length === 0 ? null : (
               <div className="flex flex-col gap-6">
                 {visibleCards.map((card) => (
                   <EventsPageUpcomingCard
