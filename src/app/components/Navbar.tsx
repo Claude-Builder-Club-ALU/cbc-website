@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router";
-import { Sun, Moon, HelpCircle, AlignJustify, X } from "lucide-react";
+import { Sun, Moon, AlignJustify, X } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
@@ -60,7 +60,7 @@ function NavLinks({ isActive, showBrand }: { isActive: (path: string) => boolean
           to={link.path}
           onClick={() => scrollIfAboutOnHome(link.path, pathname)}
           aria-current={isActive(link.path) ? "page" : undefined}
-          className="relative px-3 py-1.5 text-sm font-medium"
+          className="relative px-2.5 lg:px-3 py-1.5 text-sm font-medium whitespace-nowrap"
         >
           {isActive(link.path) && (
             <motion.span
@@ -101,9 +101,9 @@ export function Logo({ linkToHome = true }: { linkToHome?: boolean }) {
       </div> */}
       <img src="/logos/cbc-logo_coloured.png" alt="Claude Builder Club" className="h-9 md:h-10 w-auto dark:hidden" />
       <img src="/logos/cbc-logo.png" alt="Claude Builder Club" className="h-9 md:h-10 w-auto hidden dark:block" />
-      <span aria-hidden className="h-7 w-px bg-border" />
-      <img src="/logos/alu_colored.png" alt="African Leadership University" className="h-4 md:h-[18px] w-auto dark:hidden" />
-      <img src="/logos/alu_white.png" alt="African Leadership University" className="h-4 md:h-[18px] w-auto hidden dark:block" />
+      <span aria-hidden className="alu-mark h-7 w-px bg-border" />
+      <img src="/logos/alu_colored.png" alt="African Leadership University" className="alu-mark h-4 md:h-[18px] w-auto dark:hidden" />
+      <img src="/logos/alu_white.png" alt="African Leadership University" className="alu-mark h-4 md:h-[18px] w-auto hidden dark:block" />
     </>
   );
 
@@ -119,6 +119,42 @@ export function Logo({ linkToHome = true }: { linkToHome?: boolean }) {
   }
 
   return <div className={className}>{inner}</div>;
+}
+
+/** Compact sun/moon button for the desktop navbar. */
+function ThemeIconButton() {
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  // Keep the slot's width while the theme is unknown so the navbar doesn't shift.
+  if (!mounted || !resolvedTheme) return <span className="w-10 h-10" aria-hidden />;
+
+  const isDark = resolvedTheme === "dark";
+  const label = isDark ? "Switch to light mode" : "Switch to dark mode";
+  return (
+    <motion.button
+      type="button"
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      aria-label={label}
+      title={label}
+      className="w-10 h-10 rounded-xl flex items-center justify-center text-foreground hover:text-primary hover:bg-secondary transition-colors cursor-pointer"
+      whileTap={{ scale: 0.92 }}
+    >
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.span
+          key={isDark ? "sun" : "moon"}
+          initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
+          animate={{ rotate: 0, opacity: 1, scale: 1 }}
+          exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
+          transition={{ duration: 0.12, ease: "easeInOut" }}
+          className="flex"
+        >
+          {isDark ? <Sun size={18} /> : <Moon size={18} />}
+        </motion.span>
+      </AnimatePresence>
+    </motion.button>
+  );
 }
 
 function ThemeToggleButton({ className = "" }: { className?: string }) {
@@ -158,10 +194,8 @@ function ThemeToggleButton({ className = "" }: { className?: string }) {
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [desktopMenuOpen, setDesktopMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const desktopMenuRef = useRef<HTMLDivElement>(null);
 
   /**
    * Scroll **down** → center ALU×Claude wordmarks visible, left CBC lockup hidden.
@@ -228,21 +262,9 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close desktop menu on outside click
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (desktopMenuRef.current && !desktopMenuRef.current.contains(e.target as Node)) {
-        setDesktopMenuOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, []);
-
   // Close menus on route change
   useEffect(() => {
     setMobileOpen(false);
-    setDesktopMenuOpen(false);
   }, [location.pathname]);
 
   return (
@@ -274,77 +296,40 @@ export function Navbar() {
                   exit={{ opacity: 0, scale: 0.85, y: -6 }}
                   transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <Logo linkToHome={false} />
+                  {/* Below 1024px only the CBC mark fits between the links and FAQ */}
+                  <div className="max-lg:[&_.alu-mark]:!hidden">
+                    <Logo linkToHome={false} />
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
 
-          {/* ── Desktop right: Join + Menu ── */}
-          <div className="hidden md:flex flex-1 items-center justify-end gap-2">
+          {/* ── Desktop right: FAQ, theme, Join ── */}
+          <div className="hidden md:flex flex-1 items-center justify-end gap-1">
+            <Link
+              to="/faq"
+              aria-current={isActive("/faq") ? "page" : undefined}
+              className={`relative px-2.5 lg:px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                isActive("/faq") ? "text-primary bg-primary/10" : "text-foreground hover:text-primary"
+              }`}
+            >
+              FAQ
+            </Link>
+
+            <ThemeIconButton />
+
             <motion.a
               href="https://www.jotform.com/253555944387168"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-primary text-primary-foreground px-5 py-2 rounded-xl text-sm font-semibold hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20"
+              className="ml-1 lg:ml-2 shrink-0 whitespace-nowrap bg-primary text-primary-foreground px-4 lg:px-5 py-2 rounded-xl text-sm font-semibold hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.15 }}
             >
               Join the Club
             </motion.a>
-
-            {/* Desktop hamburger menu */}
-            <div className="relative" ref={desktopMenuRef}>
-              <motion.button
-                onClick={() => setDesktopMenuOpen((v) => !v)}
-                className="w-10 h-10 rounded-xl flex items-center justify-center border border-border hover:border-primary/50 hover:bg-secondary transition-all"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label="More options"
-              >
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.span
-                    key={desktopMenuOpen ? "x" : "menu"}
-                    initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
-                    animate={{ rotate: 0, opacity: 1, scale: 1 }}
-                    exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
-                    transition={{ duration: 0.1 }}
-                  >
-                    {desktopMenuOpen
-                      ? <X size={18} />
-                      : <AlignJustify size={18} />
-                    }
-                  </motion.span>
-                </AnimatePresence>
-              </motion.button>
-
-              <AnimatePresence>
-                {desktopMenuOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.92, y: -8 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.92, y: -8 }}
-                    transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute right-0 top-full mt-2 w-52 bg-card border border-border rounded-2xl shadow-xl shadow-black/10 overflow-hidden p-1.5"
-                  >
-                    <Link
-                      to="/faq"
-                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-secondary/50 dark:hover:bg-secondary transition-colors font-medium text-sm text-foreground"
-                      onClick={() => setDesktopMenuOpen(false)}
-                    >
-                      {/* <HelpCircle size={15} className="text-primary" /> */}
-                      <span>FAQ</span>
-                    </Link>
-                    <div className="flex items-center justify-center gap-2 px-1">
-                      <p className="text-xs text-muted-foreground">Theme</p>
-                      <div className="h-px flex-1 bg-border my-1" />
-                    </div>
-                    <ThemeToggleButton />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
           </div>
 
           {/* ── Mobile: Hamburger button ── */}
