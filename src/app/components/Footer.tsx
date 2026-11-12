@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Instagram, Linkedin, Twitter, Github, Mail } from "lucide-react";
+import { Instagram, Linkedin, Github, Mail } from "lucide-react";
 
 export function Footer() {
   return (
@@ -34,7 +34,7 @@ export function Footer() {
           {/* Quick Links */}
           <div>
             <h4 className="font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-0">
+            <ul className="grid grid-cols-2 gap-x-6">
               <li>
                 <Link to="/" className="inline-flex items-center min-h-10 text-muted-foreground hover:text-primary transition-colors">
                   Home
@@ -89,15 +89,6 @@ export function Footer() {
                 aria-label="LinkedIn"
               >
                 <Linkedin size={20} />
-              </a>
-              <a
-                href="https://twitter.com/cbc_alu"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg bg-card flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-secondary transition-all border border-border"
-                aria-label="X (Twitter)"
-              >
-                <Twitter size={20} />
               </a>
               <a
                 href="https://github.com/Claude-Builder-Club-ALU"
