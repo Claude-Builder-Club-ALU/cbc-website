@@ -1,60 +1,129 @@
-import { Github, Globe, Linkedin, type LucideIcon } from "lucide-react";
-import { TEAM, type TeamMember } from "../data/team";
+import { Github, Globe, Linkedin, UserRound, type LucideIcon } from "lucide-react";
+import {
+  LEADERSHIP,
+  LEADS,
+  isOpenRole,
+  type TeamEntry,
+  type TeamLinks,
+  type TeamMember,
+} from "../data/team";
 
-const LINKS: { key: keyof NonNullable<TeamMember["links"]>; label: string; Icon: LucideIcon }[] = [
+const LINKS: { key: keyof TeamLinks; label: string; Icon: LucideIcon }[] = [
   { key: "linkedin", label: "LinkedIn", Icon: Linkedin },
   { key: "github", label: "GitHub", Icon: Github },
-  { key: "website", label: "Website", Icon: Globe },
+  { key: "website", label: "Bio", Icon: Globe },
 ];
 
 /** Only real http(s) links are shown, so placeholders like "#" never render. */
-function isRealUrl(url?: string) {
-  return !!url && /^https?:\/\//i.test(url);
+const isRealUrl = (url?: string) => !!url && /^https?:\/\//i.test(url);
+
+function SocialLinks({ member, className = "justify-center" }: { member: TeamMember; className?: string }) {
+  const links = LINKS.filter(({ key }) => isRealUrl(member.links?.[key]));
+  if (links.length === 0) return null;
+  return (
+    <div className={`flex items-center gap-2 mt-4 ${className}`}>
+      {links.map(({ key, label, Icon }) => (
+        <a
+          key={key}
+          href={member.links![key]}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${member.name}: ${label} (opens in a new tab)`}
+          title={label}
+          className="w-10 h-10 rounded-lg flex items-center justify-center text-muted-foreground hover:text-primary-foreground hover:bg-primary ring-1 ring-border hover:ring-primary transition-colors"
+        >
+          <Icon size={17} aria-hidden />
+        </a>
+      ))}
+    </div>
+  );
 }
 
-function MemberCard({ member }: { member: TeamMember }) {
-  const links = LINKS.filter(({ key }) => isRealUrl(member.links?.[key]));
+function Photo({ member, className = "" }: { member: TeamMember; className?: string }) {
   return (
-    <article className="group bg-card border border-border rounded-2xl overflow-hidden flex flex-col hover:border-primary/50 transition-colors">
-      <div className="relative aspect-[4/5] overflow-hidden bg-secondary">
-        <img
-          src={member.photo}
-          alt={`${member.name}, ${member.role}`}
-          loading="lazy"
-          className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 group-hover:scale-[1.03] transition duration-500"
-        />
-      </div>
+    <div className={`relative aspect-[4/5] overflow-hidden bg-secondary ${className}`}>
+      <img
+        src={member.photo}
+        alt={`${member.name}, ${member.role}`}
+        loading="lazy"
+        className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 group-hover:scale-[1.03] transition duration-500"
+      />
+    </div>
+  );
+}
 
-      <div className="p-4 sm:p-5 flex flex-col flex-1">
-        <h3 className="text-base sm:text-lg font-bold leading-snug">{member.name}</h3>
-        <p className="text-primary text-xs sm:text-sm font-semibold mt-1">{member.role}</p>
-        {member.bio && (
-          <p className="text-muted-foreground text-sm leading-relaxed mt-3">{member.bio}</p>
-        )}
-
-        {links.length > 0 && (
-          <div className="flex items-center gap-2 mt-auto pt-4">
-            {links.map(({ key, label, Icon }) => (
-              <a
-                key={key}
-                href={member.links![key]}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${member.name} on ${label} (opens in a new tab)`}
-                title={label}
-                className="w-10 h-10 rounded-lg flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-secondary ring-1 ring-border transition-colors"
-              >
-                <Icon size={17} aria-hidden />
-              </a>
-            ))}
-          </div>
-        )}
+/** Larger card for the President, Vice President and Staff Advisor. */
+function LeaderCard({ member }: { member: TeamMember }) {
+  return (
+    // Phones: photo beside the details. From 640px: photo on top.
+    <article className="group relative bg-card rounded-2xl overflow-hidden flex flex-row sm:flex-col ring-1 ring-border hover:ring-primary/60 transition-shadow">
+      <span aria-hidden className="absolute inset-y-0 left-0 w-1 sm:inset-y-auto sm:top-0 sm:inset-x-0 sm:w-auto sm:h-1 bg-primary z-10" />
+      <Photo member={member} className="w-32 shrink-0 sm:w-auto" />
+      <div className="p-4 sm:p-6 text-left sm:text-center flex flex-col justify-center sm:justify-start flex-1 min-w-0">
+        <span className="self-start sm:self-center text-[11px] font-semibold uppercase tracking-wider text-primary bg-primary/10 ring-1 ring-primary/30 rounded-full px-3 py-1">
+          {member.role}
+        </span>
+        <h3 className="text-lg sm:text-xl font-bold leading-snug mt-3">{member.name}</h3>
+        {member.title && <p className="text-muted-foreground text-sm mt-1">{member.title}</p>}
+        <SocialLinks member={member} className="justify-start sm:justify-center" />
       </div>
     </article>
   );
 }
 
-/** "Meet the team" section for the home page. */
+/** Compact card for leads. */
+function LeadCard({ member }: { member: TeamMember }) {
+  return (
+    <article className="group bg-card rounded-2xl overflow-hidden flex flex-col ring-1 ring-border hover:ring-primary/60 transition-shadow">
+      <Photo member={member} />
+      <div className="p-4 text-center flex flex-col flex-1">
+        <h3 className="text-base font-bold leading-snug">{member.name}</h3>
+        <p className="text-primary text-xs font-semibold mt-1">{member.role}</p>
+        <SocialLinks member={member} />
+      </div>
+    </article>
+  );
+}
+
+/** Placeholder for a role that has not been filled yet. */
+function OpenRoleCard({ role }: { role: string }) {
+  return (
+    <article className="rounded-2xl overflow-hidden flex flex-col bg-card/40 outline-2 outline-dashed outline-border -outline-offset-2">
+      <div className="aspect-[4/5] flex items-center justify-center">
+        <span className="w-16 h-16 rounded-full flex items-center justify-center bg-secondary text-muted-foreground">
+          <UserRound size={30} aria-hidden />
+        </span>
+      </div>
+      <div className="p-4 text-center flex flex-col flex-1">
+        <h3 className="text-base font-bold leading-snug text-muted-foreground">To be announced</h3>
+        <p className="text-primary text-xs font-semibold mt-1">{role}</p>
+      </div>
+    </article>
+  );
+}
+
+function renderEntry(entry: TeamEntry, size: "leader" | "lead") {
+  if (isOpenRole(entry)) return <OpenRoleCard key={entry.role} role={entry.role} />;
+  return size === "leader" ? (
+    <LeaderCard key={entry.name} member={entry} />
+  ) : (
+    <LeadCard key={entry.name} member={entry} />
+  );
+}
+
+function TierHeading({ children }: { children: string }) {
+  return (
+    <div className="flex items-center gap-4 mb-6">
+      <span className="h-px flex-1 bg-border" />
+      <h3 className="text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+        {children}
+      </h3>
+      <span className="h-px flex-1 bg-border" />
+    </div>
+  );
+}
+
+/** "Meet the Executive Team" section for the home page. */
 export function TeamSection() {
   return (
     <section id="team" className="py-20 sm:py-24 border-t border-border scroll-mt-20">
@@ -63,16 +132,17 @@ export function TeamSection() {
           <p className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-primary mb-3">
             Our team
           </p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">Meet the Executive Team</h2>
-          <p className="text-muted-foreground text-lg text-balance max-w-2xl mx-auto">
-            The students and staff who run CBC at ALU, plan every workshop and keep the club building.
-          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Meet the Executive Team</h2>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-          {TEAM.map((member) => (
-            <MemberCard key={member.name} member={member} />
-          ))}
+        <TierHeading>Leadership</TierHeading>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 max-w-5xl mx-auto mb-14">
+          {LEADERSHIP.map((e) => renderEntry(e, "leader"))}
+        </div>
+
+        <TierHeading>Leads</TierHeading>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
+          {LEADS.map((e) => renderEntry(e, "lead"))}
         </div>
       </div>
     </section>
