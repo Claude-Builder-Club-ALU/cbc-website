@@ -56,13 +56,24 @@ function SocialLinks({ member, className = "justify-center" }: { member: TeamMem
 }
 
 function Photo({ member, className = "" }: { member: TeamMember; className?: string }) {
+  const contain = member.photoFit === "contain";
   return (
     <div className={`relative aspect-[4/5] overflow-hidden bg-secondary ${className}`}>
+      {contain && (
+        // Blurred copy of the photo fills the space around the full image.
+        <img
+          src={member.photo}
+          alt=""
+          aria-hidden
+          loading="lazy"
+          className="absolute inset-0 w-full h-full object-cover scale-110 blur-xl opacity-60 group-hover:grayscale transition duration-500"
+        />
+      )}
       <img
         src={member.photo}
         alt={`${member.name}, ${member.role}`}
         loading="lazy"
-        className="w-full h-full object-cover object-top group-hover:grayscale group-hover:scale-[1.03] transition duration-500"
+        className={`relative w-full h-full ${contain ? "object-contain" : "object-cover object-top"} group-hover:grayscale group-hover:scale-[1.03] transition duration-500`}
       />
     </div>
   );

@@ -18,6 +18,8 @@ export type TeamMember = {
   role: string;
   title?: string; // optional second line, e.g. "Claude Ambassador"
   photo: string;
+  /** "contain" shows the whole photo (with a blurred fill behind it) instead of cropping it. */
+  photoFit?: "cover" | "contain";
   links?: TeamLinks;
 };
 
@@ -33,6 +35,7 @@ export const LEADERSHIP: TeamEntry[] = [
     role: "President",
     title: "Claude Ambassador",
     photo: "/team/Chiagoziem.jpeg",
+    photoFit: "contain",
     links: {
       linkedin: "https://www.linkedin.com/in/chiago/",
       github: "https://github.com/El-Gibbor",
