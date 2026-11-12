@@ -13,6 +13,7 @@ import {
   type EventsPageFilter,
 } from "../data/eventsPageUpcoming";
 import { UPCOMING_EVENTS } from "../data/upcomingEvents";
+import { photoSrcSet, smallPhoto } from "../utils/responsiveImage";
 
 const workshopIcsSource = getWorkshopHomeEventForIcs(UPCOMING_EVENTS);
 
@@ -45,14 +46,14 @@ const pastEvents: PastEvent[] = [
     date: "2026-10-29",
     title: "Info Session: Fall 2026",
     category: "Club meeting",
-    photo: "/events/info-session-2.jpg",
+    photo: "/events/info-session-2.webp",
   },
   {
     id: 6,
     date: "2026-05-29",
     title: "Spring 2026 Hackathon",
     category: "Hackathon",
-    photo: "/events/hackathon-spring-2026-5.jpg",
+    photo: "/events/hackathon-spring-2026-5.webp",
     photosLink: "/gallery?event=hackathon",
   },
   {
@@ -61,7 +62,7 @@ const pastEvents: PastEvent[] = [
     dateLabel: "Spring 2026",
     title: "Building Agents Workshop",
     category: "Workshop",
-    photo: "/events/agents-workshop.jpg",
+    photo: "/events/agents-workshop.webp",
     slidesUrl: "https://docs.google.com/presentation/d/19WsdznfwZZp5rr2KTFNnk0jIiocy-v42y3Ra4lWFKAs/view",
   },
   {
@@ -69,28 +70,28 @@ const pastEvents: PastEvent[] = [
     date: "2026-03-20",
     title: "Building with MCP",
     category: "Workshop",
-    photo: "/events/mcp-workshop.jpg",
+    photo: "/events/mcp-workshop.webp",
   },
   {
     id: 3,
     date: "2026-03",
     title: "Claude Code & Skills Workshop",
     category: "Workshop",
-    photo: "/events/claude-code-2.jpg",
+    photo: "/events/claude-code-2.webp",
   },
   {
     id: 4,
     date: "2026-02-20",
     title: "CBC Kickoff: AI Fluency Session",
     category: "Club meeting",
-    photo: "/cbc-meeting-1/IMG_0328.jpg",
+    photo: "/cbc-meeting-1/IMG_0328.webp",
   },
   {
     id: 5,
     date: "2026-02-10",
     title: "Club Tabling",
     category: "Tabling",
-    photo: "/tabling-1/IMG_7694.jpg",
+    photo: "/tabling-1/IMG_7694.webp",
   },
 ];
 
@@ -237,7 +238,9 @@ export function Events() {
               >
                 <div className="relative h-48 overflow-hidden">
                   <img
-                    src={event.photo}
+                    src={smallPhoto(event.photo)}
+                    srcSet={photoSrcSet(event.photo)}
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                     alt={`${event.title}, ${event.dateLabel ?? formatPastEventDate(event.date)}`}
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"

@@ -32,7 +32,7 @@ export const LEADERSHIP: TeamEntry[] = [
     name: "Chiagoziem Eke",
     role: "President",
     title: "Claude Ambassador",
-    photo: "/team/Chiagoziem.jpeg",
+    photo: "/team/Chiagoziem.webp",
     links: {
       linkedin: "https://www.linkedin.com/in/chiago/",
       github: "https://github.com/El-Gibbor",
@@ -42,7 +42,7 @@ export const LEADERSHIP: TeamEntry[] = [
     name: "Favour Michael",
     role: "Vice President",
     title: "Claude Ambassador",
-    photo: "/team/Favour.jpeg",
+    photo: "/team/Favour.webp",
     links: {
       linkedin: "https://www.linkedin.com/in/froches/",
       github: "https://github.com/Froches",
@@ -52,7 +52,7 @@ export const LEADERSHIP: TeamEntry[] = [
   {
     name: "Divine Ifechukwude",
     role: "Technical Director",
-    photo: "/team/Divine.jpeg",
+    photo: "/team/Divine.webp",
     links: {
       linkedin: "https://www.linkedin.com/in/ebitech14/",
       github: "https://github.com/Ebi-Tech",
@@ -62,7 +62,7 @@ export const LEADERSHIP: TeamEntry[] = [
   {
     name: "Marvin Ogore",
     role: "Staff Advisor",
-    photo: "/team/02.-marvin.jpg",
+    photo: "/team/02.-marvin.webp",
   },
 ];
 

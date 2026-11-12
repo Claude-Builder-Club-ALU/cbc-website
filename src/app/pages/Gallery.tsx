@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link, useSearchParams } from "react-router";
+import { photoSrcSet, smallPhoto } from "../utils/responsiveImage";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // GALLERY PHOTOS
@@ -12,47 +13,47 @@ import { Link, useSearchParams } from "react-router";
 // ─────────────────────────────────────────────────────────────────────────────
 const galleryItems = [
   // CBC Kickoff: Feb 2026
-  { id: 1, url: "/cbc-meeting-1/IMG_6927.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
-  { id: 2, url: "/cbc-meeting-1/IMG_0328.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
-  { id: 3, url: "/cbc-meeting-1/IMG_7894.jpg", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
+  { id: 1, url: "/cbc-meeting-1/IMG_6927.webp", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
+  { id: 2, url: "/cbc-meeting-1/IMG_0328.webp", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
+  { id: 3, url: "/cbc-meeting-1/IMG_7894.webp", title: "AI Fluency Session", event: "CBC Kickoff · Feb 2026" },
 
   // Claude Code Workshop: Mar 2026
-  { id: 4, url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
-  { id: 6, url: "/cbc-meeting-2/13336e25-ce99-4e77-ba8d-3249f029b2aa.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
-  { id: 8, url: "/cbc-meeting-2/bac3e2b9-b607-4bdf-8f53-ec39e3778041.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
-  { id: 9, url: "/cbc-meeting-2/d9ff5c2b-4093-4ebb-aa74-1204e0b67b27.jpg", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
+  { id: 4, url: "/cbc-meeting-2/0abf048f-3224-4153-aa78-08fbf40ea707.webp", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
+  { id: 6, url: "/cbc-meeting-2/13336e25-ce99-4e77-ba8d-3249f029b2aa.webp", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
+  { id: 8, url: "/cbc-meeting-2/bac3e2b9-b607-4bdf-8f53-ec39e3778041.webp", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
+  { id: 9, url: "/cbc-meeting-2/d9ff5c2b-4093-4ebb-aa74-1204e0b67b27.webp", title: "Intro to Claude Code", event: "Claude Code Workshop · Mar 2026" },
 
   // Intro to MCP: Meeting 3
-  { id: 10, url: "/cbc-meeting-3/IMG_1683.jpg", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
-  { id: 11, url: "/cbc-meeting-3/IMG_1688.jpg", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
+  { id: 10, url: "/cbc-meeting-3/IMG_1683.webp", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
+  { id: 11, url: "/cbc-meeting-3/IMG_1688.webp", title: "Intro to MCP", event: "Intro to MCP · Mar 2026" },
 
   // Tabling 1
-  { id: 13, url: "/tabling-1/IMG_0112.jpg", title: "Tabling", event: "Tabling 1" },
-  { id: 14, url: "/tabling-1/IMG_0157.jpg", title: "Tabling", event: "Tabling 1" },
-  { id: 15, url: "/tabling-1/IMG_0167.jpg", title: "Tabling", event: "Tabling 1" },
-  { id: 16, url: "/tabling-1/IMG_7694.jpg", title: "Tabling", event: "Tabling 1" },
-  { id: 17, url: "/tabling-1/IMG_7721.jpg", title: "Tabling", event: "Tabling 1" },
+  { id: 13, url: "/tabling-1/IMG_0112.webp", title: "Tabling", event: "Tabling 1" },
+  { id: 14, url: "/tabling-1/IMG_0157.webp", title: "Tabling", event: "Tabling 1" },
+  { id: 15, url: "/tabling-1/IMG_0167.webp", title: "Tabling", event: "Tabling 1" },
+  { id: 16, url: "/tabling-1/IMG_7694.webp", title: "Tabling", event: "Tabling 1" },
+  { id: 17, url: "/tabling-1/IMG_7721.webp", title: "Tabling", event: "Tabling 1" },
 
   // Tabling 3
-  { id: 18, url: "/tabling-3/IMG-20260330-WA0016.jpg", title: "Tabling", event: "Tabling 3" },
-  { id: 19, url: "/tabling-3/IMG-20260330-WA0019.jpg", title: "Tabling", event: "Tabling 3" },
+  { id: 18, url: "/tabling-3/IMG-20260330-WA0016.webp", title: "Tabling", event: "Tabling 3" },
+  { id: 19, url: "/tabling-3/IMG-20260330-WA0019.webp", title: "Tabling", event: "Tabling 3" },
 
   // From the club Drive folder
-  { id: 22, url: "/events/term-kickoff.jpg", title: "Term Kickoff", event: "Term Kickoff" },
-  { id: 23, url: "/events/claude-code-1.jpg", title: "Claude Code & Skills", event: "Claude Code & Skills Workshop" },
-  { id: 24, url: "/events/claude-code-2.jpg", title: "Claude Code & Skills", event: "Claude Code & Skills Workshop" },
-  { id: 25, url: "/events/mcp-workshop.jpg", title: "Building Your Own MCP Server", event: "MCP Workshop · Mar 2026" },
-  { id: 26, url: "/events/agents-workshop.jpg", title: "Building Agents", event: "Building Agents Workshop" },
-  { id: 27, url: "/events/hackathon-spring-2026.jpg", title: "Hackathon", event: "Hackathon · Spring 2026" },
-  { id: 37, url: "/events/hackathon-spring-2026-2.jpg", title: "Hackathon", event: "Hackathon · Spring 2026" },
-  { id: 38, url: "/events/hackathon-spring-2026-3.jpg", title: "Hackathon", event: "Hackathon · Spring 2026" },
-  { id: 39, url: "/events/hackathon-spring-2026-4.jpg", title: "Hackathon", event: "Hackathon · Spring 2026" },
-  { id: 40, url: "/events/hackathon-spring-2026-5.jpg", title: "Hackathon", event: "Hackathon · Spring 2026" },
-  { id: 41, url: "/events/hackathon-spring-2026-6.jpg", title: "Hackathon", event: "Hackathon · Spring 2026" },
-  { id: 28, url: "/events/cbc-group-photo.jpg", title: "The Club", event: "Claude Builder Club at ALU" },
-  { id: 29, url: "/events/info-session-1.jpg", title: "Info Session", event: "Info Session · Fall 2026" },
-  { id: 30, url: "/events/info-session-2.jpg", title: "Info Session", event: "Info Session · Fall 2026" },
-  { id: 31, url: "/events/info-session-3.jpg", title: "Info Session", event: "Info Session · Fall 2026" },
+  { id: 22, url: "/events/term-kickoff.webp", title: "Term Kickoff", event: "Term Kickoff" },
+  { id: 23, url: "/events/claude-code-1.webp", title: "Claude Code & Skills", event: "Claude Code & Skills Workshop" },
+  { id: 24, url: "/events/claude-code-2.webp", title: "Claude Code & Skills", event: "Claude Code & Skills Workshop" },
+  { id: 25, url: "/events/mcp-workshop.webp", title: "Building Your Own MCP Server", event: "MCP Workshop · Mar 2026" },
+  { id: 26, url: "/events/agents-workshop.webp", title: "Building Agents", event: "Building Agents Workshop" },
+  { id: 27, url: "/events/hackathon-spring-2026.webp", title: "Hackathon", event: "Hackathon · Spring 2026" },
+  { id: 37, url: "/events/hackathon-spring-2026-2.webp", title: "Hackathon", event: "Hackathon · Spring 2026" },
+  { id: 38, url: "/events/hackathon-spring-2026-3.webp", title: "Hackathon", event: "Hackathon · Spring 2026" },
+  { id: 39, url: "/events/hackathon-spring-2026-4.webp", title: "Hackathon", event: "Hackathon · Spring 2026" },
+  { id: 40, url: "/events/hackathon-spring-2026-5.webp", title: "Hackathon", event: "Hackathon · Spring 2026" },
+  { id: 41, url: "/events/hackathon-spring-2026-6.webp", title: "Hackathon", event: "Hackathon · Spring 2026" },
+  { id: 28, url: "/events/cbc-group-photo.webp", title: "The Club", event: "Claude Builder Club at ALU" },
+  { id: 29, url: "/events/info-session-1.webp", title: "Info Session", event: "Info Session · Fall 2026" },
+  { id: 30, url: "/events/info-session-2.webp", title: "Info Session", event: "Info Session · Fall 2026" },
+  { id: 31, url: "/events/info-session-3.webp", title: "Info Session", event: "Info Session · Fall 2026" },
 ];
 
 export function Gallery() {
@@ -132,7 +133,10 @@ export function Gallery() {
               className="group relative overflow-hidden rounded-2xl border border-border hover:border-primary transition-all cursor-pointer"
             >
               <img
-                src={item.url}
+                src={smallPhoto(item.url)}
+                srcSet={photoSrcSet(item.url)}
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                loading="lazy"
                 alt={item.title}
                 className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
                 draggable={false}

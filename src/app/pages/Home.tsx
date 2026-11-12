@@ -8,6 +8,7 @@ import { AboutCbc } from "../components/AboutCbc";
 import { TeamSection } from "../components/TeamSection";
 import { useJoinModal } from "../components/JoinModal";
 import { scrollToSection } from "../utils/scrollToSection";
+import { photoSrcSet } from "../utils/responsiveImage";
 
 export function Home() {
   const openJoin = useJoinModal();
@@ -17,7 +18,9 @@ export function Home() {
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
         {/* Club group photo behind the hero, tinted with the page colour so the text stays readable in both themes */}
         <img
-          src="/events/cbc-group-photo.jpg"
+          src="/events/cbc-group-photo.webp"
+          srcSet={photoSrcSet("/events/cbc-group-photo.webp")}
+          sizes="100vw"
           alt=""
           aria-hidden
           fetchPriority="high"
@@ -55,9 +58,9 @@ export function Home() {
             Starting with <span className="text-primary">You</span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
+          {/* <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
           Africa does not lack problems. It needs builders. Claude Builder Club at ALU is where students come to build the answers.
-          </p>
+          </p> */}
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
