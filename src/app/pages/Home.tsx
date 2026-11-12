@@ -4,6 +4,7 @@ import { PhotoCarousel } from "../components/PhotoCarousel";
 import { TestimonialCarousel } from "../components/TestimonialCarousel";
 import { LogoPool } from "../components/LogoPool";
 import { UpcomingEventsBlock } from "../components/UpcomingEventsBlock";
+import { AboutCbc } from "../components/AboutCbc";
 
 export function Home() {
   return (
@@ -78,6 +79,8 @@ export function Home() {
         <PhotoCarousel />
       </section>
 
+      <AboutCbc />
+
       {/* ── Member Perks ─────────────────────────────────────────────────────── */}
       <section className="py-20 border-t border-border bg-card/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -137,14 +140,14 @@ export function Home() {
 
       <UpcomingEventsBlock />
 
-      {/* ── Who We Are ───────────────────────────────────────────────────────── */}
+      {/* ── Who It's For ──────────────────────────────────────────────────────── */}
       <section className="py-20 sm:py-24 bg-background text-foreground border-y border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-6">Who We Are</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-6">Who It's For</h2>
           <div className="h-1 w-24 bg-primary mx-auto mb-8 sm:mb-10 rounded-full" />
 
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed text-balance mb-10 sm:mb-12 max-w-3xl mx-auto">
-            We are an inclusive community for students who want to explore AI development, grow their technical abilities, and engage seriously with the opportunities and responsibilities that AI presents.
+            CBC is open to every ALU student who wants to explore AI, grow their technical skills and think seriously about the opportunities and responsibilities that come with it.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
